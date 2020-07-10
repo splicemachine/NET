@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpliceMachine.Connection", "SpliceMachine.Connection\SpliceMachine.Connection.csproj", "{0FE82B56-D2CE-4EA9-8660-234280531B5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FE82B56-D2CE-4EA9-8660-234280531B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE82B56-D2CE-4EA9-8660-234280531B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE82B56-D2CE-4EA9-8660-234280531B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE82B56-D2CE-4EA9-8660-234280531B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41CC32E9-CE42-4562-A3C8-7B9C2DC898B8}
+	EndGlobalSection
+EndGlobal
