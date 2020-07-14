@@ -14,17 +14,18 @@ namespace SpliceMachine.Connection
 
         public void WriteByte(Byte value) => _stream.WriteByte(value);
 
+        private void WriteBytes(Byte[] value) => 
+            _stream.Write(value, 0, value.Length);
+
         public void WriteUint16(UInt16 value)
         {
             _stream.WriteByte((Byte)((value >> 8) & 0xFF));
             _stream.WriteByte((Byte)(value & 0xFF));
         }
 
-        public void WriteString(String value)
-        {
-            var encoded = EbcdicEncoding.GetBytes(value);
-            _stream.Write(encoded, 0, encoded.Length);
-        }
+        public void WriteString(String value) => WriteString(value, EbcdicEncoding);
+
+        public void WriteString(String value, Encoding encoding) => WriteBytes(encoding.GetBytes(value));
 
         public void WriteParameter(UInt16 codePoint, UInt16 value)
         {
@@ -32,12 +33,26 @@ namespace SpliceMachine.Connection
             WriteUint16(value);
         }
 
-        public void WriteParameter(UInt16 codePoint, string value)
+        public void WriteParameter(UInt16 codePoint, String value) => 
+            WriteParameter(codePoint, value, EbcdicEncoding);
+
+        public void WriteParameter(UInt16 codePoint, String value, Encoding encoding)
         {
             using (var buffer = new DrdaWriter())
             {
                 buffer.WriteUint16(codePoint);
-                buffer.WriteString(value);
+                buffer.WriteString(value, encoding);
+
+                WriteBuffer(buffer);
+            }
+        }
+
+        public void WriteParameter(UInt16 codePoint, Byte[] value)
+        {
+            using (var buffer = new DrdaWriter())
+            {
+                buffer.WriteUint16(codePoint);
+                buffer.WriteBytes(value);
 
                 WriteBuffer(buffer);
             }
