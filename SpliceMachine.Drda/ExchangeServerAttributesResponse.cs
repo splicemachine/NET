@@ -3,13 +3,14 @@ using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class ExchangeServerAttributesResponse : DrdaResponseBase
+    public sealed class ExchangeServerAttributesResponse
+        : DrdaResponseBase
     {
         internal ExchangeServerAttributesResponse(
             ResponseMessage response)
             : base(response.RequestCorrelationId)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: 0x{response.Command.CodePoint:X4}");
+            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
             foreach (var parameter in response.Command.Parameters.OfType<BytesParameter>())
             {
@@ -19,7 +20,7 @@ namespace SpliceMachine.Drda
                         break;
 
                     default:
-                        Console.WriteLine("\tCP: 0x{0:X4} = '{1}'",
+                        Console.WriteLine("\tCP: {0} = '{1}'",
                             parameter.CodePoint, EncodingEbcdic.GetString(parameter.Value));
                         break;
                 }

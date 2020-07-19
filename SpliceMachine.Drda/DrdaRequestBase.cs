@@ -2,7 +2,8 @@
 
 namespace SpliceMachine.Drda
 {
-    public abstract class DrdaRequestBase
+    public abstract class DrdaRequestBase<TResponse> : IDrdaRequest
+        where TResponse : DrdaResponseBase
     {
         protected DrdaRequestBase(
             Int32 requestCorrelationId) =>
@@ -10,6 +11,15 @@ namespace SpliceMachine.Drda
 
         public Int32 RequestCorrelationId { get; }
 
-        internal abstract CompositeParameter GetCommand();
+        void IDrdaRequest.CheckResponseType(
+            DrdaResponseBase response)
+        {
+            if (!(response is TResponse))
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        CompositeParameter IDrdaRequest.GetCommand() => default;
     }
 }

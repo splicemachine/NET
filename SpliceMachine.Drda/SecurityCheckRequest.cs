@@ -3,7 +3,8 @@ using System.Text;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class SecurityCheckRequest : DrdaRequestBase
+    public sealed class SecurityCheckRequest
+        : DrdaRequestBase<SecurityCheckResponse>, IDrdaRequest
     {
         private readonly String _userName;
 
@@ -20,7 +21,7 @@ namespace SpliceMachine.Drda
             _password = password;
         }
 
-        internal override CompositeParameter GetCommand() =>
+        CompositeParameter IDrdaRequest.GetCommand() =>
             new CompositeParameter(
                 CodePoint.SECCHK,
                 new UInt16Parameter(CodePoint.SECMEC, 0x0003), // USRIDPWD

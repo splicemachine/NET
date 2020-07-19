@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class AccessRelationalDatabaseRequest : DrdaRequestBase
+    public sealed class AccessRelationalDatabaseRequest
+        : DrdaRequestBase<AccessRelationalDatabaseResponse>, IDrdaRequest
     {
         private readonly String _correlationToken;
 
@@ -15,7 +16,7 @@ namespace SpliceMachine.Drda
                 requestCorrelationId) =>
             _correlationToken = endPoint.GetCorrelationToken();
 
-        internal override CompositeParameter GetCommand() =>
+        CompositeParameter IDrdaRequest.GetCommand() =>
             new CompositeParameter(
                 CodePoint.ACCRDB,
                 Encoding.UTF8.GetParameter(CodePoint.RDBNAM, WellKnownStrings.DatabaseName),

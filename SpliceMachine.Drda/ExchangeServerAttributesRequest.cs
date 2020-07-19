@@ -2,7 +2,8 @@
 
 namespace SpliceMachine.Drda
 {
-    public sealed class ExchangeServerAttributesRequest : DrdaRequestBase
+    public sealed class ExchangeServerAttributesRequest
+        : DrdaRequestBase<ExchangeServerAttributesResponse>, IDrdaRequest
     {
         private readonly struct ManagerLevels : IDrdaMessage
         {
@@ -40,7 +41,7 @@ namespace SpliceMachine.Drda
         {
         }
 
-        internal override CompositeParameter GetCommand() =>
+        CompositeParameter IDrdaRequest.GetCommand() =>
             new CompositeParameter(
                 CodePoint.EXCSAT,
                 EncodingEbcdic.GetParameter(CodePoint.EXTNAM, "derbydncmain"),

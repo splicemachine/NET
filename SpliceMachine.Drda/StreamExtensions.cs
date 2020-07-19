@@ -3,18 +3,22 @@ using System.IO;
 
 namespace SpliceMachine.Drda
 {
-    public static class StreamExtensions
+    internal static class StreamExtensions
     {
-        public static void WriteDrdaMessage<TRequest>(
-            this Stream stream,
+        public static void RequestResponseSequence<TRequest>(
+            this Stream stream, 
             TRequest request)
-            where TRequest : DrdaRequestBase =>
+            where TRequest : IDrdaRequest
+        {
             new RequestMessage(
                     request.RequestCorrelationId,
                     request.GetCommand())
                 .Write(new DrdaStreamWriter(stream));
 
-        public static DrdaResponseBase ReadDrdaMessage(
+            request.CheckResponseType(stream.ReadMessage());
+        }
+
+        private static DrdaResponseBase ReadMessage(
             this Stream stream)
         {
             var response = new ResponseMessage(new DrdaStreamReader(stream));

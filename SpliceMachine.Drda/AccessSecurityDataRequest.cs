@@ -2,7 +2,8 @@
 
 namespace SpliceMachine.Drda
 {
-    public sealed class AccessSecurityDataRequest : DrdaRequestBase
+    public sealed class AccessSecurityDataRequest
+        : DrdaRequestBase<AccessSecurityDataResponse>, IDrdaRequest
     {
         public AccessSecurityDataRequest(
             Int32 requestCorrelationId)
@@ -11,7 +12,7 @@ namespace SpliceMachine.Drda
         {
         }
 
-        internal override CompositeParameter GetCommand() =>
+        CompositeParameter IDrdaRequest.GetCommand() =>
             new CompositeParameter(
                 CodePoint.ACCSEC,
                 EncodingEbcdic.GetParameter(CodePoint.RDBNAM, WellKnownStrings.DatabaseName),
