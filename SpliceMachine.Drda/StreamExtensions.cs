@@ -5,7 +5,7 @@ namespace SpliceMachine.Drda
 {
     internal static class StreamExtensions
     {
-        public static void RequestResponseSequence<TRequest>(
+        public static Stream RequestResponseSequence<TRequest>(
             this Stream stream, 
             TRequest request)
             where TRequest : IDrdaRequest
@@ -16,6 +16,8 @@ namespace SpliceMachine.Drda
                 .Write(new DrdaStreamWriter(stream));
 
             request.CheckResponseType(stream.ReadMessage());
+
+            return stream;
         }
 
         private static DrdaResponseBase ReadMessage(

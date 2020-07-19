@@ -22,21 +22,21 @@ namespace SpliceMachine.Drda
 
         public async Task ConnectAsync()
         {
-            await _client.ConnectAsync(_options.HostName, _options.Port).ConfigureAwait(false);
+            await _client
+                .ConnectAsync(_options.HostName, _options.Port)
+                .ConfigureAwait(false);
 
-            var stream = _client.GetStream();
-
-            stream.RequestResponseSequence<ExchangeServerAttributesRequest>(
-                new ExchangeServerAttributesRequest(++_requestCorrelationId));
-
-            stream.RequestResponseSequence<AccessSecurityDataRequest>(
-                new AccessSecurityDataRequest(++_requestCorrelationId));
-
-            stream.RequestResponseSequence<SecurityCheckRequest>(
-                new SecurityCheckRequest(++_requestCorrelationId, _options.UserName, _options.Password));
-
-            stream.RequestResponseSequence<AccessRelationalDatabaseRequest>(
-                new AccessRelationalDatabaseRequest(++_requestCorrelationId, _client.Client.LocalEndPoint));
+            _client.GetStream()
+                .RequestResponseSequence(
+                    new ExchangeServerAttributesRequest(++_requestCorrelationId))
+                .RequestResponseSequence(
+                    new AccessSecurityDataRequest(++_requestCorrelationId))
+                .RequestResponseSequence(
+                    new SecurityCheckRequest(++_requestCorrelationId,
+                        _options.UserName, _options.Password))
+                .RequestResponseSequence(
+                    new AccessRelationalDatabaseRequest(++_requestCorrelationId,
+                        _client.Client.LocalEndPoint));
         }
     }
 }
