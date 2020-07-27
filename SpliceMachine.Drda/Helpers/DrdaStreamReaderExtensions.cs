@@ -49,5 +49,32 @@ namespace SpliceMachine.Drda
 
             return value;
         }
+
+        public static String ReadVcmVcs(
+            this DrdaStreamReader reader,
+            Byte hiByte)
+        {
+            var value = reader.ReadVarString(hiByte);
+
+            if (String.IsNullOrEmpty(value))
+            {
+                value = reader.ReadVarString();
+            }
+            else
+            {
+                reader.ReadUInt16();
+            }
+
+            return value;
+        }
+
+        private static String ReadVarString(
+            this DrdaStreamReader reader,
+            Byte hiByte)
+        {
+            var size = (hiByte << 8) |reader.ReadUInt8();
+            var bytes = reader.ReadBytes(size);
+            return Encoding.UTF8.GetString(bytes);
+        }
     }
 }

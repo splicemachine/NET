@@ -8,10 +8,8 @@ namespace SpliceMachine.Drda
         private readonly Stream _stream;
 
         public DrdaStreamReader(
-            Stream stream)
-        {
+            Stream stream) =>
             _stream = stream;
-        }
 
         public Byte ReadUInt8() => (Byte)_stream.ReadByte();
 
@@ -27,6 +25,18 @@ namespace SpliceMachine.Drda
             result = (UInt16)((result << 8) | _stream.ReadByte());
             result = (UInt16)((result << 8) | _stream.ReadByte());
             return (UInt16)((result << 8) | _stream.ReadByte());
+        }
+
+        public UInt64 ReadUInt64()
+        {
+            var result = (UInt64)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            result = (result << 8) | (UInt32)_stream.ReadByte();
+            return (result << 8) | (UInt32)_stream.ReadByte();
         }
 
         public Byte[] ReadBytes(Int32 parameterSize)

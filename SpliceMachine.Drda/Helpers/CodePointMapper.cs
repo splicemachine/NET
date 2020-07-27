@@ -35,7 +35,10 @@ namespace SpliceMachine.Drda
                     return new CompositeParameter(reader, size, codePoint);
 
                 case CodePoint.SQLCARD:
-                    return new CommAreaGroupDescResponse(reader, size);
+                    return new CommAreaGroupDescriptor(reader, size);
+
+                case CodePoint.SQLDARD:
+                    return new DescAreaGroupDescriptor(reader, size);
 
                 case CodePoint.SECMEC:
                 case CodePoint.SRVCOD:

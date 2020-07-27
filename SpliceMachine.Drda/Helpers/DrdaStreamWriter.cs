@@ -7,7 +7,8 @@ namespace SpliceMachine.Drda
     {
         private readonly Stream _stream;
 
-        public DrdaStreamWriter(Stream stream) => 
+        public DrdaStreamWriter(
+            Stream stream) => 
             _stream = stream;
 
         public void WriteUInt8(Byte value) => _stream.WriteByte(value);

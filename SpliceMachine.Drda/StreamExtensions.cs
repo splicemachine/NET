@@ -72,6 +72,9 @@ namespace SpliceMachine.Drda
                 case CodePoint.SQLCARD:
                     return new CommAreaRowDescResponse(response);
 
+                case CodePoint.SQLDARD:
+                    return new DescAreaRowDescResponse(response);
+
                 case CodePoint.SYNTAXRM:
                     return new SyntaxResponse(response);
 

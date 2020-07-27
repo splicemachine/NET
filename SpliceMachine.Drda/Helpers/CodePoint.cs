@@ -84,6 +84,14 @@ namespace SpliceMachine.Drda
 
         SYNTAXRM = 0x124C,
 
-        SYNERRCD = 0x114A
+        SYNERRCD = 0x114A,
+
+        PRPSQLSTT = 0x200D,
+
+        SQLDARD = 0x2411,
+
+        RTNSQLDA = 0x2116,
+
+        TYPSQLDA = 0x2146
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -95,6 +96,62 @@ namespace SpliceMachine.Drda
             }
             // ReSharper disable once ConstantConditionalAccessQualifier
             while (message?.IsChained ?? false);
+
+            return true;
+        }
+
+        public Boolean ExecutePreparedSql(
+            String sqlStatement)
+        {
+            List<DrdaColumn> columns = new List<DrdaColumn>();
+
+            var requestCorrelationId = ++_requestCorrelationId;
+            var packageSerialNumber = ++_packageSerialNumber;
+
+            var stream = _client.GetStream();
+            stream
+                .SendRequest(
+                    new PrepareSqlStatement(requestCorrelationId, packageSerialNumber))
+                .SendRequest(
+                    new SqlStatementRequest(requestCorrelationId, sqlStatement));
+
+            DrdaResponseBase message;
+            do
+            {
+                message = stream.ReadResponse();
+                switch (message)
+                {
+                    case CommandCheckResponse response:
+                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        break;
+
+                    case SqlErrorResponse response:
+                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        break;
+
+                    case CommAreaRowDescResponse response:
+                        Console.WriteLine(
+                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                        break;
+
+                    case DescAreaRowDescResponse response:
+                        foreach (var column in response.Columns)
+                        {
+                            Console.WriteLine(
+                                $"\tColumn: {column.BaseName}.{column.Name}");
+                        }
+
+                        columns.AddRange(response.Columns);
+                        break;
+
+                    default:
+                        return false;
+                }
+            }
+            // ReSharper disable once ConstantConditionalAccessQualifier
+            while (message?.IsChained ?? false);
+
+            // TODO: olegra - add parameters description request/response processing
 
             return true;
         }

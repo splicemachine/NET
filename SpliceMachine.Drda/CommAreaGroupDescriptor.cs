@@ -5,12 +5,12 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class CommAreaGroupDescResponse : IDrdaMessage, ICommand
+    internal sealed class CommAreaGroupDescriptor : IDrdaMessage, ICommand
     {
         private readonly Int32 _size;
 
         [SuppressMessage("ReSharper", "UnusedVariable")]
-        public CommAreaGroupDescResponse(
+        public CommAreaGroupDescriptor(
             DrdaStreamReader reader,
             Int32 size)
         {
@@ -70,4 +70,5 @@ namespace SpliceMachine.Drda
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
 }

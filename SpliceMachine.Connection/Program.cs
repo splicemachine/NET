@@ -21,7 +21,10 @@ namespace SpliceMachine.Connection
 
                 Console.WriteLine("Try to execute simple SQL");
 
-                connection.ExecuteImmediateSql("SET SCHEMA SYS");
+                //connection.ExecuteImmediateSql("SET SCHEMA SYS");
+                connection.ExecuteImmediateSql("DESCRIBE SYS.SYSTABLES");
+                connection.ExecutePreparedSql("SELECT * FROM SYS.SYSTABLES");
+
                 Console.ReadLine();
             }
         }

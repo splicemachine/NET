@@ -8,7 +8,7 @@ namespace SpliceMachine.Drda
     {
         private static readonly Char[] MessagesSeparator = { (Char)0x14 };
 
-        private readonly CommAreaGroupDescResponse _commAreaGroupDescResponse;
+        private readonly CommAreaGroupDescriptor _commAreaGroupDescriptor;
 
         private readonly String[] _messages;
 
@@ -20,16 +20,16 @@ namespace SpliceMachine.Drda
         {
             Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
-            _commAreaGroupDescResponse = response.Command as CommAreaGroupDescResponse;
-            _messages = _commAreaGroupDescResponse?.SqlMessage
+            _commAreaGroupDescriptor = response.Command as CommAreaGroupDescriptor;
+            _messages = _commAreaGroupDescriptor?.SqlMessage
                 .Split(MessagesSeparator, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public Int32 SqlCode => _commAreaGroupDescResponse.SqlCode;
+        public Int32 SqlCode => _commAreaGroupDescriptor.SqlCode;
 
-        public String SqlState => _commAreaGroupDescResponse.SqlState;
+        public String SqlState => _commAreaGroupDescriptor.SqlState;
 
-        public Int32 RowsUpdated => _commAreaGroupDescResponse.RowsUpdated;
+        public Int32 RowsUpdated => _commAreaGroupDescriptor.RowsUpdated;
 
         public IReadOnlyCollection<String> SqlMessages => _messages;
     }
