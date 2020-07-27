@@ -13,11 +13,19 @@ namespace SpliceMachine.Drda
             _stream = stream;
         }
 
-        public Byte ReadByte() => (Byte)_stream.ReadByte();
+        public Byte ReadUInt8() => (Byte)_stream.ReadByte();
 
-        public UInt16 ReadUint16()
+        public UInt16 ReadUInt16()
         {
             var result = _stream.ReadByte();
+            return (UInt16)((result << 8) | _stream.ReadByte());
+        }
+
+        public UInt16 ReadUInt32()
+        {
+            var result = _stream.ReadByte();
+            result = (UInt16)((result << 8) | _stream.ReadByte());
+            result = (UInt16)((result << 8) | _stream.ReadByte());
             return (UInt16)((result << 8) | _stream.ReadByte());
         }
 

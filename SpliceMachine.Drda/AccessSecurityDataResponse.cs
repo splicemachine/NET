@@ -8,11 +8,13 @@ namespace SpliceMachine.Drda
     {
         internal AccessSecurityDataResponse(
             ResponseMessage response)
-            : base(response.RequestCorrelationId)
+            : base(
+                response.RequestCorrelationId,
+                response.IsChained)
         {
             Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
-            foreach (var parameter in response.Command.Parameters.OfType<BytesParameter>())
+            foreach (var parameter in response.Command.OfType<BytesParameter>())
             {
                 switch (parameter.CodePoint)
                 {

@@ -19,7 +19,9 @@ namespace SpliceMachine.Connection
             {
                 await connection.ConnectAsync();
 
-                Console.WriteLine("Client connected!");
+                Console.WriteLine("Try to execute simple SQL");
+
+                connection.ExecuteImmediateSql("SET SCHEMA SYS");
                 Console.ReadLine();
             }
         }

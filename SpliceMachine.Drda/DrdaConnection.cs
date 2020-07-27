@@ -12,6 +12,8 @@ namespace SpliceMachine.Drda
 
         private Int32 _requestCorrelationId;
 
+        private UInt16 _packageSerialNumber;
+
         public DrdaConnection(
             DrdaConnectionOptions options)
         {
@@ -26,17 +28,75 @@ namespace SpliceMachine.Drda
                 .ConnectAsync(_options.HostName, _options.Port)
                 .ConfigureAwait(false);
 
-            _client.GetStream()
+            var stream = _client.GetStream();
+
+            stream
                 .RequestResponseSequence(
-                    new ExchangeServerAttributesRequest(++_requestCorrelationId))
+                    new ExchangeServerAttributesRequest(++_requestCorrelationId), out _)
                 .RequestResponseSequence(
-                    new AccessSecurityDataRequest(++_requestCorrelationId))
+                    new AccessSecurityDataRequest(++_requestCorrelationId), out _)
                 .RequestResponseSequence(
                     new SecurityCheckRequest(++_requestCorrelationId,
-                        _options.UserName, _options.Password))
+                        _options.UserName, _options.Password), out _)
                 .RequestResponseSequence(
                     new AccessRelationalDatabaseRequest(++_requestCorrelationId,
-                        _client.Client.LocalEndPoint));
+                        _client.Client.LocalEndPoint), out var isChained);
+
+            if (isChained &&
+                stream.ReadResponse() is PiggyBackSchemaDescResponse response)
+            {
+                Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+            }
+        }
+
+        public Boolean ExecuteImmediateSql(
+            String sqlStatement)
+        {
+            var requestCorrelationId = ++_requestCorrelationId;
+            var packageSerialNumber = ++_packageSerialNumber;
+
+            var stream = _client.GetStream();
+            stream
+                .SendRequest(
+                    new ExecuteImmediateSqlRequest(requestCorrelationId, packageSerialNumber))
+                .SendRequest(
+                    new SqlStatementRequest(requestCorrelationId, sqlStatement));
+
+            DrdaResponseBase message;
+            do
+            {
+                message = stream.ReadResponse();
+                switch (message)
+                {
+                    case CommandCheckResponse response:
+                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        break;
+
+                    case SqlErrorResponse response:
+                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        break;
+
+                    case RelationalDatabaseUpdateResponse response:
+                        Console.WriteLine($"\tRDBUPDRM: {response.SeverityCode}");
+                        break;
+
+                    case CommAreaRowDescResponse response:
+                        Console.WriteLine(
+                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                        break;
+
+                    case PiggyBackSchemaDescResponse response:
+                        Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+                        break;
+
+                    default:
+                        return false;
+                }
+            }
+            // ReSharper disable once ConstantConditionalAccessQualifier
+            while (message?.IsChained ?? false);
+
+            return true;
         }
     }
 }

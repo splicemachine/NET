@@ -6,6 +6,8 @@ namespace SpliceMachine.Drda
     {
         Int32 RequestCorrelationId { get; }
 
+        MessageFormat Format { get; }
+
         void CheckResponseType(
             DrdaResponseBase response);
 

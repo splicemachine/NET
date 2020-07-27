@@ -16,7 +16,7 @@ namespace SpliceMachine.Drda
 
         public BytesParameter(
             DrdaStreamReader reader, 
-            UInt16 byteArraySize,
+            Int32 byteArraySize,
             CodePoint codePoint)
             : this(
                 codePoint,
@@ -32,8 +32,8 @@ namespace SpliceMachine.Drda
 
         public void Write(DrdaStreamWriter writer)
         {
-            writer.WriteUint16((UInt16)GetSize());
-            writer.WriteUint16((UInt16)CodePoint);
+            writer.WriteUInt16((UInt16)GetSize());
+            writer.WriteUInt16((UInt16)CodePoint);
             writer.WriteBytes(Value);
         }
     }

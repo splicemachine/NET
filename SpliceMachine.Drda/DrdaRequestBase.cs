@@ -11,6 +11,9 @@ namespace SpliceMachine.Drda
 
         public Int32 RequestCorrelationId { get; }
 
+        MessageFormat IDrdaRequest.Format =>
+            MessageFormat.Request;
+
         void IDrdaRequest.CheckResponseType(
             DrdaResponseBase response)
         {

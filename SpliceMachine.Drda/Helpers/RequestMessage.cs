@@ -10,12 +10,16 @@ namespace SpliceMachine.Drda
 
         private readonly CompositeParameter _command;
 
+        private readonly MessageFormat _format;
+
         public RequestMessage(
             Int32 requestCorrelationId,
-            CompositeParameter command)
+            CompositeParameter command,
+            MessageFormat format)
         {
             _requestCorrelationId = requestCorrelationId;
             _command = command;
+            _format = format;
         }
 
         public Int32 GetSize() => BaseSize + _command.GetSize();
@@ -23,10 +27,10 @@ namespace SpliceMachine.Drda
         public void Write(
             DrdaStreamWriter writer)
         {
-            writer.WriteUint16((UInt16)GetSize());
-            writer.WriteByte(0xD0); // DDMID
-            writer.WriteByte(0x01); // RQSDSS_Req
-            writer.WriteUint16((UInt16)_requestCorrelationId);
+            writer.WriteUInt16((UInt16)GetSize());
+            writer.WriteUInt8(0xD0); // DDMID
+            writer.WriteUInt8((Byte)_format);
+            writer.WriteUInt16((UInt16)_requestCorrelationId);
 
             _command.Write(writer);
         }

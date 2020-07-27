@@ -10,10 +10,18 @@ namespace SpliceMachine.Drda
         public DrdaStreamWriter(Stream stream) => 
             _stream = stream;
 
-        public void WriteByte(Byte value) => _stream.WriteByte(value);
+        public void WriteUInt8(Byte value) => _stream.WriteByte(value);
 
-        public void WriteUint16(UInt16 value)
+        public void WriteUInt16(UInt16 value)
         {
+            _stream.WriteByte((Byte)((value >> 8) & 0xFF));
+            _stream.WriteByte((Byte)(value & 0xFF));
+        }
+
+        public void WriteUInt32(UInt32 value)
+        {
+            _stream.WriteByte((Byte)((value >> 24) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 16) & 0xFF));
             _stream.WriteByte((Byte)((value >> 8) & 0xFF));
             _stream.WriteByte((Byte)(value & 0xFF));
         }

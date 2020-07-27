@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    internal readonly struct CompositeParameter : IDrdaMessage
+    internal readonly struct CompositeParameter : IDrdaMessage, ICommand
     {
         private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
+
+        private const Int32 MaxSize = 0x7FFF - sizeof(UInt32);
+
+        private const UInt16 SegmentFlag = 0x8008;
 
         private readonly IDrdaMessage[] _parameters;
 
@@ -19,24 +24,35 @@ namespace SpliceMachine.Drda
         }
 
         public CompositeParameter(
-            DrdaStreamReader reader, 
-            Int32 sizeWithoutHeader, 
+            DrdaStreamReader reader,
+            Int32 sizeWithoutHeader,
             CodePoint codePoint)
             : this(
-                codePoint) =>
-            _parameters = ReadParameters(reader, sizeWithoutHeader).ToArray();
+                codePoint,
+                ReadParameters(reader, sizeWithoutHeader).ToArray())
+        {
+        }
 
-        public IReadOnlyCollection<IDrdaMessage> Parameters => _parameters;
+        public Int32 GetSize() => BaseSize + checkAndAdjustForSegmentation(
+            _parameters.Sum(_ => _.GetSize()));
 
-        public Int32 GetSize() => BaseSize + _parameters.Sum(_ => _.GetSize());
-        
         public CodePoint CodePoint { get; }
 
         public void Write(
             DrdaStreamWriter writer)
         {
-            writer.WriteUint16((UInt16)GetSize());
-            writer.WriteUint16((UInt16)CodePoint);
+            var size = GetSize();
+            if (size > MaxSize)
+            {
+                writer.WriteUInt16(SegmentFlag);
+                writer.WriteUInt16((UInt16)CodePoint);
+                writer.WriteUInt32((UInt32)GetSize());
+            }
+            else
+            {
+                writer.WriteUInt16((UInt16)GetSize());
+                writer.WriteUInt16((UInt16)CodePoint);
+            }
 
             foreach (var parameter in _parameters)
             {
@@ -44,7 +60,7 @@ namespace SpliceMachine.Drda
             }
         }
 
-        private IEnumerable<IDrdaMessage> ReadParameters(
+        private static IEnumerable<IDrdaMessage> ReadParameters(
             DrdaStreamReader reader,
             Int32 size)
         {
@@ -55,5 +71,14 @@ namespace SpliceMachine.Drda
                 yield return parameter;
             }
         }
+
+        private Int32 checkAndAdjustForSegmentation(Int32 size) => 
+            size > MaxSize ? size + sizeof(UInt32) : size;
+
+        public IEnumerator<IDrdaMessage> GetEnumerator() => 
+            _parameters.AsEnumerable().GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => 
+            _parameters.GetEnumerator();
     }
 }

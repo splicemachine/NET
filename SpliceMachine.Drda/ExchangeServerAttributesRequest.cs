@@ -20,16 +20,14 @@ namespace SpliceMachine.Drda
 
             public Int32 GetSize() => BaseSize + sizeof(UInt16) * Values.Length;
 
-            public UInt16 CodePoint => 0x1404; // MGRLVLLS
-
             public void Write(DrdaStreamWriter writer)
             {
-                writer.WriteUint16((UInt16)GetSize());
-                writer.WriteUint16(CodePoint); 
+                writer.WriteUInt16((UInt16)GetSize());
+                writer.WriteUInt16((UInt16)CodePoint.MGRLVLLS); 
 
                 foreach (var value in Values)
                 {
-                    writer.WriteUint16(value);
+                    writer.WriteUInt16(value);
                 }
             }
         }

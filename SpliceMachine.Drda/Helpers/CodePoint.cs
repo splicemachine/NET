@@ -57,5 +57,33 @@ namespace SpliceMachine.Drda
         CCSIDDBC = 0x119D,
 
         CCSIDMBC = 0x119E,
+
+        EXCSQLIMM = 0x200A,
+
+        RDBCMTOK = 0x2105,
+
+        PKGNAMCSN = 0x2113,
+
+        SQLSTT = 0x2414,
+
+        CMDCHKRM = 0x1254,
+
+        SRVCOD = 0x1149,
+
+        SQLERRRM = 0x2213,
+
+        RDBUPDRM = 0x2218,
+
+        PBSD = 0xC000,
+
+        PBSD_ISO = 0xC001,
+
+        PBSD_SCHEMA = 0xC002,
+
+        SQLCARD = 0x2408,
+
+        SYNTAXRM = 0x124C,
+
+        SYNERRCD = 0x114A
     }
 }

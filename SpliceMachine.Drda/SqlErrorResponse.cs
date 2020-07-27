@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class ExchangeServerAttributesResponse
+    public sealed class SqlErrorResponse
         : DrdaResponseBase
     {
-        internal ExchangeServerAttributesResponse(
+        internal SqlErrorResponse(
             ResponseMessage response)
             : base(
                 response.RequestCorrelationId,
@@ -14,19 +14,17 @@ namespace SpliceMachine.Drda
         {
             Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
-            foreach (var parameter in response.Command.OfType<BytesParameter>())
+            foreach (var parameter in response.Command.OfType<UInt16Parameter>())
             {
                 switch (parameter.CodePoint)
                 {
-                    case CodePoint.MGRLVLLS:
-                        break;
-
-                    default:
-                        Console.WriteLine("\tCP: {0} = '{1}'",
-                            parameter.CodePoint, EncodingEbcdic.GetString(parameter.Value));
+                    case CodePoint.SRVCOD:
+                        SeverityCode = parameter.Value;
                         break;
                 }
             }
         }
+
+        public UInt16 SeverityCode { get; }
     }
 }

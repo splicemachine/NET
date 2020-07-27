@@ -2,28 +2,28 @@
 
 namespace SpliceMachine.Drda
 {
-    internal readonly struct UInt16Parameter : IDrdaMessage
+    internal readonly struct UInt8Parameter : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(UInt16);
+        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(Byte);
 
-        public UInt16Parameter(
+        public UInt8Parameter(
             CodePoint codePoint,
-            UInt16 value)
+            Byte value)
         {
             CodePoint = codePoint;
             Value = value;
         }
 
-        public UInt16Parameter(
+        public UInt8Parameter(
             DrdaStreamReader reader, 
             CodePoint codePoint)
             : this(
                 codePoint,
-                reader.ReadUInt16())
+                reader.ReadUInt8())
         {
         }
 
-        public UInt16 Value { get; }
+        public Byte Value { get; }
 
         public Int32 GetSize() => BaseSize;
 
@@ -33,7 +33,7 @@ namespace SpliceMachine.Drda
         {
             writer.WriteUInt16((UInt16)GetSize());
             writer.WriteUInt16((UInt16)CodePoint);
-            writer.WriteUInt16(Value);
+            writer.WriteUInt8(Value);
         }
     }
 }

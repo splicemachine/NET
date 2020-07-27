@@ -7,20 +7,25 @@ namespace SpliceMachine.Drda
         public ResponseMessage(
             DrdaStreamReader reader)
         {
-            Size = reader.ReadUint16();
+            Size = reader.ReadUInt16();
 
-            reader.ReadByte(); // DDMID
-            reader.ReadByte(); // Format
+            reader.ReadUInt8(); // DDMID
+            Format = (MessageFormat)reader.ReadUInt8();
 
-            RequestCorrelationId = reader.ReadUint16();
+            RequestCorrelationId = reader.ReadUInt16();
 
-            Command = (CompositeParameter)CodePointMapper.Deserialize(reader);
+            Command = (ICommand) CodePointMapper.Deserialize(reader);
         }
 
         public Int32 RequestCorrelationId { get; }
 
-        public CompositeParameter Command { get; }
+        public MessageFormat Format { get; }
+
+        public ICommand Command { get; }
 
         public Int32 Size { get; }
+
+        public Boolean IsChained => 
+            (Format & MessageFormat.Chained) != 0;
     }
 }
