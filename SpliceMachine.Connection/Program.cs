@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using SpliceMachine.Drda;
 
@@ -8,6 +9,9 @@ namespace SpliceMachine.Connection
     {
         public static async Task Main()
         {
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Error));
+            Trace.AutoFlush = true;
+
             using (var connection = new DrdaConnection(
                 new DrdaConnectionOptions
                 {
@@ -19,7 +23,9 @@ namespace SpliceMachine.Connection
             {
                 await connection.ConnectAsync();
 
+                Console.WriteLine();
                 Console.WriteLine("Try to execute simple SQL");
+                Console.WriteLine();
 
                 //connection.ExecuteImmediateSql("SET SCHEMA SYS");
                 connection.ExecutePreparedSql("SELECT * FROM SYS.SYSTABLES");

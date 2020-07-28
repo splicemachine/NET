@@ -3,8 +3,7 @@ using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class CommandCheckResponse
-        : DrdaResponseBase
+    public sealed class CommandCheckResponse : DrdaResponseBase
     {
         internal CommandCheckResponse(
             ResponseMessage response)
@@ -12,8 +11,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             foreach (var parameter in response.Command.OfType<UInt16Parameter>())
             {
                 switch (parameter.CodePoint)

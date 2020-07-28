@@ -13,8 +13,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             _descAreaGroupDescriptor = response.Command as DescAreaGroupDescriptor;
         }
 

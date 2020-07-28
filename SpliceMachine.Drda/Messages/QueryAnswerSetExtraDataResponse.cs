@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SpliceMachine.Drda
+﻿namespace SpliceMachine.Drda
 {
     internal sealed class QueryAnswerSetExtraDataResponse : DrdaResponseBase
     {
@@ -12,8 +10,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             _queryAnswerSetExtraData = response.Command as QueryAnswerSetExtraData;
         }
     }

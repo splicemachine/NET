@@ -3,6 +3,8 @@ using System.IO;
 
 namespace SpliceMachine.Drda
 {
+    using static System.Diagnostics.Trace;
+
     internal static class StreamExtensions
     {
         public static Stream SendRequest<TRequest>(
@@ -42,6 +44,8 @@ namespace SpliceMachine.Drda
             this Stream stream)
         {
             var response = new ResponseMessage(new DrdaStreamReader(stream));
+
+            TraceInformation($"RCID: {response.RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
             switch (response.Command.CodePoint)
             {

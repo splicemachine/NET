@@ -3,8 +3,7 @@ using System.Text;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class PiggyBackSchemaDescResponse
-        : DrdaResponseBase
+    public sealed class PiggyBackSchemaDescResponse : DrdaResponseBase
     {
         internal PiggyBackSchemaDescResponse(
             ResponseMessage response)
@@ -12,8 +11,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             foreach (var parameter in response.Command)
             {
                 switch (parameter)

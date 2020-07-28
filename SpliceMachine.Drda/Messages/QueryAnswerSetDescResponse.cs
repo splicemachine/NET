@@ -12,8 +12,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             _queryAnswerSetDescriptor = response.Command as QueryAnswerSetDescriptor;
         }
     }

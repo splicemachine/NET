@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace SpliceMachine.Drda
 {
+    using static System.Diagnostics.Trace;
+
     public sealed class DrdaConnection : IDisposable
     {
         private readonly TcpClient _client = new TcpClient(AddressFamily.InterNetwork);
@@ -46,7 +48,7 @@ namespace SpliceMachine.Drda
             if (isChained &&
                 stream.ReadResponse() is PiggyBackSchemaDescResponse response)
             {
-                Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+                TraceInformation($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
             }
         }
 
@@ -70,24 +72,24 @@ namespace SpliceMachine.Drda
                 switch (message)
                 {
                     case CommandCheckResponse response:
-                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
                         break;
 
                     case SqlErrorResponse response:
-                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
                         break;
 
                     case RelationalDatabaseUpdateResponse response:
-                        Console.WriteLine($"\tRDBUPDRM: {response.SeverityCode}");
+                        TraceInformation($"\tRDBUPDRM: {response.SeverityCode}");
                         break;
 
                     case CommAreaRowDescResponse response:
-                        Console.WriteLine(
+                        TraceInformation(
                             $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
                         break;
 
                     case PiggyBackSchemaDescResponse response:
-                        Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+                        TraceInformation($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
                         break;
 
                     default:
@@ -122,22 +124,22 @@ namespace SpliceMachine.Drda
                 switch (message)
                 {
                     case CommandCheckResponse response:
-                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
                         break;
 
                     case SqlErrorResponse response:
-                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
                         break;
 
                     case CommAreaRowDescResponse response:
-                        Console.WriteLine(
+                        TraceInformation(
                             $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
                         break;
 
                     case DescAreaRowDescResponse response:
                         foreach (var column in response.Columns)
                         {
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tColumn: {column.BaseName}.{column.Name}");
                         }
 
@@ -170,40 +172,40 @@ namespace SpliceMachine.Drda
                 switch (message)
                 {
                     case CommandCheckResponse response:
-                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
                         break;
 
                     case SqlErrorResponse response:
-                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
                         break;
 
                     case CommAreaRowDescResponse response:
-                        Console.WriteLine(
+                        TraceInformation(
                             $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
                         break;
 
                     case DescAreaRowDescResponse response:
                         foreach (var column in response.Columns)
                         {
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tColumn: {column.BaseName}.{column.Name}");
                         }
                         columns.AddRange(response.Columns);
                         break;
 
                     case RelationalDatabaseResultSetResponse response:
-                        Console.WriteLine($"\tRSLSETRM: {response.SeverityCode}");
+                        TraceInformation($"\tRSLSETRM: {response.SeverityCode}");
                         break;
 
                     case OpenQueryCompleteResponse response:
-                        Console.WriteLine($"\tOPNQRYRM: {response.QueryInstanceId}");
+                        TraceInformation($"\tOPNQRYRM: {response.QueryInstanceId}");
                         queryInstanceId = response.QueryInstanceId;
                         break;
 
                     case SqlResultSetDataResponse response:
                         foreach (var resultSet in response.ResultSets)
                         {
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tCursor: {resultSet.CursorName} -> {resultSet.Rows}");
                         }
                         break;
@@ -211,7 +213,7 @@ namespace SpliceMachine.Drda
                     case SqlResultSetColumnInfoResponse response:
                         foreach (var column in response.Columns)
                         {
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tColumn: {column.BaseName}.{column.Name}");
                         }
                         columns.AddRange(response.Columns);
@@ -227,11 +229,11 @@ namespace SpliceMachine.Drda
                         break;
 
                     case EndUnitOfWorkResponse response:
-                        Console.WriteLine($"\tRSLSETRM: {response.SeverityCode}");
+                        TraceInformation($"\tRSLSETRM: {response.SeverityCode}");
                         break;
 
                     case PiggyBackSchemaDescResponse response:
-                        Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+                        TraceInformation($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
                         break;
 
                     default:
@@ -251,11 +253,11 @@ namespace SpliceMachine.Drda
                     switch (message)
                     {
                         case SqlErrorResponse response:
-                            Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                            TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
                             break;
 
                         case CommAreaRowDescResponse response:
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
                             break;
                                             
@@ -285,11 +287,11 @@ namespace SpliceMachine.Drda
                     switch (message)
                     {
                         case SqlErrorResponse response:
-                            Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                            TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
                             break;
 
                         case CommAreaRowDescResponse response:
-                            Console.WriteLine(
+                            TraceInformation(
                                 $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
                             break;
 

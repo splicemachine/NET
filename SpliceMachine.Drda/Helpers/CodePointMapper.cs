@@ -2,6 +2,8 @@
 
 namespace SpliceMachine.Drda
 {
+    using static System.Diagnostics.Trace;
+
     internal static class CodePointMapper
     {
         public static IDrdaMessage Deserialize(
@@ -70,7 +72,7 @@ namespace SpliceMachine.Drda
                     return new UInt64Parameter(reader, codePoint);
 
                 default:
-                    Console.WriteLine(codePoint.ToString("X"));
+                    TraceWarning(codePoint.ToString("X"));
                     return new BytesParameter(reader, size, codePoint);
             }
         }

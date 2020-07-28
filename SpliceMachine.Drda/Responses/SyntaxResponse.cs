@@ -2,8 +2,7 @@
 
 namespace SpliceMachine.Drda
 {
-    public sealed class SyntaxResponse
-        : DrdaResponseBase
+    public sealed class SyntaxResponse : DrdaResponseBase
     {
         internal SyntaxResponse(
             ResponseMessage response)
@@ -11,8 +10,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             foreach (var parameter in response.Command)
             {
                 switch (parameter)

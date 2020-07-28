@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class CommAreaRowDescResponse
-        : DrdaResponseBase
+    public sealed class CommAreaRowDescResponse : DrdaResponseBase
     {
         private static readonly Char[] MessagesSeparator = { (Char)0x14 };
 
@@ -18,8 +17,6 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            Console.WriteLine($"RCID: {RequestCorrelationId}, CP: {response.Command.CodePoint}");
-
             _commAreaGroupDescriptor = response.Command as CommAreaGroupDescriptor;
             _messages = _commAreaGroupDescriptor?.SqlMessage
                 .Split(MessagesSeparator, StringSplitOptions.RemoveEmptyEntries);
