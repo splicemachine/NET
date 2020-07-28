@@ -3,6 +3,7 @@
 namespace SpliceMachine.Drda
 {
     using static System.Diagnostics.Trace;
+    using static CodePoint;
 
     internal static class CodePointMapper
     {
@@ -25,54 +26,74 @@ namespace SpliceMachine.Drda
 
             switch (codePoint)
             {
-                case CodePoint.PBSD:
-                case CodePoint.EXSATRM:
-                case CodePoint.ACCSECRM:
-                case CodePoint.SECCHKRM:
-                case CodePoint.ACCRDBRM:
-                case CodePoint.CMDCHKRM:
-                case CodePoint.SQLERRRM:
-                case CodePoint.RDBUPDRM:
-                case CodePoint.SYNTAXRM:
-                case CodePoint.RSLSETRM:
-                case CodePoint.OPNQRYRM:
-                case CodePoint.ENDUOWRM:
+                case PBSD:
+                case EXSATRM:
+                case ACCSECRM:
+                case SECCHKRM:
+                case ACCRDBRM:
+                case CMDCHKRM:
+                case SQLERRRM:
+                case RDBUPDRM:
+                case SYNTAXRM:
+                case RSLSETRM:
+                case OPNQRYRM:
+                case ENDUOWRM:
                     return new CompositeParameter(reader, size, codePoint);
 
-                case CodePoint.SQLCARD:
+                // In fact they are composite but we don't need them right now
+                case MGRLVLLS:
+                case TYPDEFOVR:
+                case PKGSNLST:
+                    return new BytesParameter(reader, size, codePoint);
+
+                case SQLCARD:
                     return new CommAreaGroupDescriptor(reader, size);
 
-                case CodePoint.SQLDARD:
+                case SQLDARD:
                     return new DescAreaGroupDescriptor(reader, size);
 
-                case CodePoint.SQLRSLRD:
+                case SQLRSLRD:
                     return new SqlResultSetData(reader, size);
 
-                case CodePoint.SQLCINRD:
+                case SQLCINRD:
                     return new SqlResultSetColumnInfo(reader, size);
 
-                case CodePoint.QRYDSC:
+                case QRYDSC:
                     return new QueryAnswerSetDescriptor(reader, size);
 
-                case CodePoint.QRYDTA:
+                case QRYDTA:
                     return new QueryAnswerSetData(reader, size);
 
-                case CodePoint.EXTDTA:
+                case EXTDTA:
                     return new QueryAnswerSetExtraData(reader, size);
 
-                case CodePoint.SECMEC:
-                case CodePoint.SRVCOD:
-                    return new UInt16Parameter(reader, codePoint);
-
-                case CodePoint.PBSD_ISO:
-                case CodePoint.SYNERRCD:
+                case PBSD_ISO:
+                case SYNERRCD:
+                case SECCHKCD:
+                case SQLCSRHLD:
+                case QRYATTUPD:
                     return new UInt8Parameter(reader, codePoint);
 
-                case CodePoint.QRYINSID:
+                case SECMEC:
+                case SRVCOD:
+                case QRYPRCTYP:
+                    return new UInt16Parameter(reader, codePoint);
+
+                case QRYINSID:
                     return new UInt64Parameter(reader, codePoint);
 
+                case PRDID:
+                case EXTNAM:
+                case SRVNAM:
+                case SRVCLSNM:
+                case SRVRLSLV:
+                case TYPDEFNAM:
+                case PBSD_SCHEMA:
+                    // TODO: olegra - create string parameter type?
+                    return new BytesParameter(reader, size, codePoint);
+
                 default:
-                    TraceWarning(codePoint.ToString("X"));
+                    TraceWarning("Unknown code point value: {0:X}", codePoint);
                     return new BytesParameter(reader, size, codePoint);
             }
         }

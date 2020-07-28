@@ -120,6 +120,16 @@ namespace SpliceMachine.Drda
 
         EXTDTA = 0x146C,
 
-        CLSQRY = 0x2005
+        CLSQRY = 0x2005,
+
+        SECCHKCD = 0x11A4,
+
+        QRYPRCTYP = 0x2102,
+
+        SQLCSRHLD = 0x211F,
+
+        QRYATTUPD = 0x2150,
+
+        PKGSNLST = 0x2139
     }
 }
