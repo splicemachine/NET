@@ -111,7 +111,7 @@ namespace SpliceMachine.Drda
             var stream = _client.GetStream();
             stream
                 .SendRequest(
-                    new PrepareSqlStatement(requestCorrelationId, packageSerialNumber))
+                    new PrepareSqlStatementRequest(requestCorrelationId, packageSerialNumber))
                 .SendRequest(
                     new SqlStatementRequest(requestCorrelationId, sqlStatement));
 
@@ -152,6 +152,154 @@ namespace SpliceMachine.Drda
             while (message?.IsChained ?? false);
 
             // TODO: olegra - add parameters description request/response processing
+
+            requestCorrelationId = ++_requestCorrelationId;
+
+            stream
+                .SendRequest(
+                    new ExecutePreparedSqlRequest(requestCorrelationId, packageSerialNumber, false));
+
+            // TODO: olegra - add parameters values chaining 
+
+            var hasMoreData = false;
+            UInt64? queryInstanceId = null;
+
+            do
+            {
+                message = stream.ReadResponse();
+                switch (message)
+                {
+                    case CommandCheckResponse response:
+                        Console.WriteLine($"\tCMDCHKRM: {response.SeverityCode}");
+                        break;
+
+                    case SqlErrorResponse response:
+                        Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                        break;
+
+                    case CommAreaRowDescResponse response:
+                        Console.WriteLine(
+                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                        break;
+
+                    case DescAreaRowDescResponse response:
+                        foreach (var column in response.Columns)
+                        {
+                            Console.WriteLine(
+                                $"\tColumn: {column.BaseName}.{column.Name}");
+                        }
+                        columns.AddRange(response.Columns);
+                        break;
+
+                    case RelationalDatabaseResultSetResponse response:
+                        Console.WriteLine($"\tRSLSETRM: {response.SeverityCode}");
+                        break;
+
+                    case OpenQueryCompleteResponse response:
+                        Console.WriteLine($"\tOPNQRYRM: {response.QueryInstanceId}");
+                        queryInstanceId = response.QueryInstanceId;
+                        break;
+
+                    case SqlResultSetDataResponse response:
+                        foreach (var resultSet in response.ResultSets)
+                        {
+                            Console.WriteLine(
+                                $"\tCursor: {resultSet.CursorName} -> {resultSet.Rows}");
+                        }
+                        break;
+
+                    case SqlResultSetColumnInfoResponse response:
+                        foreach (var column in response.Columns)
+                        {
+                            Console.WriteLine(
+                                $"\tColumn: {column.BaseName}.{column.Name}");
+                        }
+                        columns.AddRange(response.Columns);
+                        break;
+                    
+                    case QueryAnswerSetDescResponse response:
+                        // TODO: olegra - process triplets here!!!
+                        break;
+                                        
+                    case QueryAnswerSetDataResponse response:
+                        // TODO: olegra - process row data here!!!
+                        hasMoreData = response.HasMoreData;
+                        break;
+
+                    case EndUnitOfWorkResponse response:
+                        Console.WriteLine($"\tRSLSETRM: {response.SeverityCode}");
+                        break;
+
+                    case PiggyBackSchemaDescResponse response:
+                        Console.WriteLine($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
+                        break;
+
+                    default:
+                        return false;
+                }
+            }
+            // ReSharper disable once ConstantConditionalAccessQualifier
+            while (message?.IsChained ?? false);
+
+            while (hasMoreData && queryInstanceId.HasValue)
+            {
+                stream.SendRequest(new
+                    ContinueQueryRequest(++_requestCorrelationId, _packageSerialNumber, queryInstanceId.Value));
+                do
+                {
+                    message = stream.ReadResponse();
+                    switch (message)
+                    {
+                        case SqlErrorResponse response:
+                            Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                            break;
+
+                        case CommAreaRowDescResponse response:
+                            Console.WriteLine(
+                                $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                            break;
+                                            
+                        case QueryAnswerSetDataResponse response:
+                            // TODO: olegra - process row data here!!!
+                            break;
+                                            
+                        case QueryAnswerSetExtraDataResponse response:
+                            // TODO: olegra - process extra row data here!!!
+                            break;
+
+                        default:
+                            return false;
+                    }
+                }
+                // ReSharper disable once ConstantConditionalAccessQualifier
+                while (message?.IsChained ?? false);
+            }
+
+            if (queryInstanceId.HasValue)
+            {
+                stream.SendRequest(
+                    new CloseQueryRequest(++_requestCorrelationId, _packageSerialNumber, queryInstanceId.Value));
+                do
+                {
+                    message = stream.ReadResponse();
+                    switch (message)
+                    {
+                        case SqlErrorResponse response:
+                            Console.WriteLine($"\tSQLERRRM: {response.SeverityCode}");
+                            break;
+
+                        case CommAreaRowDescResponse response:
+                            Console.WriteLine(
+                                $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                            break;
+
+                        default:
+                            return false;
+                    }
+                }
+                // ReSharper disable once ConstantConditionalAccessQualifier
+                while (message?.IsChained ?? false);
+            }
 
             return true;
         }

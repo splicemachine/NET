@@ -92,6 +92,34 @@ namespace SpliceMachine.Drda
 
         RTNSQLDA = 0x2116,
 
-        TYPSQLDA = 0x2146
+        TYPSQLDA = 0x2146,
+
+        QRYBLKSZ = 0x2114,
+
+        MAXBLKEXT = 0x2141,
+
+        EXCSQLSTT = 0x200B,
+
+        RSLSETRM = 0x2219,
+
+        SQLRSLRD = 0x240E,
+
+        OPNQRYRM = 0x2205,
+
+        QRYINSID = 0x215B,
+
+        SQLCINRD = 0x240B,
+
+        QRYDSC = 0x241A,
+
+        QRYDTA = 0x241B,
+
+        ENDUOWRM = 0x220C,
+
+        CNTQRY = 0x2206,
+
+        EXTDTA = 0x146C,
+
+        CLSQRY = 0x2005
     }
 }

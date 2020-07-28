@@ -70,5 +70,4 @@ namespace SpliceMachine.Drda
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
-
 }

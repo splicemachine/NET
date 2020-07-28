@@ -27,6 +27,18 @@ namespace SpliceMachine.Drda
             _stream.WriteByte((Byte)(value & 0xFF));
         }
 
+        public void WriteUInt64(UInt64 value)
+        {
+            _stream.WriteByte((Byte)((value >> 56) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 48) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 40) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 32) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 24) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 16) & 0xFF));
+            _stream.WriteByte((Byte)((value >> 8) & 0xFF));
+            _stream.WriteByte((Byte)(value & 0xFF));
+        }
+
         public void WriteBytes(Byte[] value) => 
             _stream.Write(value, 0, value.Length);
     }

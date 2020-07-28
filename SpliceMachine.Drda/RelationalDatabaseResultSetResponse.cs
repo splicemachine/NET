@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class SqlErrorResponse : DrdaResponseBase
+    internal sealed class RelationalDatabaseResultSetResponse : DrdaResponseBase
     {
-        internal SqlErrorResponse(
+        internal RelationalDatabaseResultSetResponse(
             ResponseMessage response)
             : base(
                 response.RequestCorrelationId,

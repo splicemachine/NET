@@ -78,6 +78,30 @@ namespace SpliceMachine.Drda
                 case CodePoint.SYNTAXRM:
                     return new SyntaxResponse(response);
 
+                case CodePoint.RSLSETRM:
+                    return new RelationalDatabaseResultSetResponse(response);
+
+                case CodePoint.SQLRSLRD:
+                    return new SqlResultSetDataResponse(response);
+
+                case CodePoint.OPNQRYRM:
+                    return new OpenQueryCompleteResponse(response);
+
+                case CodePoint.SQLCINRD:
+                    return new SqlResultSetColumnInfoResponse(response);
+
+                case CodePoint.QRYDSC:
+                    return new QueryAnswerSetDescResponse(response);
+
+                case CodePoint.QRYDTA:
+                    return new QueryAnswerSetDataResponse(response);
+
+                case CodePoint.EXTDTA:
+                    return new QueryAnswerSetExtraDataResponse(response);
+
+                case CodePoint.ENDUOWRM:
+                    return new EndUnitOfWorkResponse(response);
+
                 default:
                     throw new InvalidOperationException();
             }

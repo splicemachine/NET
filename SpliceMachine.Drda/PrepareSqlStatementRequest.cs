@@ -3,23 +3,22 @@ using static SpliceMachine.Drda.MessageFormat;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class PrepareSqlStatement : IDrdaRequest
+    public sealed class PrepareSqlStatementRequest : IDrdaRequest
     {
         private readonly UInt16 _packageSerialNumber;
 
-        public PrepareSqlStatement(
+        public PrepareSqlStatementRequest(
             Int32 requestCorrelationId,
             UInt16 packageSerialNumber)
         {
             _packageSerialNumber = packageSerialNumber;
             RequestCorrelationId = requestCorrelationId;
         }
-
         
         public Int32 RequestCorrelationId { get; }
 
         MessageFormat IDrdaRequest.Format => 
-            Request | Chained | Correlated ;
+            Request | Chained | Correlated;
 
         public void CheckResponseType(DrdaResponseBase response)
         {
