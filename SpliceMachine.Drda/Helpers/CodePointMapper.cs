@@ -58,9 +58,6 @@ namespace SpliceMachine.Drda
                 case CodePoint.EXTDTA:
                     return new QueryAnswerSetExtraData(reader, size);
 
-                case CodePoint.QRYINSID:
-                    return new UInt64Parameter(reader, codePoint);
-
                 case CodePoint.SECMEC:
                 case CodePoint.SRVCOD:
                     return new UInt16Parameter(reader, codePoint);
@@ -68,6 +65,9 @@ namespace SpliceMachine.Drda
                 case CodePoint.PBSD_ISO:
                 case CodePoint.SYNERRCD:
                     return new UInt8Parameter(reader, codePoint);
+
+                case CodePoint.QRYINSID:
+                    return new UInt64Parameter(reader, codePoint);
 
                 default:
                     Console.WriteLine(codePoint.ToString("X"));
