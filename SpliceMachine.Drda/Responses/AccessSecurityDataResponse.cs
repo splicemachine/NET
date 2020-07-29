@@ -1,9 +1,7 @@
-﻿using System.Linq;
+﻿using System;
 
 namespace SpliceMachine.Drda
 {
-    using static System.Diagnostics.Trace;
-
     public sealed class AccessSecurityDataResponse : DrdaResponseBase
     {
         internal AccessSecurityDataResponse(
@@ -12,16 +10,17 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            foreach (var parameter in response.Command.OfType<BytesParameter>())
+            foreach (var parameter in response.Command)
             {
-                switch (parameter.CodePoint)
+                switch (parameter)
                 {
-                    case CodePoint.RDBNAM:
-                        TraceInformation("\tCP: {0} = '{1}'",
-                            parameter.CodePoint, EncodingEbcdic.GetString(parameter.Value));
+                    case BytesParameter para when para.CodePoint == CodePoint.RDBNAM:
+                        RelationalDatabaseName = EncodingEbcdic.GetString(para.Value);
                         break;
                 }
             }
         }
+
+        public String RelationalDatabaseName { get; }
     }
 }

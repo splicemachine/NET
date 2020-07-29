@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace SpliceMachine.Drda
 {
@@ -11,12 +10,12 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            foreach (var parameter in response.Command.OfType<UInt16Parameter>())
+            foreach (var parameter in response.Command)
             {
-                switch (parameter.CodePoint)
+                switch (parameter)
                 {
-                    case CodePoint.SRVCOD:
-                        SeverityCode = parameter.Value;
+                    case UInt16Parameter para when para.CodePoint == CodePoint.SRVCOD:
+                        SeverityCode = para.Value;
                         break;
                 }
             }

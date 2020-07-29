@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 
 namespace SpliceMachine.Drda
 {
@@ -12,19 +12,20 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            foreach (var parameter in response.Command.OfType<BytesParameter>())
+            foreach (var parameter in response.Command)
             {
-                switch (parameter.CodePoint)
+                switch (parameter)
                 {
-                    case CodePoint.MGRLVLLS:
+                    case BytesParameter para when para.CodePoint == CodePoint.MGRLVLLS:
                         break;
 
-                    default:
-                        TraceInformation("\tCP: {0} = '{1}'",
-                            parameter.CodePoint, EncodingEbcdic.GetString(parameter.Value));
+                    case BytesParameter para when para.CodePoint == CodePoint.EXTNAM:
+                        ExternalName = EncodingEbcdic.GetString(para.Value);
                         break;
                 }
             }
         }
+
+        public String ExternalName { get; }
     }
 }

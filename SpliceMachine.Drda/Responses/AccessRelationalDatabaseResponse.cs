@@ -1,10 +1,8 @@
-﻿using System.Linq;
+﻿using System;
 using System.Text;
 
 namespace SpliceMachine.Drda
 {
-    using static System.Diagnostics.Trace;
-
     public sealed class AccessRelationalDatabaseResponse : DrdaResponseBase
     {
         internal AccessRelationalDatabaseResponse(
@@ -13,17 +11,23 @@ namespace SpliceMachine.Drda
                 response.RequestCorrelationId,
                 response.IsChained)
         {
-            foreach (var parameter in response.Command.OfType<BytesParameter>())
+            foreach (var parameter in response.Command)
             {
-                switch (parameter.CodePoint)
+                switch (parameter)
                 {
-                    case CodePoint.PRDID:
-                    case CodePoint.TYPDEFNAM:
-                        TraceInformation("\tCP: {0} = '{1}'",
-                            parameter.CodePoint, Encoding.UTF8.GetString(parameter.Value));
+                    case BytesParameter para when para.CodePoint == CodePoint.PRDID:
+                        ProductId = Encoding.UTF8.GetString(para.Value);
+                        break;
+
+                    case BytesParameter para when para.CodePoint == CodePoint.TYPDEFNAM:
+                        TypeDefinitionName = Encoding.UTF8.GetString(para.Value);
                         break;
                 }
             }
         }
+
+        public String ProductId { get; }
+
+        public String TypeDefinitionName { get; }
     }
 }
