@@ -6,9 +6,7 @@ namespace SpliceMachine.Drda
     {
         public OpenQueryCompleteResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command)
             {
@@ -28,5 +26,8 @@ namespace SpliceMachine.Drda
         public UInt16 SeverityCode { get; }
 
         public UInt64 QueryInstanceId { get; }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

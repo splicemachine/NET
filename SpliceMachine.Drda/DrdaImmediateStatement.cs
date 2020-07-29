@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpliceMachine.Drda
 {
-    using static System.Diagnostics.Trace;
+    using static CodePoint;
 
     internal sealed class DrdaImmediateStatement : IDrdaStatement
     {
+        private static readonly ISet<CodePoint> AllowedCodePoints =
+            new SortedSet<CodePoint>
+                { SQLERRRM, CMDCHKRM, RDBUPDRM, SQLCARD, PBSD };
+
         private readonly DrdaConnection _connection;
 
         private readonly String _sqlStatement;
@@ -23,52 +28,19 @@ namespace SpliceMachine.Drda
 
         public Boolean Execute()
         {
-            var requestCorrelationId = _connection.GetNextRequestCorrelationId();
-            var packageSerialNumber = _connection.GetNextPackageSerialNumber();
-
             var stream = _connection.GetStream();
+            var context = new QueryContext(_connection);
+
+            var requestCorrelationId = _connection.GetNextRequestCorrelationId();
+
             stream
-                .SendRequest(
-                    new ExecuteImmediateSqlRequest(requestCorrelationId, packageSerialNumber))
-                .SendRequest(
-                    new SqlStatementRequest(requestCorrelationId, _sqlStatement));
+                .SendRequest(new ExecuteImmediateSqlRequest(
+                    requestCorrelationId, context.PackageSerialNumber))
+                .SendRequest(new SqlStatementRequest(
+                    requestCorrelationId, _sqlStatement));
 
-            DrdaResponseBase message;
-            do
-            {
-                message = stream.ReadResponse();
-                switch (message)
-                {
-                    case CommandCheckResponse response:
-                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
-                        break;
-
-                    case SqlErrorResponse response:
-                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
-                        break;
-
-                    case RelationalDatabaseUpdateResponse response:
-                        TraceInformation($"\tRDBUPDRM: {response.SeverityCode}");
-                        break;
-
-                    case CommAreaRowDescResponse response:
-                        TraceInformation(
-                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
-                        break;
-
-                    case PiggyBackSchemaDescResponse response:
-                        TraceInformation($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
-                        break;
-
-                    default:
-                        TraceWarning($"\tUnknown message: {message.RequestCorrelationId}");
-                        return false;
-                }
-            }
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            while (message?.IsChained ?? false);
-
-            return true;
+            return new DrdaStatementVisitor(AllowedCodePoints, context)
+                .ProcessChainedResponses(stream);
         }
     }
 }

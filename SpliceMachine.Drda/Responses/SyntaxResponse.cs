@@ -6,9 +6,7 @@ namespace SpliceMachine.Drda
     {
         internal SyntaxResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command)
             {

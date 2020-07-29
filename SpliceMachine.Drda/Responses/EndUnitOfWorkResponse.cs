@@ -7,9 +7,7 @@ namespace SpliceMachine.Drda
     {
         internal EndUnitOfWorkResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command.OfType<UInt16Parameter>())
             {

@@ -7,9 +7,7 @@ namespace SpliceMachine.Drda
     {
         internal AccessRelationalDatabaseResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command)
             {

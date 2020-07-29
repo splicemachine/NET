@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SpliceMachine.Drda
 {
@@ -8,13 +9,14 @@ namespace SpliceMachine.Drda
 
         internal SqlResultSetColumnInfoResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _sqlResultSetColumnInfo = response.Command as SqlResultSetColumnInfo;
         }
 
         public IReadOnlyList<DrdaColumn> Columns => _sqlResultSetColumnInfo.Columns;
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

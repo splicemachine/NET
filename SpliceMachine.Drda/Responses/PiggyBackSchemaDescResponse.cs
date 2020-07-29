@@ -7,9 +7,7 @@ namespace SpliceMachine.Drda
     {
         internal PiggyBackSchemaDescResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command)
             {
@@ -29,5 +27,8 @@ namespace SpliceMachine.Drda
         public Byte IsolationLevel { get; }
 
         public String Schema { get; }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

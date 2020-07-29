@@ -4,23 +4,34 @@ using System.Net.Sockets;
 
 namespace SpliceMachine.Drda
 {
-    using static System.Diagnostics.Trace;
+    using static CodePoint;
 
     internal sealed class DrdaPreparedStatement : IDrdaStatement
     {
-        private readonly List<DrdaColumn> _columns = new List<DrdaColumn>();
+        private static readonly ISet<CodePoint> AllowedCodePointsForPreparePackage =
+            new SortedSet<CodePoint>
+                { SQLERRRM, CMDCHKRM, SQLCARD, SQLDARD };
+
+        private static readonly ISet<CodePoint> AllowedCodePointsForExecutePackage =
+            new HashSet<CodePoint>
+                { SQLERRRM, CMDCHKRM, SQLCARD, SQLDARD, PBSD, QRYDSC, RSLSETRM,
+                    QRYDTA, OPNQRYRM, RSLSETRM, SQLRSLRD, SQLCINRD };
+
+        private static readonly ISet<CodePoint> AllowedCodePointsForContinueQuery =
+            new SortedSet<CodePoint>
+                { SQLERRRM, SQLCARD, QRYDTA, EXTDTA };
+
+        private static readonly ISet<CodePoint> AllowedCodePointsForCloseQuery =
+            new SortedSet<CodePoint>
+                { SQLERRRM, SQLCARD };
 
         private readonly Boolean _isPackagePreparedSuccessfully;
 
-        private readonly UInt16 _packageSerialNumber;
-
         private readonly DrdaConnection _connection;
 
+        private readonly QueryContext _context;
+
         private readonly String _sqlStatement;
-
-        private UInt64? _queryInstanceId;
-
-        private Boolean _hasMoreData;
 
         public DrdaPreparedStatement(
             DrdaConnection connection, 
@@ -28,9 +39,8 @@ namespace SpliceMachine.Drda
         {
             _sqlStatement = sqlStatement;
             _connection = connection;
-            
-            _packageSerialNumber = _connection
-                .GetNextPackageSerialNumber();
+
+            _context = new QueryContext(_connection);
 
             _isPackagePreparedSuccessfully = PreparePackage
                 (_connection.GetStream(), 
@@ -49,7 +59,7 @@ namespace SpliceMachine.Drda
                 return false;
             }
 
-            while (_hasMoreData)
+            while (_context.HasMoreData)
             {
                 if (!ContinueQuery(stream, _connection.GetNextRequestCorrelationId()))
                 {
@@ -60,222 +70,63 @@ namespace SpliceMachine.Drda
             return CloseQuery(stream, _connection.GetNextRequestCorrelationId());
         }
 
-        private Boolean PreparePackage(in NetworkStream stream, in UInt16 requestCorrelationId)
+        private Boolean PreparePackage(
+            in NetworkStream stream,
+            in UInt16 requestCorrelationId)
         {
             stream
-                .SendRequest(
-                    new PrepareSqlStatementRequest(requestCorrelationId, _packageSerialNumber))
-                .SendRequest(
-                    new SqlStatementRequest(requestCorrelationId, _sqlStatement));
-
-            DrdaResponseBase message;
-            do
-            {
-                message = stream.ReadResponse();
-                switch (message)
-                {
-                    case CommandCheckResponse response:
-                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
-                        break;
-
-                    case SqlErrorResponse response:
-                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
-                        break;
-
-                    case CommAreaRowDescResponse response:
-                        TraceInformation(
-                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
-                        break;
-
-                    case DescAreaRowDescResponse response:
-                        foreach (var column in response.Columns)
-                        {
-                            TraceInformation(
-                                $"\tColumn: {column.BaseName}.{column.Name}");
-                        }
-
-                        _columns.AddRange(response.Columns);
-                        break;
-
-                    default:
-                        return false;
-                }
-            }
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            while (message?.IsChained ?? false);
+                .SendRequest(new PrepareSqlStatementRequest(
+                    requestCorrelationId, _context.PackageSerialNumber))
+                .SendRequest(new SqlStatementRequest(
+                    requestCorrelationId, _sqlStatement));
 
             // TODO: olegra - add parameters description request/response processing
-            return true;
+
+            return new DrdaStatementVisitor(AllowedCodePointsForPreparePackage, _context)
+                .ProcessChainedResponses(stream);
         }
 
-        private Boolean ExecutePackage(in NetworkStream stream, in UInt16 requestCorrelationId)
+        private Boolean ExecutePackage(
+            in NetworkStream stream,
+            in UInt16 requestCorrelationId)
         {
-            stream.SendRequest(
-                new ExecutePreparedSqlRequest(requestCorrelationId, _packageSerialNumber, false));
+            stream.SendRequest(new ExecutePreparedSqlRequest(
+                requestCorrelationId, _context.PackageSerialNumber, false));
 
             // TODO: olegra - add parameters values chaining 
 
-            DrdaResponseBase message;
-            do
-            {
-                message = stream.ReadResponse();
-                switch (message)
-                {
-                    case CommandCheckResponse response:
-                        TraceInformation($"\tCMDCHKRM: {response.SeverityCode}");
-                        break;
-
-                    case SqlErrorResponse response:
-                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
-                        break;
-
-                    case CommAreaRowDescResponse response:
-                        TraceInformation(
-                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
-                        break;
-
-                    case DescAreaRowDescResponse response:
-                        foreach (var column in response.Columns)
-                        {
-                            TraceInformation(
-                                $"\tColumn: {column.BaseName}.{column.Name}");
-                        }
-
-                        _columns.AddRange(response.Columns);
-                        break;
-
-                    case RelationalDatabaseResultSetResponse response:
-                        TraceInformation($"\tRSLSETRM: {response.SeverityCode}");
-                        break;
-
-                    case OpenQueryCompleteResponse response:
-                        TraceInformation($"\tOPNQRYRM: {response.QueryInstanceId}");
-                        _queryInstanceId = response.QueryInstanceId;
-                        break;
-
-                    case SqlResultSetDataResponse response:
-                        foreach (var resultSet in response.ResultSets)
-                        {
-                            TraceInformation(
-                                $"\tCursor: {resultSet.CursorName} -> {resultSet.Rows}");
-                        }
-
-                        break;
-
-                    case SqlResultSetColumnInfoResponse response:
-                        foreach (var column in response.Columns)
-                        {
-                            TraceInformation(
-                                $"\tColumn: {column.BaseName}.{column.Name}");
-                        }
-
-                        _columns.AddRange(response.Columns);
-                        break;
-
-                    case QueryAnswerSetDescResponse response:
-                        // TODO: olegra - process triplets here!!!
-                        break;
-
-                    case QueryAnswerSetDataResponse response:
-                        // TODO: olegra - process row data here!!!
-                        _hasMoreData = response.HasMoreData;
-                        break;
-
-                    case EndUnitOfWorkResponse response:
-                        TraceInformation($"\tRSLSETRM: {response.SeverityCode}");
-                        break;
-
-                    case PiggyBackSchemaDescResponse response:
-                        TraceInformation($"\tPBSD: {response.IsolationLevel} @ {response.Schema}");
-                        break;
-
-                    default:
-                        return false;
-                }
-            }
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            while (message?.IsChained ?? false);
-
-            return true;
+            return new DrdaStatementVisitor(AllowedCodePointsForExecutePackage, _context)
+                .ProcessChainedResponses(stream);
         }
 
-        private Boolean ContinueQuery(in NetworkStream stream, in UInt16 requestCorrelationId)
+        private Boolean ContinueQuery(
+            in NetworkStream stream, 
+            in UInt16 requestCorrelationId)
         {
-            if (_queryInstanceId is null)
+            if (!_context.IsQueryOpened)
             {
                 return true;
             }
 
-            stream.SendRequest(
-                new ContinueQueryRequest(requestCorrelationId, _packageSerialNumber, _queryInstanceId.Value));
+            stream.SendRequest(new ContinueQueryRequest(
+                requestCorrelationId, _context.PackageSerialNumber, _context.QueryInstanceId ?? 0));
 
-            DrdaResponseBase message;
-            do
-            {
-                message = stream.ReadResponse();
-                switch (message)
-                {
-                    case SqlErrorResponse response:
-                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
-                        break;
-
-                    case CommAreaRowDescResponse response:
-                        TraceInformation(
-                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
-                        break;
-
-                    case QueryAnswerSetDataResponse response:
-                        // TODO: olegra - process row data here!!!
-                        break;
-
-                    case QueryAnswerSetExtraDataResponse response:
-                        // TODO: olegra - process extra row data here!!!
-                        break;
-
-                    default:
-                        return false;
-                }
-            }
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            while (message?.IsChained ?? false);
-
-            return true;
+            return new DrdaStatementVisitor(AllowedCodePointsForContinueQuery, _context)
+                .ProcessChainedResponses(stream);
         }
         
         private Boolean CloseQuery(in NetworkStream stream, in UInt16 requestCorrelationId)
         {
-            if (_queryInstanceId is null)
+            if (!_context.IsQueryOpened)
             {
                 return true;
             }
 
-            stream.SendRequest(
-                new CloseQueryRequest(requestCorrelationId, _packageSerialNumber, _queryInstanceId.Value));
+            stream.SendRequest(new CloseQueryRequest(
+                requestCorrelationId, _context.PackageSerialNumber, _context.QueryInstanceId ?? 0));
 
-            DrdaResponseBase message;
-            do
-            {
-                message = stream.ReadResponse();
-                switch (message)
-                {
-                    case SqlErrorResponse response:
-                        TraceInformation($"\tSQLERRRM: {response.SeverityCode}");
-                        break;
-
-                    case CommAreaRowDescResponse response:
-                        TraceInformation(
-                            $"\tSQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
-                        break;
-
-                    default:
-                        return false;
-                }
-            }
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            while (message?.IsChained ?? false);
-
-            return true;
+            return new DrdaStatementVisitor(AllowedCodePointsForCloseQuery, _context)
+                .ProcessChainedResponses(stream);
         }
-
     }
 }

@@ -6,9 +6,7 @@ namespace SpliceMachine.Drda
     {
         internal CommandCheckResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             foreach (var parameter in response.Command)
             {
@@ -22,5 +20,8 @@ namespace SpliceMachine.Drda
         }
 
         public UInt16 SeverityCode { get; }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

@@ -13,9 +13,7 @@ namespace SpliceMachine.Drda
 
         internal CommAreaRowDescResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _commAreaGroupDescriptor = response.Command as CommAreaGroupDescriptor;
             _messages = _commAreaGroupDescriptor?.SqlMessage
@@ -29,5 +27,8 @@ namespace SpliceMachine.Drda
         public Int32 RowsUpdated => _commAreaGroupDescriptor.RowsUpdated;
 
         public IReadOnlyCollection<String> SqlMessages => _messages;
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

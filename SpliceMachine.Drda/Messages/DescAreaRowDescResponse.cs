@@ -9,9 +9,7 @@ namespace SpliceMachine.Drda
 
         internal DescAreaRowDescResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _descAreaGroupDescriptor = response.Command as DescAreaGroupDescriptor;
         }
@@ -19,5 +17,8 @@ namespace SpliceMachine.Drda
         public Int32 SqlCode => _descAreaGroupDescriptor.SqlCode;
 
         public IReadOnlyList<DrdaColumn> Columns => _descAreaGroupDescriptor.Columns;
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SpliceMachine.Drda
+﻿using System;
+
+namespace SpliceMachine.Drda
 {
     internal sealed class QueryAnswerSetExtraDataResponse : DrdaResponseBase
     {
@@ -6,11 +8,12 @@
 
         internal QueryAnswerSetExtraDataResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _queryAnswerSetExtraData = response.Command as QueryAnswerSetExtraData;
         }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

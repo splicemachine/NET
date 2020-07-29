@@ -8,11 +8,12 @@ namespace SpliceMachine.Drda
 
         internal QueryAnswerSetDescResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _queryAnswerSetDescriptor = response.Command as QueryAnswerSetDescriptor;
         }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

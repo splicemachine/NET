@@ -8,13 +8,14 @@ namespace SpliceMachine.Drda
 
         internal QueryAnswerSetDataResponse(
             ResponseMessage response)
-            : base(
-                response.RequestCorrelationId,
-                response.IsChained)
+            : base(response)
         {
             _queryAnswerSetData = response.Command as QueryAnswerSetData;
         }
 
         public Boolean HasMoreData => false; // TODO: olegra - implement it correctly
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }
