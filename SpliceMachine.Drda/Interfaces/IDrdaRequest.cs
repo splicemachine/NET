@@ -11,6 +11,6 @@ namespace SpliceMachine.Drda
         void CheckResponseType(
             DrdaResponseBase response);
 
-        CompositeParameter GetCommand();
+        CompositeCommand GetCommand();
     }
 }

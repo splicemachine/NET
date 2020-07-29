@@ -24,6 +24,7 @@ namespace SpliceMachine.Drda
                     byteArraySize - BaseSize))
         {
         }
+
         public Byte[] Value { get; }
 
         public Int32 GetSize() => BaseSize + Value.Length;

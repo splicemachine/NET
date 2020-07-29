@@ -2,7 +2,7 @@
 
 namespace SpliceMachine.Drda
 {
-    internal interface ICommand : IEnumerable<IDrdaMessage>
+    internal interface ICommand : IDrdaMessage, IEnumerable<IDrdaMessage>
     {
         CodePoint CodePoint { get; }
     }

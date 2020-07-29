@@ -38,7 +38,7 @@ namespace SpliceMachine.Drda
                 case RSLSETRM:
                 case OPNQRYRM:
                 case ENDUOWRM:
-                    return new CompositeParameter(reader, size, codePoint);
+                    return new CompositeCommand(reader, size, codePoint);
 
                 // In fact they are composite but we don't need them right now
                 case MGRLVLLS:
@@ -46,26 +46,14 @@ namespace SpliceMachine.Drda
                 case PKGSNLST:
                     return new BytesParameter(reader, size, codePoint);
 
-                case SQLCARD:
-                    return new CommAreaGroupDescriptor(reader, size);
-
-                case SQLDARD:
-                    return new DescAreaGroupDescriptor(reader, size);
-
-                case SQLRSLRD:
-                    return new SqlResultSetData(reader, size);
-
-                case SQLCINRD:
-                    return new SqlResultSetColumnInfo(reader, size);
-
                 case QRYDSC:
-                    return new QueryAnswerSetDescriptor(reader, size);
-
                 case QRYDTA:
-                    return new QueryAnswerSetData(reader, size);
-
                 case EXTDTA:
-                    return new QueryAnswerSetExtraData(reader, size);
+                case SQLCARD:
+                case SQLDARD:
+                case SQLCINRD:
+                case SQLRSLRD:
+                    return new ReaderCommand(reader, size, codePoint);
 
                 case PBSD_ISO:
                 case SYNERRCD:

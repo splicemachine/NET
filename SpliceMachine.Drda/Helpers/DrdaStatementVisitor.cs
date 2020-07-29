@@ -85,65 +85,65 @@ namespace SpliceMachine.Drda
         }
 
         public Boolean Visit(
-            CommAreaRowDescResponse response)
+            CommAreaRowDescMessage message)
         {
             TraceInformation(
-                $"SQLCARD: '{String.Join(" / ", response.SqlMessages)}' [{response.RowsUpdated}]");
+                $"SQLCARD: '{String.Join(" / ", message.SqlMessages)}' [{message.RowsUpdated}]");
             return true;
         }
 
         public Boolean Visit(
-            DescAreaRowDescResponse response)
+            DescAreaRowDescMessage message)
         {
-            foreach (var column in response.Columns)
+            foreach (var column in message.Columns)
             {
                 TraceInformation(
                     $"Column: {column.BaseName}.{column.Name}");
             }
 
-            _context.Columns.AddRange(response.Columns);
+            _context.Columns.AddRange(message.Columns);
             return true;
         }
 
         public Boolean Visit(
-            QueryAnswerSetDataResponse response)
+            QueryAnswerSetDataMessage message)
         {
-            TraceInformation($"QRYDTA: HMD = {response.HasMoreData}");
-            _context.HasMoreData = response.HasMoreData;
+            TraceInformation($"QRYDTA: HMD = {message.HasMoreData}");
+            _context.HasMoreData = message.HasMoreData;
             return true;
         }
 
         public Boolean Visit(
-            QueryAnswerSetExtraDataResponse response)
+            QueryAnswerSetExtraMessage message)
         {
-            TraceInformation($"EXTDTA: {response.RequestCorrelationId}");
+            TraceInformation($"EXTDTA: {message.RequestCorrelationId}");
             return true;
         }
 
         public Boolean Visit(
-            QueryAnswerSetDescResponse response)
+            QueryAnswerSetDescMessage message)
         {
-            TraceInformation($"QRYDSC: {response.RequestCorrelationId}");
+            TraceInformation($"QRYDSC: {message.RequestCorrelationId}");
             return true;
         }
 
         public Boolean Visit(
-            SqlResultSetColumnInfoResponse response)
+            SqlResultSetColumnsMessage message)
         {
-            foreach (var column in response.Columns)
+            foreach (var column in message.Columns)
             {
                 TraceInformation(
                     $"Column: {column.BaseName}.{column.Name}");
             }
 
-            _context.Columns.AddRange(response.Columns);
+            _context.Columns.AddRange(message.Columns);
             return true;
         }
 
         public Boolean Visit(
-            SqlResultSetDataResponse response)
+            SqlResultSetDataMessage message)
         {
-            foreach (var resultSet in response.ResultSets)
+            foreach (var resultSet in message.ResultSets)
             {
                 TraceInformation(
                     $"Cursor: {resultSet.CursorName} -> {resultSet.Rows}");

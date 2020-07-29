@@ -2,15 +2,14 @@
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class QueryAnswerSetDataResponse : DrdaResponseBase
+    internal sealed class QueryAnswerSetDataMessage : DrdaResponseBase
     {
-        private readonly QueryAnswerSetData _queryAnswerSetData;
-
-        internal QueryAnswerSetDataResponse(
+        internal QueryAnswerSetDataMessage(
             ResponseMessage response)
             : base(response)
         {
-            _queryAnswerSetData = response.Command as QueryAnswerSetData;
+            // TODO: olegra - implement parsing logic correctly
+            ((ReaderCommand) response.Command).ConsumeAllBytes();
         }
 
         public Boolean HasMoreData => false; // TODO: olegra - implement it correctly

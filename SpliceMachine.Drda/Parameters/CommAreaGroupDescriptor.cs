@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class CommAreaGroupDescriptor : IDrdaMessage, ICommand
+    internal sealed class CommAreaGroupDescriptor
     {
-        private readonly Int32 _size;
-
         [SuppressMessage("ReSharper", "UnusedVariable")]
         public CommAreaGroupDescriptor(
-            DrdaStreamReader reader,
-            Int32 size)
+            DrdaStreamReader reader)
         {
-            _size = size;
-
             if (reader.ReadUInt8() == 0xFF)
             {
                 return;
@@ -53,21 +46,5 @@ namespace SpliceMachine.Drda
         public Int32 RowsUpdated { get; }
 
         public String SqlMessage { get; }
-
-        public Int32 GetSize() => _size;
-
-        public void Write(DrdaStreamWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CodePoint CodePoint => CodePoint.SQLCARD;
-
-        public IEnumerator<IDrdaMessage> GetEnumerator()
-        {
-            yield return this;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

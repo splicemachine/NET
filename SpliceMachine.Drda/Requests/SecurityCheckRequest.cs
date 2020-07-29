@@ -21,8 +21,8 @@ namespace SpliceMachine.Drda
             _password = password;
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.SECCHK,
                 new UInt16Parameter(CodePoint.SECMEC, 0x0003), // USRIDPWD
 

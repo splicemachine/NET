@@ -16,8 +16,8 @@ namespace SpliceMachine.Drda
                 requestCorrelationId) =>
             _correlationToken = endPoint.GetCorrelationToken();
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.ACCRDB,
                 Encoding.UTF8.GetParameter(CodePoint.RDBNAM, WellKnownStrings.DatabaseName),
                 new UInt16Parameter(CodePoint.RDBACCCL, 0x2407), // SQLAM
@@ -28,7 +28,7 @@ namespace SpliceMachine.Drda
                 Encoding.UTF8.GetParameter(CodePoint.PRDDTA, "Splice ODBC Driver"),
 
                 Encoding.ASCII.GetParameter(CodePoint.CRRTKN, _correlationToken),
-                new CompositeParameter(
+                new CompositeCommand(
                     CodePoint.TYPDEFOVR,
                     new UInt16Parameter(CodePoint.CCSIDSBC, 1208), // CCSID_1208
                     new UInt16Parameter(CodePoint.CCSIDDBC, 1208), // CCSID_1208

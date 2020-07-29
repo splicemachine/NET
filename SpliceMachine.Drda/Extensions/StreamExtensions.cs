@@ -51,11 +51,11 @@ namespace SpliceMachine.Drda
             return response.Command.CodePoint switch
             {
                 PBSD => new PiggyBackSchemaDescResponse(response),
-                QRYDSC => new QueryAnswerSetDescResponse(response),
-                QRYDTA => new QueryAnswerSetDataResponse(response),
-                EXTDTA => new QueryAnswerSetExtraDataResponse(response),
-                SQLCARD => new CommAreaRowDescResponse(response),
-                SQLDARD => new DescAreaRowDescResponse(response),
+                QRYDSC => new QueryAnswerSetDescMessage(response),
+                QRYDTA => new QueryAnswerSetDataMessage(response),
+                EXTDTA => new QueryAnswerSetExtraMessage(response),
+                SQLCARD => new CommAreaRowDescMessage(response),
+                SQLDARD => new DescAreaRowDescMessage(response),
                 EXSATRM => new ExchangeServerAttributesResponse(response),
                 ACCSECRM => new AccessSecurityDataResponse(response),
                 SECCHKRM => new SecurityCheckResponse(response),
@@ -65,9 +65,9 @@ namespace SpliceMachine.Drda
                 RDBUPDRM => new RelationalDatabaseUpdateResponse(response),
                 SYNTAXRM => new SyntaxResponse(response),
                 RSLSETRM => new RelationalDatabaseResultSetResponse(response),
-                SQLRSLRD => new SqlResultSetDataResponse(response),
+                SQLRSLRD => new SqlResultSetDataMessage(response),
                 OPNQRYRM => new OpenQueryCompleteResponse(response),
-                SQLCINRD => new SqlResultSetColumnInfoResponse(response),
+                SQLCINRD => new SqlResultSetColumnsMessage(response),
                 ENDUOWRM => new EndUnitOfWorkResponse(response),
                 _ => throw new InvalidOperationException()
             };

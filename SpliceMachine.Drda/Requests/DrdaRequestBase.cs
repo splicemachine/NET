@@ -23,6 +23,6 @@ namespace SpliceMachine.Drda
             }
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() => default;
+        CompositeCommand IDrdaRequest.GetCommand() => default;
     }
 }

@@ -39,8 +39,8 @@ namespace SpliceMachine.Drda
         {
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.EXCSAT,
                 EncodingEbcdic.GetParameter(CodePoint.EXTNAM, "derbydncmain"),
                 EncodingEbcdic.GetParameter(CodePoint.SRVCLSNM, "SM/WIN32"),

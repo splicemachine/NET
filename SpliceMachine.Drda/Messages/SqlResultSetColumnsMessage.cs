@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class SqlResultSetColumnInfo : IDrdaMessage, ICommand
+    internal sealed class SqlResultSetColumnsMessage : DrdaResponseBase
     {
         private readonly List<DrdaColumn> _columns;
 
-        private readonly Int32 _size;
-
-        [SuppressMessage("ReSharper", "UnusedVariable")]
-        public SqlResultSetColumnInfo(
-            DrdaStreamReader reader,
-            Int32 size)
+        internal SqlResultSetColumnsMessage(
+            ResponseMessage response)
+            : base(response)
         {
-            _size = size;
+            var reader = ((ReaderCommand) response.Command).Reader;
 
             // SQLDHROW INDICATOR
             reader.ReadUInt8();
@@ -50,20 +45,7 @@ namespace SpliceMachine.Drda
 
         public IReadOnlyList<DrdaColumn> Columns => _columns;
 
-        public Int32 GetSize() => _size;
-
-        public void Write(DrdaStreamWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CodePoint CodePoint => CodePoint.SQLCINRD;
-
-        public IEnumerator<IDrdaMessage> GetEnumerator()
-        {
-            yield return this;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class CommAreaRowDescResponse : DrdaResponseBase
+    public sealed class CommAreaRowDescMessage : DrdaResponseBase
     {
         private static readonly Char[] MessagesSeparator = { (Char)0x14 };
 
@@ -11,11 +11,13 @@ namespace SpliceMachine.Drda
 
         private readonly String[] _messages;
 
-        internal CommAreaRowDescResponse(
+        internal CommAreaRowDescMessage(
             ResponseMessage response)
             : base(response)
         {
-            _commAreaGroupDescriptor = response.Command as CommAreaGroupDescriptor;
+            var reader = ((ReaderCommand) response.Command).Reader;
+            _commAreaGroupDescriptor = new CommAreaGroupDescriptor(reader);
+
             _messages = _commAreaGroupDescriptor?.SqlMessage
                 .Split(MessagesSeparator, StringSplitOptions.RemoveEmptyEntries);
         }

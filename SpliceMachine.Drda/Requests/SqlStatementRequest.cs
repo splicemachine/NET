@@ -46,7 +46,7 @@ namespace SpliceMachine.Drda
         {
         }
 
-        public CompositeParameter GetCommand() => new CompositeParameter(
+        public CompositeCommand GetCommand() => new CompositeCommand(
             CodePoint.SQLSTT, new RawSqlData(_sqlStatement));
     }
 }

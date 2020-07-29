@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class DescAreaGroupDescriptor : IDrdaMessage, ICommand
+    internal sealed class DescAreaRowDescMessage : DrdaResponseBase
     {
         private readonly CommAreaGroupDescriptor _commAreaGroupDescriptor;
 
         private readonly List<DrdaColumn> _columns;
 
-        private readonly Int32 _size;
-
-        [SuppressMessage("ReSharper", "UnusedVariable")]
-        public DescAreaGroupDescriptor(
-            DrdaStreamReader reader,
-            Int32 size)
+        internal DescAreaRowDescMessage(
+            ResponseMessage response)
+            : base(response)
         {
-            _commAreaGroupDescriptor =
-                new CommAreaGroupDescriptor(reader, size);
-
-            _size = size;
+            var reader = ((ReaderCommand) response.Command).Reader;
+            _commAreaGroupDescriptor = new CommAreaGroupDescriptor(reader);
 
             if (reader.ReadUInt8() != 0xFF)
             {
@@ -45,25 +38,11 @@ namespace SpliceMachine.Drda
             }
         }
 
-        public Int32 GetSize() => _size;
-
-        public void Write(DrdaStreamWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CodePoint CodePoint => CodePoint.SQLDARD;
+        public Int32 SqlCode => _commAreaGroupDescriptor.SqlCode;
 
         public IReadOnlyList<DrdaColumn> Columns => _columns;
 
-        public Int32 SqlCode => _commAreaGroupDescriptor.SqlCode;
-
-        public IEnumerator<IDrdaMessage> GetEnumerator()
-        {
-            yield return _commAreaGroupDescriptor;
-            yield return this;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

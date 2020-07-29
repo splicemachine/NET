@@ -24,8 +24,8 @@ namespace SpliceMachine.Drda
         {
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.PRPSQLSTT,
                 new PackageSerialNumber(_packageSerialNumber),
                 new UInt8Parameter(CodePoint.RTNSQLDA, 0xF1),

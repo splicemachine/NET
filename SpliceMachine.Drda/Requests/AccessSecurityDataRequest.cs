@@ -12,8 +12,8 @@ namespace SpliceMachine.Drda
         {
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.ACCSEC,
                 EncodingEbcdic.GetParameter(CodePoint.RDBNAM, WellKnownStrings.DatabaseName),
                 new UInt16Parameter(CodePoint.SECMEC, 0x0003) // USRIDPWD

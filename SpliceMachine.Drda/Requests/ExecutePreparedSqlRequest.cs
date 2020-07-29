@@ -30,8 +30,8 @@ namespace SpliceMachine.Drda
         {
         }
 
-        CompositeParameter IDrdaRequest.GetCommand() =>
-            new CompositeParameter(
+        CompositeCommand IDrdaRequest.GetCommand() =>
+            new CompositeCommand(
                 CodePoint.EXCSQLSTT,
                 new PackageSerialNumber(_packageSerialNumber),
                 new UInt32Parameter(CodePoint.QRYBLKSZ, 0x100000),

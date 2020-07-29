@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SpliceMachine.Drda
 {
-    internal readonly struct CompositeParameter : IDrdaMessage, ICommand
+    internal readonly struct CompositeCommand : ICommand
     {
         private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
 
@@ -15,7 +15,7 @@ namespace SpliceMachine.Drda
 
         private readonly IDrdaMessage[] _parameters;
 
-        public CompositeParameter(
+        public CompositeCommand(
             CodePoint codePoint,
             params IDrdaMessage[] parameters)
         {
@@ -23,7 +23,7 @@ namespace SpliceMachine.Drda
             _parameters = parameters;
         }
 
-        public CompositeParameter(
+        public CompositeCommand(
             DrdaStreamReader reader,
             Int32 sizeWithoutHeader,
             CodePoint codePoint)

@@ -8,13 +8,13 @@ namespace SpliceMachine.Drda
 
         private readonly UInt16 _requestCorrelationId;
 
-        private readonly CompositeParameter _command;
+        private readonly CompositeCommand _command;
 
         private readonly MessageFormat _format;
 
         public RequestMessage(
             UInt16 requestCorrelationId,
-            CompositeParameter command,
+            CompositeCommand command,
             MessageFormat format)
         {
             _requestCorrelationId = requestCorrelationId;
