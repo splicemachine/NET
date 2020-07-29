@@ -11,7 +11,7 @@ namespace SpliceMachine.Drda
         private readonly String _password;
 
         public SecurityCheckRequest(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             String userName,
             String password)
             : base(

@@ -6,14 +6,14 @@ namespace SpliceMachine.Drda
     {
         private const Int32 BaseSize = sizeof(UInt16) + sizeof(Byte) + sizeof(Byte) + sizeof(UInt16);
 
-        private readonly Int32 _requestCorrelationId;
+        private readonly UInt16 _requestCorrelationId;
 
         private readonly CompositeParameter _command;
 
         private readonly MessageFormat _format;
 
         public RequestMessage(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             CompositeParameter command,
             MessageFormat format)
         {
@@ -30,7 +30,7 @@ namespace SpliceMachine.Drda
             writer.WriteUInt16((UInt16)GetSize());
             writer.WriteUInt8(0xD0); // DDMID
             writer.WriteUInt8((Byte)_format);
-            writer.WriteUInt16((UInt16)_requestCorrelationId);
+            writer.WriteUInt16(_requestCorrelationId);
 
             _command.Write(writer);
         }

@@ -8,14 +8,14 @@ namespace SpliceMachine.Drda
         private readonly UInt16 _packageSerialNumber;
 
         public PrepareSqlStatementRequest(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             UInt16 packageSerialNumber)
         {
             _packageSerialNumber = packageSerialNumber;
             RequestCorrelationId = requestCorrelationId;
         }
         
-        public Int32 RequestCorrelationId { get; }
+        public UInt16 RequestCorrelationId { get; }
 
         MessageFormat IDrdaRequest.Format => 
             Request | Chained | Correlated;

@@ -6,10 +6,10 @@ namespace SpliceMachine.Drda
         where TResponse : DrdaResponseBase
     {
         protected DrdaRequestBase(
-            Int32 requestCorrelationId) =>
+            UInt16 requestCorrelationId) =>
             RequestCorrelationId = requestCorrelationId;
 
-        public Int32 RequestCorrelationId { get; }
+        public UInt16 RequestCorrelationId { get; }
 
         MessageFormat IDrdaRequest.Format =>
             MessageFormat.Request;

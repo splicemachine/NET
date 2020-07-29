@@ -6,7 +6,7 @@ namespace SpliceMachine.Drda
         : DrdaRequestBase<AccessSecurityDataResponse>, IDrdaRequest
     {
         public AccessSecurityDataRequest(
-            Int32 requestCorrelationId)
+            UInt16 requestCorrelationId)
             : base(
                 requestCorrelationId)
         {

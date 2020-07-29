@@ -9,7 +9,7 @@ namespace SpliceMachine.Drda
         private readonly UInt64 _queryInstanceId;
 
         public CloseQueryRequest(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             UInt16 packageSerialNumber,
             UInt64 queryInstanceId)
         {
@@ -18,7 +18,7 @@ namespace SpliceMachine.Drda
             RequestCorrelationId = requestCorrelationId;
         }
         
-        public Int32 RequestCorrelationId { get; }
+        public UInt16 RequestCorrelationId { get; }
 
         MessageFormat IDrdaRequest.Format => MessageFormat.Request;
 

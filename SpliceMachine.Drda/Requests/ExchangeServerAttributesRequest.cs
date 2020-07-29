@@ -33,7 +33,7 @@ namespace SpliceMachine.Drda
         }
 
         public ExchangeServerAttributesRequest(
-            Int32 requestCorrelationId)
+            UInt16 requestCorrelationId)
             : base(
                 requestCorrelationId)
         {

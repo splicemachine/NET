@@ -10,7 +10,7 @@ namespace SpliceMachine.Drda
         private readonly String _correlationToken;
 
         public AccessRelationalDatabaseRequest(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             EndPoint endPoint)
             : base(
                 requestCorrelationId) =>

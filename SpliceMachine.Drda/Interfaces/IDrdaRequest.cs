@@ -4,7 +4,7 @@ namespace SpliceMachine.Drda
 {
     internal interface IDrdaRequest
     {
-        Int32 RequestCorrelationId { get; }
+        UInt16 RequestCorrelationId { get; }
 
         MessageFormat Format { get; }
 

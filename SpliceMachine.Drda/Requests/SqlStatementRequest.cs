@@ -30,14 +30,14 @@ namespace SpliceMachine.Drda
         }
 
         public SqlStatementRequest(
-            Int32 requestCorrelationId,
+            UInt16 requestCorrelationId,
             String sqlStatement)
         {
             RequestCorrelationId = requestCorrelationId;
             _sqlStatement = sqlStatement;
         }
 
-        public Int32 RequestCorrelationId { get; }
+        public UInt16 RequestCorrelationId { get; }
 
         public MessageFormat Format => MessageFormat.DataObject;
 
