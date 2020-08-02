@@ -2,8 +2,6 @@
 
 namespace SpliceMachine.Drda
 {
-    using static System.Diagnostics.Trace;
-
     public sealed class ExchangeServerAttributesResponse : DrdaResponseBase
     {
         internal ExchangeServerAttributesResponse(

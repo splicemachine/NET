@@ -51,6 +51,8 @@ namespace SpliceMachine.Drda
 
         public Boolean Execute()
         {
+            _context.IsColumnsListFinalized = true;
+
             var stream = _connection.GetStream();
 
             if (!_isPackagePreparedSuccessfully ||
@@ -69,6 +71,14 @@ namespace SpliceMachine.Drda
 
             return CloseQuery(stream, _connection.GetNextRequestCorrelationId());
         }
+
+        public Boolean Fetch() => _context.Fetch();
+
+        public Int32 Columns => _context.Columns.Count;
+
+        public String GetColumnName(Int32 index) => _context.Columns[index].Name;
+
+        public Object GetColumnValue(Int32 index) => _context[index];
 
         private Boolean PreparePackage(
             in NetworkStream stream,

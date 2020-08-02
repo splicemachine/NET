@@ -28,7 +28,21 @@ namespace SpliceMachine.Connection
                 Console.WriteLine();
 
                 //connection.CreateStatement("SET SCHEMA SYS").Execute(); // Immediate
-                connection.CreateStatement("SELECT * FROM SYS.SYSTABLES").Prepare().Execute(); // Prepared
+
+                var statement = connection.CreateStatement("SELECT * FROM SYS.SYSTABLES").Prepare();  // Prepared
+                if (statement.Execute())
+                {
+                    while (statement.Fetch())
+                    {
+                        for (var index = 0; index < statement.Columns; ++index)
+                        {
+                            Console.WriteLine(
+                                $"{statement.GetColumnName(index)} = {statement.GetColumnValue(index) ?? "NULL"}");
+                        }
+
+                        Console.WriteLine();
+                    }
+                }
 
                 Console.ReadLine();
             }

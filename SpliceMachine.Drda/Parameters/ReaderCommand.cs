@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SpliceMachine.Drda
 {
@@ -33,14 +34,12 @@ namespace SpliceMachine.Drda
             writer.WriteBytes(Reader?.ReadBytes(_totalByteLength));
         }
 
-        public IEnumerator<IDrdaMessage> GetEnumerator()
-        {
-            yield return this;
-        }
+        public IEnumerator<IDrdaMessage> GetEnumerator() => 
+            Enumerable.Empty<IDrdaMessage>().GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void ConsumeAllBytes() => 
+        public Byte[] GetMessageBytes() => 
             Reader?.ReadBytes(_totalByteLength);
     }
 }

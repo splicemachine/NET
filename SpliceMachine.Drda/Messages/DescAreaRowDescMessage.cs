@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpliceMachine.Drda
 {
@@ -9,6 +10,7 @@ namespace SpliceMachine.Drda
 
         private readonly List<DrdaColumn> _columns;
 
+        [SuppressMessage("ReSharper", "UnusedVariable")]
         internal DescAreaRowDescMessage(
             ResponseMessage response)
             : base(response)

@@ -42,5 +42,15 @@ namespace SpliceMachine.Drda
             return new DrdaStatementVisitor(AllowedCodePoints, context)
                 .ProcessChainedResponses(stream);
         }
+
+        public Boolean Fetch() => false;
+
+        public Int32 Columns => 0;
+
+        public String GetColumnName(Int32 index) => 
+            throw new InvalidOperationException();
+
+        public Object GetColumnValue(Int32 index) => 
+            throw new InvalidOperationException();
     }
 }

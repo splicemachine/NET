@@ -9,7 +9,7 @@ namespace SpliceMachine.Drda
             : base(response)
         {
             // TODO: olegra - implement parsing logic correctly
-            ((ReaderCommand) response.Command).ConsumeAllBytes();
+            ((ReaderCommand) response.Command).GetMessageBytes();
         }
 
         internal override Boolean Accept(

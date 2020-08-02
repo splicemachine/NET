@@ -109,6 +109,10 @@ namespace SpliceMachine.Drda
             QueryAnswerSetDataMessage message)
         {
             TraceInformation($"QRYDTA: HMD = {message.HasMoreData}");
+            while (message.ProcessAndFillQueryContextData(_context))
+            {
+                TraceInformation("-------- Next row fetched...");
+            }
             _context.HasMoreData = message.HasMoreData;
             return true;
         }
@@ -124,12 +128,18 @@ namespace SpliceMachine.Drda
             QueryAnswerSetDescMessage message)
         {
             TraceInformation($"QRYDSC: {message.RequestCorrelationId}");
+            message.ProcessAndFillQueryContextData(_context);
             return true;
         }
 
         public Boolean Visit(
             SqlResultSetColumnsMessage message)
         {
+            if (_context.IsColumnsListFinalized)
+            {
+                return true;
+            }
+
             foreach (var column in message.Columns)
             {
                 TraceInformation(
