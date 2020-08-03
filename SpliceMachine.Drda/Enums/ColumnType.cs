@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace SpliceMachine.Drda
 {
     [Flags]
+    [SuppressMessage("ReSharper", "IdentifierTypo")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal enum ColumnType : byte
     {
@@ -35,6 +36,38 @@ namespace SpliceMachine.Drda
 
         BOOLEAN = 0xBE,
 
-        NBOOLEAN = 0xBF
+        NBOOLEAN = 0xBF,
+
+        SMALL = 0x04,
+
+        NSMALL = 0x05,
+
+        DATE = 0x20,
+
+        NDATE = 0x21,
+
+        INTEGER8 = 0x16,
+
+        NINTEGER8 = 0x17,
+
+        FLOAT8 = 0x0A,
+        
+        NFLOAT8 = 0x0B,
+        
+        FLOAT4 = 0x0C,
+        
+        NFLOAT4 = 0x0D,
+
+        TIME = 0x22,
+
+        NTIME = 0x23,
+
+        TIMESTAMP = 0x24,
+
+        NTIMESTAMP = 0x25,
+
+        DECIMAL = 0x0E,
+
+        NDECIMAL = 0x0F
     }
 }

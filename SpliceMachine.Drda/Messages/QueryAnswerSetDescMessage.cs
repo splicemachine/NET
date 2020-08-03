@@ -30,7 +30,7 @@ namespace SpliceMachine.Drda
         internal override Boolean Accept(
             DrdaStatementVisitor visitor) => visitor.Visit(this);
 
-        internal void ProcessAndFillQueryContextData(
+        internal void Process(
             QueryContext context)
         {
             using var stream = new MemoryStream(_messageBytes, false);

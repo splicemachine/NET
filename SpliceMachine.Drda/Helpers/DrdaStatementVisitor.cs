@@ -108,12 +108,8 @@ namespace SpliceMachine.Drda
         public Boolean Visit(
             QueryAnswerSetDataMessage message)
         {
-            TraceInformation($"QRYDTA: HMD = {message.HasMoreData}");
-            while (message.ProcessAndFillQueryContextData(_context))
-            {
-                TraceInformation("-------- Next row fetched...");
-            }
-            _context.HasMoreData = message.HasMoreData;
+            TraceInformation($"QRYDTA: {message.RequestCorrelationId}");
+            message.Process(_context);
             return true;
         }
 
@@ -128,7 +124,7 @@ namespace SpliceMachine.Drda
             QueryAnswerSetDescMessage message)
         {
             TraceInformation($"QRYDSC: {message.RequestCorrelationId}");
-            message.ProcessAndFillQueryContextData(_context);
+            message.Process(_context);
             return true;
         }
 
