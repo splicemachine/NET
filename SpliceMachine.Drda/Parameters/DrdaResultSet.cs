@@ -14,13 +14,13 @@ namespace SpliceMachine.Drda
             Rows = reader.ReadUInt32();
         }
 
-        public UInt16 Locator { get; }
+        public UInt32 Locator { get; }
 
         public String CursorName { get; }
 
-        public UInt16 Rows { get; }
+        public UInt32 Rows { get; }
 
-        public Int32 GetSize() => 0;
+        public UInt32 GetSize() => 0;
 
         public void Write(DrdaStreamWriter writer)
         {

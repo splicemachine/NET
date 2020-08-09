@@ -7,13 +7,13 @@ namespace SpliceMachine.Drda
 {
     internal readonly struct ReaderCommand : ICommand
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
 
-        private readonly Int32 _totalByteLength;
+        private readonly UInt32 _totalByteLength;
 
         public ReaderCommand(
             DrdaStreamReader reader,
-            Int32 totalByteLength,
+            UInt32 totalByteLength,
             CodePoint codePoint)
         {
             _totalByteLength = totalByteLength - BaseSize;
@@ -23,7 +23,7 @@ namespace SpliceMachine.Drda
 
         public DrdaStreamReader Reader { get; }
 
-        public Int32 GetSize() => BaseSize + _totalByteLength;
+        public UInt32 GetSize() => BaseSize + _totalByteLength;
 
         public CodePoint CodePoint { get; }
 

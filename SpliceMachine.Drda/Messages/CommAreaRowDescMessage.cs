@@ -22,11 +22,11 @@ namespace SpliceMachine.Drda
                 .Split(MessagesSeparator, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public Int32 SqlCode => _commAreaGroupDescriptor.SqlCode;
+        public UInt32 SqlCode => _commAreaGroupDescriptor.SqlCode;
 
         public String SqlState => _commAreaGroupDescriptor.SqlState;
 
-        public Int32 RowsUpdated => _commAreaGroupDescriptor.RowsUpdated;
+        public UInt32 RowsUpdated => _commAreaGroupDescriptor.RowsUpdated;
 
         public IReadOnlyCollection<String> SqlMessages => _messages;
 

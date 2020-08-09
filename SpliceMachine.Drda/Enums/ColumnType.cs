@@ -68,6 +68,14 @@ namespace SpliceMachine.Drda
 
         DECIMAL = 0x0E,
 
-        NDECIMAL = 0x0F
+        NDECIMAL = 0x0F,
+
+        LOBBYTES = 0xC8,
+
+        NLOBBYTES = 0xC9,
+
+        LOBCMIXED = 0xCE,
+
+        NLOBCMIXED = 0xCF
     }
 }

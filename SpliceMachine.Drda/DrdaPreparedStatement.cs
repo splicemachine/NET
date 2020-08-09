@@ -12,6 +12,10 @@ namespace SpliceMachine.Drda
             new SortedSet<CodePoint>
                 { SQLERRRM, CMDCHKRM, SQLCARD, SQLDARD };
 
+        private static readonly ISet<CodePoint> AllowedCodePointsForDescribeQuery =
+            new SortedSet<CodePoint>
+                { SQLERRRM, CMDCHKRM, SQLCARD, SQLDARD };
+
         private static readonly ISet<CodePoint> AllowedCodePointsForExecutePackage =
             new HashSet<CodePoint>
                 { SQLERRRM, CMDCHKRM, SQLCARD, SQLDARD, PBSD, QRYDSC, RSLSETRM,
@@ -40,7 +44,8 @@ namespace SpliceMachine.Drda
             _sqlStatement = sqlStatement;
             _connection = connection;
 
-            _context = new QueryContext(_connection);
+            _context = new QueryContext(
+                _connection, _sqlStatement.Contains("?"));
 
             _isPackagePreparedSuccessfully = PreparePackage
                 (_connection.GetStream(), 
@@ -51,7 +56,7 @@ namespace SpliceMachine.Drda
 
         public Boolean Execute()
         {
-            _context.IsColumnsListFinalized = true;
+            _context.ColumnMode = ColumnMode.Ignore;
 
             var stream = _connection.GetStream();
 
@@ -80,6 +85,9 @@ namespace SpliceMachine.Drda
 
         public Object GetColumnValue(Int32 index) => _context[index];
 
+        public void SetParameterValue(Int32 index, Object value) => 
+            _context.Parameters[index].Value = value;
+
         private Boolean PreparePackage(
             in NetworkStream stream,
             in UInt16 requestCorrelationId)
@@ -90,10 +98,27 @@ namespace SpliceMachine.Drda
                 .SendRequest(new SqlStatementRequest(
                     requestCorrelationId, _sqlStatement));
 
-            // TODO: olegra - add parameters description request/response processing
+            _context.ColumnMode = ColumnMode.Columns;
 
-            return new DrdaStatementVisitor(AllowedCodePointsForPreparePackage, _context)
-                .ProcessChainedResponses(stream);
+            if (!new DrdaStatementVisitor(AllowedCodePointsForPreparePackage, _context)
+                .ProcessChainedResponses(stream))
+            {
+                return false;
+            }
+
+            if (_context.HasParameters)
+            {
+                stream.SendRequest(new DescribeSqlStatementRequest(
+                    _connection.GetNextRequestCorrelationId(),
+                    _context.PackageSerialNumber));
+
+                _context.ColumnMode = ColumnMode.Parameters;
+
+                return new DrdaStatementVisitor(AllowedCodePointsForDescribeQuery, _context)
+                    .ProcessChainedResponses(stream);
+            }
+
+            return true;
         }
 
         private Boolean ExecutePackage(
@@ -101,9 +126,15 @@ namespace SpliceMachine.Drda
             in UInt16 requestCorrelationId)
         {
             stream.SendRequest(new ExecutePreparedSqlRequest(
-                requestCorrelationId, _context.PackageSerialNumber, false));
+                requestCorrelationId, _context.PackageSerialNumber, _context.HasParameters));
 
-            // TODO: olegra - add parameters values chaining 
+            if (_context.HasParameters)
+            {
+                stream.SendRequest(new SqlRowDataDescMessage(
+                    requestCorrelationId, _context.Parameters));
+
+                // TODO: olegra - send BLOB parameters data here
+            }
 
             return new DrdaStatementVisitor(AllowedCodePointsForExecutePackage, _context)
                 .ProcessChainedResponses(stream);

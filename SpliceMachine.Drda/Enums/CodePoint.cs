@@ -130,6 +130,14 @@ namespace SpliceMachine.Drda
 
         QRYATTUPD = 0x2150,
 
-        PKGSNLST = 0x2139
+        PKGSNLST = 0x2139,
+
+        DSCSQLSTT = 0x2008,
+
+        SQLDTA = 0x2412,
+
+        FDODSC = 0x0010,
+
+        FDODTA = 0x147A
     }
 }

@@ -4,7 +4,7 @@ namespace SpliceMachine.Drda
 {
     internal readonly struct BytesParameter : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
 
         public BytesParameter(
             CodePoint codePoint,
@@ -16,7 +16,7 @@ namespace SpliceMachine.Drda
 
         public BytesParameter(
             DrdaStreamReader reader, 
-            Int32 byteArraySize,
+            UInt32 byteArraySize,
             CodePoint codePoint)
             : this(
                 codePoint,
@@ -27,7 +27,7 @@ namespace SpliceMachine.Drda
 
         public Byte[] Value { get; }
 
-        public Int32 GetSize() => BaseSize + Value.Length;
+        public UInt32 GetSize() => BaseSize + (UInt32)Value.Length;
 
         public CodePoint CodePoint { get; }
 

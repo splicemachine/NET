@@ -95,14 +95,34 @@ namespace SpliceMachine.Drda
         public Boolean Visit(
             DescAreaRowDescMessage message)
         {
-            foreach (var column in message.Columns)
+            switch (_context.ColumnMode)
             {
-                TraceInformation(
-                    $"Column: {column.BaseName}.{column.Name}");
-            }
+                case ColumnMode.Ignore:
+                    return true;
 
-            _context.Columns.AddRange(message.Columns);
-            return true;
+                case ColumnMode.Columns:
+                    foreach (var column in message.Columns)
+                    {
+                        TraceInformation(
+                            $"Column: {column.BaseName}.{column.Name}");
+                    }
+
+                    _context.Columns.AddRange(message.Columns);
+                    return true;
+
+                case ColumnMode.Parameters:
+                    foreach (var column in message.Columns)
+                    {
+                        TraceInformation(
+                            $"Parameter: {column.BaseName}.{column.Name}");
+                    }
+
+                    _context.Parameters.AddRange(message.Columns);
+                    return true;
+
+                default:
+                    return false;
+            }
         }
 
         public Boolean Visit(
@@ -131,19 +151,34 @@ namespace SpliceMachine.Drda
         public Boolean Visit(
             SqlResultSetColumnsMessage message)
         {
-            if (_context.IsColumnsListFinalized)
+            switch (_context.ColumnMode)
             {
-                return true;
-            }
+                case ColumnMode.Ignore:
+                    return true;
 
-            foreach (var column in message.Columns)
-            {
-                TraceInformation(
-                    $"Column: {column.BaseName}.{column.Name}");
-            }
+                case ColumnMode.Columns:
+                    foreach (var column in message.Columns)
+                    {
+                        TraceInformation(
+                            $"Column: {column.BaseName}.{column.Name}");
+                    }
 
-            _context.Columns.AddRange(message.Columns);
-            return true;
+                    _context.Columns.AddRange(message.Columns);
+                    return true;
+
+                case ColumnMode.Parameters:
+                    foreach (var column in message.Columns)
+                    {
+                        TraceInformation(
+                            $"Parameter: {column.BaseName}.{column.Name}");
+                    }
+
+                    _context.Parameters.AddRange(message.Columns);
+                    return true;
+
+                default:
+                    return false;
+            }
         }
 
         public Boolean Visit(

@@ -29,7 +29,7 @@ namespace SpliceMachine.Drda
         public Boolean Execute()
         {
             var stream = _connection.GetStream();
-            var context = new QueryContext(_connection);
+            var context = new QueryContext(_connection, false);
 
             var requestCorrelationId = _connection.GetNextRequestCorrelationId();
 
@@ -51,6 +51,9 @@ namespace SpliceMachine.Drda
             throw new InvalidOperationException();
 
         public Object GetColumnValue(Int32 index) => 
+            throw new InvalidOperationException();
+
+        public void SetParameterValue(Int32 index, Object value) =>
             throw new InvalidOperationException();
     }
 }

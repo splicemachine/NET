@@ -7,7 +7,7 @@ namespace SpliceMachine.Drda
     {
         private readonly struct ManagerLevels : IDrdaMessage
         {
-            private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
+            private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
 
             private static readonly UInt16[] Values = 
             {
@@ -18,7 +18,7 @@ namespace SpliceMachine.Drda
                 0x1C08, 1208 // UNICODEMGR, CCSID_1208
             };
 
-            public Int32 GetSize() => BaseSize + sizeof(UInt16) * Values.Length;
+            public UInt32 GetSize() => BaseSize + sizeof(UInt16) * (UInt32) Values.Length;
 
             public void Write(DrdaStreamWriter writer)
             {

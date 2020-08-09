@@ -1,13 +1,12 @@
 ﻿using System;
-using static SpliceMachine.Drda.MessageFormat;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class PrepareSqlStatementRequest : IDrdaRequest
+    internal sealed class DescribeSqlStatementRequest : IDrdaRequest
     {
         private readonly UInt16 _packageSerialNumber;
 
-        public PrepareSqlStatementRequest(
+        public DescribeSqlStatementRequest(
             UInt16 requestCorrelationId,
             UInt16 packageSerialNumber)
         {
@@ -17,8 +16,7 @@ namespace SpliceMachine.Drda
         
         public UInt16 RequestCorrelationId { get; }
 
-        MessageFormat IDrdaRequest.Format => 
-            Request | Chained | Correlated;
+        MessageFormat IDrdaRequest.Format => MessageFormat.Request;
 
         public void CheckResponseType(DrdaResponseBase response)
         {
@@ -26,9 +24,8 @@ namespace SpliceMachine.Drda
 
         CompositeCommand IDrdaRequest.GetCommand() =>
             new CompositeCommand(
-                CodePoint.PRPSQLSTT,
+                CodePoint.DSCSQLSTT,
                 new PackageSerialNumber(_packageSerialNumber),
-                new UInt8Parameter(CodePoint.RTNSQLDA, 0xF1),
-                new UInt8Parameter(CodePoint.TYPSQLDA, 4)); // SQLDA_EO
+                new UInt8Parameter(CodePoint.TYPSQLDA, 5)); // SQLDA_EI
     }
 }

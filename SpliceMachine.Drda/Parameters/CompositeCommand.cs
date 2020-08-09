@@ -25,7 +25,7 @@ namespace SpliceMachine.Drda
 
         public CompositeCommand(
             DrdaStreamReader reader,
-            Int32 sizeWithoutHeader,
+            UInt32 sizeWithoutHeader,
             CodePoint codePoint)
             : this(
                 codePoint,
@@ -33,7 +33,7 @@ namespace SpliceMachine.Drda
         {
         }
 
-        public Int32 GetSize() => BaseSize + checkAndAdjustForSegmentation(
+        public UInt32 GetSize() => BaseSize + checkAndAdjustForSegmentation(
             _parameters.Sum(_ => _.GetSize()));
 
         public CodePoint CodePoint { get; }
@@ -46,11 +46,11 @@ namespace SpliceMachine.Drda
             {
                 writer.WriteUInt16(SegmentFlag);
                 writer.WriteUInt16((UInt16)CodePoint);
-                writer.WriteUInt32((UInt32)GetSize());
+                writer.WriteUInt32(size);
             }
             else
             {
-                writer.WriteUInt16((UInt16)GetSize());
+                writer.WriteUInt16((UInt16)size);
                 writer.WriteUInt16((UInt16)CodePoint);
             }
 
@@ -62,7 +62,7 @@ namespace SpliceMachine.Drda
 
         private static IEnumerable<IDrdaMessage> ReadParameters(
             DrdaStreamReader reader,
-            Int32 size)
+            UInt32 size)
         {
             while (size > BaseSize)
             {
@@ -72,8 +72,8 @@ namespace SpliceMachine.Drda
             }
         }
 
-        private Int32 checkAndAdjustForSegmentation(Int32 size) => 
-            size > MaxSize ? size + sizeof(UInt32) : size;
+        private UInt32 checkAndAdjustForSegmentation(Int64 size) => 
+            size > MaxSize ? (UInt32)size + sizeof(UInt32) : (UInt32)size;
 
         public IEnumerator<IDrdaMessage> GetEnumerator() => 
             _parameters.AsEnumerable().GetEnumerator();

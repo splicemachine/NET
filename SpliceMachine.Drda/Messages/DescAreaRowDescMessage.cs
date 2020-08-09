@@ -40,7 +40,7 @@ namespace SpliceMachine.Drda
             }
         }
 
-        public Int32 SqlCode => _commAreaGroupDescriptor.SqlCode;
+        public UInt32 SqlCode => _commAreaGroupDescriptor.SqlCode;
 
         public IReadOnlyList<DrdaColumn> Columns => _columns;
 

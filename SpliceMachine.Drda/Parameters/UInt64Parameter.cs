@@ -4,7 +4,7 @@ namespace SpliceMachine.Drda
 {
     internal class UInt64Parameter : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(UInt64);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(UInt64);
 
         public UInt64Parameter(
             CodePoint codePoint,
@@ -25,7 +25,7 @@ namespace SpliceMachine.Drda
 
         public UInt64 Value { get; }
 
-        public Int32 GetSize() => BaseSize;
+        public UInt32 GetSize() => BaseSize;
 
         public CodePoint CodePoint { get; }
 

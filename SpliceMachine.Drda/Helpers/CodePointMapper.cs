@@ -10,7 +10,7 @@ namespace SpliceMachine.Drda
         public static IDrdaMessage Deserialize(
             DrdaStreamReader reader)
         {
-            var size = (Int32)reader.ReadUInt16();
+            var size = (UInt32)reader.ReadUInt16();
             var codePoint = (CodePoint)reader.ReadUInt16();
 
             if (size == 0x8004)
@@ -71,6 +71,7 @@ namespace SpliceMachine.Drda
                     return new UInt64Parameter(reader, codePoint);
 
                 case PRDID:
+                case RDBNAM:
                 case EXTNAM:
                 case SRVNAM:
                 case SRVCLSNM:
@@ -81,7 +82,7 @@ namespace SpliceMachine.Drda
                     return new BytesParameter(reader, size, codePoint);
 
                 default:
-                    TraceWarning("Unknown code point value: {0:X}", codePoint);
+                    TraceWarning("Unknown code point value: 0x{0:X}", codePoint);
                     return new BytesParameter(reader, size, codePoint);
             }
         }

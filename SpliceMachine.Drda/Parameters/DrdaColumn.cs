@@ -12,7 +12,7 @@ namespace SpliceMachine.Drda
             Precision = reader.ReadUInt16();
             Scale = reader.ReadUInt16();
             Length = reader.ReadUInt64();
-            Db2Type = reader.ReadUInt16();
+            Db2Type = (Db2Type)reader.ReadUInt16();
             
             CcsId = reader.ReadUInt16();
             ArrayExt = reader.ReadUInt8();
@@ -50,7 +50,7 @@ namespace SpliceMachine.Drda
 
         public UInt64 Length { get; }
 
-        public UInt16 Db2Type { get; }
+        public Db2Type Db2Type { get; }
 
         public UInt16 CcsId { get; }
 
@@ -90,7 +90,9 @@ namespace SpliceMachine.Drda
 
         public UInt16 TripletDataSize { get; set; }
 
-        public Int32 GetSize() => 0;
+        public Object Value { get; set; }
+
+        public UInt32 GetSize() => 0;
 
         public void Write(DrdaStreamWriter writer)
         {

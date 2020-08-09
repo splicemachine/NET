@@ -46,7 +46,7 @@ namespace SpliceMachine.Drda
 
                 if (id != 0xD0)
                 {
-                    reader.ReadBytes(length - 3);
+                    reader.ReadBytes((UInt32)length - 3);
                     continue;
                 }
 

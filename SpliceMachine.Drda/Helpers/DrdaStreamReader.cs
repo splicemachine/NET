@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace SpliceMachine.Drda
@@ -19,7 +20,7 @@ namespace SpliceMachine.Drda
             return (UInt16)((result << 8) | _stream.ReadByte());
         }
 
-        public UInt16 ReadUInt32()
+        public UInt32 ReadUInt32()
         {
             var result = _stream.ReadByte();
             result = (UInt16)((result << 8) | _stream.ReadByte());
@@ -39,10 +40,17 @@ namespace SpliceMachine.Drda
             return (result << 8) | (UInt32)_stream.ReadByte();
         }
 
-        public Byte[] ReadBytes(Int32 parameterSize)
+        public Byte[] ReadBytes(UInt32 parameterSize)
         {
             var buffer = new Byte[parameterSize];
-            _stream.Read(buffer, 0, parameterSize);
+            if (parameterSize > 0)
+            {
+                var x = _stream.Read(buffer, 0, buffer.Length);
+                if (x != buffer.Length)
+                {
+                    Trace.TraceInformation($"Read({buffer.Length}) -> {x}");
+                }
+            }
             return buffer;
         }
     }

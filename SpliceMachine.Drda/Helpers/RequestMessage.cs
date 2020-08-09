@@ -4,7 +4,7 @@ namespace SpliceMachine.Drda
 {
     internal readonly struct RequestMessage : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(Byte) + sizeof(Byte) + sizeof(UInt16);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(Byte) + sizeof(Byte) + sizeof(UInt16);
 
         private readonly UInt16 _requestCorrelationId;
 
@@ -22,7 +22,7 @@ namespace SpliceMachine.Drda
             _format = format;
         }
 
-        public Int32 GetSize() => BaseSize + _command.GetSize();
+        public UInt32 GetSize() => BaseSize + _command.GetSize();
 
         public void Write(
             DrdaStreamWriter writer)

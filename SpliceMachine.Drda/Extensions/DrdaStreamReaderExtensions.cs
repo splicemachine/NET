@@ -35,11 +35,13 @@ namespace SpliceMachine.Drda
             0.0000000000000000000000001M,
             0.00000000000000000000000001M,
             0.000000000000000000000000001M,
-            0.0000000000000000000000000001M,
-            0.00000000000000000000000000001M,
-            0.000000000000000000000000000001M,
-            0.0000000000000000000000000000001M
+            0.0000000000000000000000000001M
         };
+
+        public static Object ReadColumnValue(
+            this DrdaStreamReader reader,
+            DrdaColumn column) =>
+            column.ReadColumnValue(reader);
 
         public static Decimal ReadDecimal(
             this DrdaStreamReader reader,
@@ -81,16 +83,16 @@ namespace SpliceMachine.Drda
         {
             var buffer = new StringBuilder(maxLength);
 
-            while (maxLength-- != 0)
+            do
             {
-                var character = (Char)reader.ReadUInt8();
+                var character = (Char) reader.ReadUInt8();
                 if (character == 0x00)
                 {
                     break;
                 }
 
                 buffer.Append(character);
-            }
+            } while (--maxLength != 0);
 
             return buffer.ToString();
         }
@@ -142,8 +144,8 @@ namespace SpliceMachine.Drda
             this DrdaStreamReader reader,
             Byte hiByte)
         {
-            var size = (hiByte << 8) |reader.ReadUInt8();
-            var bytes = reader.ReadBytes(size);
+            var size = (hiByte << 8) | reader.ReadUInt8();
+            var bytes = reader.ReadBytes((UInt32) size);
             return Encoding.UTF8.GetString(bytes);
         }
     }

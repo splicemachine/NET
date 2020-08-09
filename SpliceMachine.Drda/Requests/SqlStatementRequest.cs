@@ -17,7 +17,7 @@ namespace SpliceMachine.Drda
                 String sqlStatement) =>
                 _sqlStatement = sqlStatement;
 
-            public Int32 GetSize() => BaseSize + _sqlStatement.Length;
+            public UInt32 GetSize() => BaseSize + (UInt32) _sqlStatement.Length;
 
             public void Write(
                 DrdaStreamWriter writer)

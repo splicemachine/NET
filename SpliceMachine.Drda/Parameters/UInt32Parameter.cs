@@ -4,7 +4,7 @@ namespace SpliceMachine.Drda
 {
     internal readonly struct UInt32Parameter : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(UInt32);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16) + sizeof(UInt32);
 
         public UInt32Parameter(
             CodePoint codePoint,
@@ -25,7 +25,7 @@ namespace SpliceMachine.Drda
 
         public UInt32 Value { get; }
 
-        public Int32 GetSize() => BaseSize;
+        public UInt32 GetSize() => BaseSize;
 
         public CodePoint CodePoint { get; }
 

@@ -5,7 +5,7 @@ namespace SpliceMachine.Drda
 {
     internal readonly struct PackageSerialNumber : IDrdaMessage
     {
-        private const Int32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
+        private const UInt32 BaseSize = sizeof(UInt16) + sizeof(UInt16);
 
         private static readonly String CollationId = "NULLID".PadRight(18, ' ');
 
@@ -19,9 +19,9 @@ namespace SpliceMachine.Drda
             UInt16 packageSerialNumber) => 
             _packageSerialNumber = packageSerialNumber;
 
-        public Int32 GetSize() => 
-            BaseSize + WellKnownStrings.DatabaseName.Length +
-            CollationId.Length + PackageId.Length + Token.Length +
+        public UInt32 GetSize() =>
+            BaseSize + (UInt32)WellKnownStrings.DatabaseName.Length +
+            (UInt32)CollationId.Length + (UInt32)PackageId.Length + (UInt32)Token.Length +
             sizeof(UInt16);
 
         public void Write(
