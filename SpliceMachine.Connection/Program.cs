@@ -66,8 +66,7 @@ namespace SpliceMachine.Connection
 
             var insert = connection.CreateStatement(SqlInsertInto).Prepare(); // Prepared
 
-            // TODO: implement level-A chunking properly and increase this number for testing
-            for (var i = 0; i < 573; ++i)
+            for (var i = 0; i < 1000; ++i)
             {
                 insert.SetParameterValue(0, i);
                 insert.SetParameterValue(1, "Giants");

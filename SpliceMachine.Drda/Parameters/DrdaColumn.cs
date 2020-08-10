@@ -30,7 +30,7 @@ namespace SpliceMachine.Drda
             }
 
             // ReSharper disable once RedundantAssignment
-            hiByte = reader.ReadUInt8();
+            reader.ReadUInt8();
 
             KeyMem = reader.ReadUInt16();
             Updateable = reader.ReadUInt16();

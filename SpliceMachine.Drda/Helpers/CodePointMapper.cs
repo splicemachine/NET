@@ -19,7 +19,7 @@ namespace SpliceMachine.Drda
             }
             else if ((size & 0x8000) == 0x8000)
             {
-                size = reader.ReadUInt32();
+                size = reader.ReadUInt32() + sizeof(UInt16) + sizeof(UInt16);
             }
 
             // TODO: olegra - find the better way for handling code points here
@@ -44,7 +44,7 @@ namespace SpliceMachine.Drda
                 case MGRLVLLS:
                 case TYPDEFOVR:
                 case PKGSNLST:
-                    return new BytesParameter(reader, size, codePoint);
+                    return new BytesParameter(reader, size, codePoint); //-V3139
 
                 case QRYDSC:
                 case QRYDTA:

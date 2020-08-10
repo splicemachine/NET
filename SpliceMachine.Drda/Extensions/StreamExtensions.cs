@@ -44,7 +44,8 @@ namespace SpliceMachine.Drda
         public static DrdaResponseBase ReadResponse(
             this Stream stream)
         {
-            var response = new ResponseMessage(new DrdaStreamReader(stream));
+            var response = new ResponseMessage(
+                new DrdaStreamReader(stream.AsReadonlyMemoryStream()));
 
             TraceInformation($"RCID: {response.RequestCorrelationId}, CP: {response.Command.CodePoint}");
 
@@ -71,6 +72,38 @@ namespace SpliceMachine.Drda
                 ENDUOWRM => new EndUnitOfWorkResponse(response),
                 _ => throw new InvalidOperationException()
             };
+        }
+
+        private static Stream AsReadonlyMemoryStream(
+            this Stream stream)
+        {
+            var reader = new DrdaStreamReader(stream);
+
+            var length = reader.ReadUInt16();
+            var normalizedLength = (length & 0x7FFF) - sizeof(UInt16);
+
+            var message = new MemoryStream(length & 0x7FFF);
+            var writer = new DrdaStreamWriter(message);
+            writer.WriteUInt16(length);
+
+            while (true)
+            {
+                var buffer = new Byte[normalizedLength];
+                stream.Read(buffer, 0, buffer.Length);
+                message.Write(buffer, 0, buffer.Length);
+
+                if ((length & 0x8000) != 0x8000)
+                {
+                    break;
+                }
+
+                length = reader.ReadUInt16();
+                normalizedLength = (length & 0x7FFF) - sizeof(UInt16);
+                message.Capacity += normalizedLength;
+            }
+
+            message.Seek(0, SeekOrigin.Begin);
+            return message;
         }
     }
 }

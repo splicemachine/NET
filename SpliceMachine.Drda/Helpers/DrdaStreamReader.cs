@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SpliceMachine.Drda
 {
-    public sealed class DrdaStreamReader
+    public sealed class DrdaStreamReader //-V3072
     {
         private readonly Stream _stream;
 

@@ -18,7 +18,7 @@ namespace SpliceMachine.Drda
             var reader = ((ReaderCommand) response.Command).Reader;
             _commAreaGroupDescriptor = new CommAreaGroupDescriptor(reader);
 
-            _messages = _commAreaGroupDescriptor?.SqlMessage
+            _messages = _commAreaGroupDescriptor.SqlMessage
                 .Split(MessagesSeparator, StringSplitOptions.RemoveEmptyEntries);
         }
 

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SpliceMachine.Drda
 {
-    internal sealed class DrdaStreamWriter
+    internal sealed class DrdaStreamWriter //-V3072
     {
         private readonly Stream _stream;
 
