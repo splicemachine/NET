@@ -66,7 +66,7 @@ namespace SpliceMachine.Connection
 
             var insert = connection.CreateStatement(SqlInsertInto).Prepare(); // Prepared
 
-            for (var i = 0; i < 1000; ++i)
+            for (var i = 0; i < 10; ++i)
             {
                 insert.SetParameterValue(0, i);
                 insert.SetParameterValue(1, "Giants");
@@ -77,6 +77,8 @@ namespace SpliceMachine.Connection
 
                 insert.Execute();
             }
+
+            connection.Rollback();
 
             Console.WriteLine();
             Console.WriteLine("Try to execute prepared SELECT SQL");

@@ -138,6 +138,12 @@ namespace SpliceMachine.Drda
 
         FDODSC = 0x0010,
 
-        FDODTA = 0x147A
+        FDODTA = 0x147A,
+
+        RDBCMM = 0x200E,
+
+        RDBRLLBCK = 0x200F,
+
+        UOWDSP = 0x2115
     }
 }

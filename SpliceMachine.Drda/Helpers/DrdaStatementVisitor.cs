@@ -199,5 +199,13 @@ namespace SpliceMachine.Drda
             _context.QueryInstanceId = response.QueryInstanceId;
             return true;
         }
+
+        public Boolean Visit(
+            EndUnitOfWorkResponse response)
+        {
+            TraceInformation($"ENDUOWRM: SC = {response.SeverityCode}");
+            _context.SeverityCode = response.SeverityCode;
+            return true;
+        }
     }
 }

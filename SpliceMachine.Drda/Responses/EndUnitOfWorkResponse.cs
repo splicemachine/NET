@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace SpliceMachine.Drda
 {
@@ -9,17 +8,26 @@ namespace SpliceMachine.Drda
             ResponseMessage response)
             : base(response)
         {
-            foreach (var parameter in response.Command.OfType<UInt16Parameter>())
+            foreach (var parameter in response.Command)
             {
-                switch (parameter.CodePoint)
+                switch (parameter)
                 {
-                    case CodePoint.SRVCOD:
-                        SeverityCode = parameter.Value;
+                    case UInt16Parameter para when para.CodePoint == CodePoint.SRVCOD:
+                        SeverityCode = para.Value;
+                        break;
+
+                    case UInt8Parameter para when  para.CodePoint == CodePoint.UOWDSP:
+                        OperationType = para.Value;
                         break;
                 }
             }
         }
 
         public UInt16 SeverityCode { get; }
+
+        public Byte OperationType { get; }
+
+        internal override Boolean Accept(
+            DrdaStatementVisitor visitor) => visitor.Visit(this);
     }
 }

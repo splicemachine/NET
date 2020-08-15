@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace SpliceMachine.Drda
 {
     using static System.Diagnostics.Trace;
+    using static CodePoint;
 
     public sealed class DrdaConnection : IDisposable
     {
+        private static readonly ISet<CodePoint> AllowedCodePoints =
+            new SortedSet<CodePoint>
+                { SQLERRRM, SQLCARD, ENDUOWRM };
+
         private readonly TcpClient _client = new TcpClient(AddressFamily.InterNetwork);
 
         private readonly DrdaConnectionOptions _options;
@@ -53,6 +59,30 @@ namespace SpliceMachine.Drda
 
         public IDrdaStatement CreateStatement(
             String sqlStatement) => new DrdaImmediateStatement(this, sqlStatement);
+
+        public Boolean Commit()
+        {
+            var stream = GetStream();
+            var context = new QueryContext(this, false);
+
+            stream.SendRequest(
+                new RelationalDatabaseCommitRequest(GetNextRequestCorrelationId()));
+
+            return new DrdaStatementVisitor(AllowedCodePoints, context)
+                .ProcessChainedResponses(stream);
+        }
+
+        public Boolean Rollback()
+        {
+            var stream = GetStream();
+            var context = new QueryContext(this, false);
+
+            stream.SendRequest(
+                new RelationalDatabaseRollbackRequest(GetNextRequestCorrelationId()));
+
+            return new DrdaStatementVisitor(AllowedCodePoints, context)
+                .ProcessChainedResponses(stream);
+        }
 
         internal NetworkStream GetStream() => _client.GetStream();
 

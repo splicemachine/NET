@@ -55,6 +55,7 @@ namespace SpliceMachine.Drda
                 case SQLRSLRD:
                     return new ReaderCommand(reader, size, codePoint);
 
+                case UOWDSP:
                 case PBSD_ISO:
                 case SYNERRCD:
                 case SECCHKCD:
