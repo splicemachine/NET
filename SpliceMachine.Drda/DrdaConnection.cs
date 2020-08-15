@@ -57,6 +57,9 @@ namespace SpliceMachine.Drda
             }
         }
 
+        public async Task DisconnectAsync() => 
+            await Task.Yield();
+
         public IDrdaStatement CreateStatement(
             String sqlStatement) => new DrdaImmediateStatement(this, sqlStatement);
 

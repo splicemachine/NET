@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <Version>0.0.1-alpha</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/splicemachine/NET</RepositoryUrl>
+    <Authors>SpliceMachine</Authors>
+    <Product>SpliceMachine ADO.NET Provider</Product>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SpliceMachine.Provider.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpliceMachine.Drda\SpliceMachine.Drda.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Simba.ADO.Net">
+      <HintPath>..\3rdParty\SimbaEngine\Simba.ADO.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Simba.DotNetDSI">
+      <HintPath>..\3rdParty\SimbaEngine\Simba.DotNetDSI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

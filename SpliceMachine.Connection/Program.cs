@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using SpliceMachine.Drda;
+using SpliceMachine.Provider;
 
 namespace SpliceMachine.Connection
 {
@@ -29,7 +29,32 @@ namespace SpliceMachine.Connection
 
         private const String SqlSelect = "SELECT * FROM Players";
 
-        public static async Task Main()
+        public static void Main()
+        {
+            TestCreateInsertSelectAdoNet();
+            //TestCreateInsertSelectDrda();
+
+            Console.ReadLine();
+        }
+
+        private static async void TestCreateInsertSelectAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = DdlCreateTable;
+
+                    var count =await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"DDL command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestCreateInsertSelectDrda()
         {
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Error));
             Trace.AutoFlush = true;
@@ -45,57 +70,49 @@ namespace SpliceMachine.Connection
             {
                 await connection.ConnectAsync();
 
-                TestCreateInsertSelect(connection);
+                Console.WriteLine();
+                Console.WriteLine("Try to execute simple SQL");
+                Console.WriteLine();
 
-                Console.ReadLine();
-            }
-        }
+                connection.CreateStatement(DdlCreateTable).Execute(); // Immediate
 
+                Console.WriteLine();
+                Console.WriteLine("Try to execute prepared INSERT SQL");
+                Console.WriteLine();
 
-        private static void TestCreateInsertSelect(DrdaConnection connection)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Try to execute simple SQL");
-            Console.WriteLine();
+                var insert = connection.CreateStatement(SqlInsertInto).Prepare(); // Prepared
 
-            connection.CreateStatement(DdlCreateTable).Execute(); // Immediate
-
-            Console.WriteLine();
-            Console.WriteLine("Try to execute prepared INSERT SQL");
-            Console.WriteLine();
-
-            var insert = connection.CreateStatement(SqlInsertInto).Prepare(); // Prepared
-
-            for (var i = 0; i < 10; ++i)
-            {
-                insert.SetParameterValue(0, i);
-                insert.SetParameterValue(1, "Giants");
-                insert.SetParameterValue(2, "Joe Bojangles");
-                insert.SetParameterValue(3, "C");
-                insert.SetParameterValue(4, "Little Joey");
-                insert.SetParameterValue(5, new DateTime(1911, 11, 07));
-
-                insert.Execute();
-            }
-
-            connection.Rollback();
-
-            Console.WriteLine();
-            Console.WriteLine("Try to execute prepared SELECT SQL");
-            Console.WriteLine();
-
-            var select = connection.CreateStatement(SqlSelect).Prepare(); // Prepared
-            if (@select.Execute())
-            {
-                while (@select.Fetch())
+                for (var i = 0; i < 10; ++i)
                 {
-                    for (var index = 0; index < @select.Columns; ++index)
-                    {
-                        Console.WriteLine(
-                            $"{@select.GetColumnName(index)} = {@select.GetColumnValue(index) ?? "NULL"}");
-                    }
+                    insert.SetParameterValue(0, i);
+                    insert.SetParameterValue(1, "Giants");
+                    insert.SetParameterValue(2, "Joe Bojangles");
+                    insert.SetParameterValue(3, "C");
+                    insert.SetParameterValue(4, "Little Joey");
+                    insert.SetParameterValue(5, new DateTime(1911, 11, 07));
 
-                    Console.WriteLine();
+                    insert.Execute();
+                }
+
+                connection.Rollback();
+
+                Console.WriteLine();
+                Console.WriteLine("Try to execute prepared SELECT SQL");
+                Console.WriteLine();
+
+                var select = connection.CreateStatement(SqlSelect).Prepare(); // Prepared
+                if (@select.Execute())
+                {
+                    while (@select.Fetch())
+                    {
+                        for (var index = 0; index < @select.Columns; ++index)
+                        {
+                            Console.WriteLine(
+                                $"{@select.GetColumnName(index)} = {@select.GetColumnValue(index) ?? "NULL"}");
+                        }
+
+                        Console.WriteLine();
+                    }
                 }
             }
         }
