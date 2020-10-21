@@ -22,11 +22,12 @@
 
   <ItemGroup>
     <Reference Include="Simba.ADO.Net">
-      <HintPath>..\3rdParty\SimbaEngine\Simba.ADO.Net.dll</HintPath>
+      <HintPath>..\..\..\Simba Technologies\SimbaEngineSDK\10.0\DataAccessComponents\Bin\win\release\Simba.ADO.Net.dll</HintPath>
     </Reference>
     <Reference Include="Simba.DotNetDSI">
-      <HintPath>..\3rdParty\SimbaEngine\Simba.DotNetDSI.dll</HintPath>
+      <HintPath>..\..\..\Simba Technologies\SimbaEngineSDK\10.0\DataAccessComponents\Bin\win\release\Simba.DotNetDSI.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 
 </Project>
