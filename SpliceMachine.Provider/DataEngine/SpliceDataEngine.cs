@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using Simba.DotNetDSI;
 using Simba.DotNetDSI.DataEngine;
+using SpliceMachine.Drda;
 
 namespace SpliceMachine.Provider
 {
     internal sealed class SpliceDataEngine : DSIDataEngine
     {
+        DrdaConnection _drdaConnection;
         public SpliceDataEngine(
-            IStatement statement)
-            : base(statement) =>
+            IStatement statement, DrdaConnection drdaConnection)
+            : base(statement)
+        {
+            this._drdaConnection = drdaConnection;
             LogUtilities.LogFunctionEntrance(Statement.Connection.Log, statement);
+        }
 
         public override IMetadataSource MakeNewMetadataSource(
             MetadataSourceID metadataID,
@@ -84,7 +89,6 @@ namespace SpliceMachine.Provider
             String sqlQuery)
         {
             // TODO(ADO)  #08: Prepare a query.
-
             LogUtilities.LogFunctionEntrance(Log, sqlQuery);
 
             // This is the point where you will send the request to your SQL-enabled data source for
@@ -107,8 +111,16 @@ namespace SpliceMachine.Provider
                 throw ExceptionBuilder.CreateException(
                     string.Format(Simba.DotNetDSI.Properties.Resources.INVALID_QUERY, sqlQuery));
             }
-
-            return new SpliceQueryExecutor(Log);
+            if (sqlQuery.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("DELETE", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
+            {
+                var drdaStatement = _drdaConnection.CreateStatement(sqlQuery).Prepare();
+                return new SpliceQueryExecutor(Log, drdaStatement,_drdaConnection);
+            }
+            else
+            {
+                var drdaStatement = _drdaConnection.CreateStatement(sqlQuery);
+                return new SpliceQueryExecutor(Log, drdaStatement,_drdaConnection);
+            }
         }
     }
 }

@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using Simba.DotNetDSI;
 using Simba.DotNetDSI.DataEngine;
+using SpliceMachine.Drda;
+using SpliceMachine.Provider.DataEngine;
 
 namespace SpliceMachine.Provider
 {
     internal sealed class SpliceQueryExecutor : IQueryExecutor
     {
         private readonly ILogger _log;
+        private readonly IDrdaStatement _drdaStatement;
+        private readonly DrdaConnection _drdaConnection;
 
         public SpliceQueryExecutor(
-            ILogger log)
+            ILogger log, IDrdaStatement drdaStatement, DrdaConnection drdaConnection)
         {
             // TODO(ADO)  #09: Implement a QueryExecutor.
-
+            this._drdaStatement = drdaStatement;
+            this._drdaConnection = drdaConnection;
             LogUtilities.LogFunctionEntrance(log, log);
             _log = log;
-
-            // Create the prepared results.
             Results = new List<IResult>();
-
-            Results.Add(new DSIRowCountResult(12));
-
+            // Create the prepared results.
+            Results.Add(new SpliceDataResult(log, _drdaStatement));
+            //TODO: Provide the count result based on type of query.
             // TODO(ADO)  #10: Provide parameter information.
-
             ParameterMetadata = new List<ParameterMetadata>();
         }
 
@@ -61,9 +63,11 @@ namespace SpliceMachine.Provider
             IWarningListener warningListener)
         {
             // TODO(ADO)  #11: Implement Query Execution.
-
+            _drdaStatement.Execute();
+            //TODO: Commit the transaction at known scope
+            //_drdaConnection.Commit();
             LogUtilities.LogFunctionEntrance(_log, contexts, warningListener);
-
+            
             // The contexts argument provides access to the parameters that were not pushed.
             // Statement execution is a 3 step process:
             //      1. Serialize all input parameters into a form that can be consumed by the data 

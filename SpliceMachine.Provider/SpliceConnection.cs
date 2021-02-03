@@ -73,7 +73,7 @@ namespace SpliceMachine.Provider
         public override IStatement CreateStatement()
         {
             LogUtilities.LogFunctionEntrance(Log);
-            return new SpliceStatement(this);
+            return new SpliceStatement(this,_drdaConnection);
         }
 
         private void SetConnectionProperties()

@@ -82,6 +82,9 @@ namespace SpliceMachine.Drda
         public Int32 Columns => _context.Columns.Count;
 
         public String GetColumnName(Int32 index) => _context.Columns[index].Name;
+        public String GetColumnLabel(Int32 index) => _context.Columns[index].Label;
+        public long GetColumnSize(Int32 index) => _context.Columns[index].GetSize();
+        public String GetSchemaName(Int32 index) => _context.Columns[index].Scheme;
 
         public Object GetColumnValue(Int32 index) => _context[index];
 

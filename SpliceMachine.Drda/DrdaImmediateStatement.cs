@@ -50,6 +50,15 @@ namespace SpliceMachine.Drda
         public String GetColumnName(Int32 index) => 
             throw new InvalidOperationException();
 
+        public String GetColumnLabel(Int32 index) =>
+            throw new InvalidOperationException();
+
+        public long GetColumnSize(Int32 index) =>
+            throw new InvalidOperationException();
+
+        public String GetSchemaName(Int32 index) =>
+            throw new InvalidOperationException();
+
         public Object GetColumnValue(Int32 index) => 
             throw new InvalidOperationException();
 
