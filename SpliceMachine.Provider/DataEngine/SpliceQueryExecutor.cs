@@ -22,11 +22,15 @@ namespace SpliceMachine.Provider
             LogUtilities.LogFunctionEntrance(log, log);
             _log = log;
             Results = new List<IResult>();
-            // Create the prepared results.
+            // Create the prepared results.            
             Results.Add(new SpliceDataResult(log, _drdaStatement));
             //TODO: Provide the count result based on type of query.
             // TODO(ADO)  #10: Provide parameter information.
             ParameterMetadata = new List<ParameterMetadata>();
+            for (int i = 0; i < drdaStatement.Parameters; i++)
+            {
+                ParameterMetadata.Add(new Simba.DotNetDSI.DataEngine.ParameterMetadata(i+1, ParameterDirection.Input, new TypeMetadata(SqlType.VarChar, SqlType.VarChar.ToString(), 0, 0, 0), false));
+            }
         }
 
         public void Dispose()
@@ -62,10 +66,20 @@ namespace SpliceMachine.Provider
             ExecutionContexts contexts, 
             IWarningListener warningListener)
         {
+            for (int i = 0; i < contexts.Count; i++)
+            {
+                for (int j = 0; j < contexts[i].Inputs.Count; j++)
+                {
+                    _drdaStatement.SetParameterValue(j, contexts[i].Inputs[j].Data);
+                }
+            }
             // TODO(ADO)  #11: Implement Query Execution.
-            _drdaStatement.Execute();
+            if(_drdaStatement.Execute()) _drdaConnection.Commit();
             //TODO: Commit the transaction at known scope
-            //_drdaConnection.Commit();
+            if (_drdaStatement.RowsUpdated>0)
+            {
+                Results.Add(new SpliceRowCountResult(_drdaStatement.RowsUpdated));
+            }
             LogUtilities.LogFunctionEntrance(_log, contexts, warningListener);
             
             // The contexts argument provides access to the parameters that were not pushed.
@@ -77,7 +91,7 @@ namespace SpliceMachine.Provider
             //      2. Send the Execute() message.
             //      3. Retrieve all output parameters from the server and update the contexts with
             //         their contents.
-
+            
             // No action needs to be taken here since the results are static and encapsulated in
             // ULPersonTable and DSISimpleRowCountResult.
         }

@@ -25,5 +25,8 @@ namespace SpliceMachine.Drda
         Object GetColumnValue(Int32 index);
 
         void SetParameterValue(Int32 index, Object value);
+
+        Int32 Parameters { get; }
+        UInt32 RowsUpdated { get; }
     }
 }

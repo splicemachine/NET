@@ -14,6 +14,7 @@ namespace SpliceMachine.Drda
         private readonly DrdaConnection _connection;
 
         private readonly String _sqlStatement;
+        private UInt32 _rowsUpdated;
 
         public DrdaImmediateStatement(
             DrdaConnection connection, 
@@ -38,14 +39,16 @@ namespace SpliceMachine.Drda
                     requestCorrelationId, context.PackageSerialNumber))
                 .SendRequest(new SqlStatementRequest(
                     requestCorrelationId, _sqlStatement));
-
-            return new DrdaStatementVisitor(AllowedCodePoints, context)
-                .ProcessChainedResponses(stream);
+            var drdaStatementVisitor = new DrdaStatementVisitor(AllowedCodePoints, context);
+            var execResult = drdaStatementVisitor.ProcessChainedResponses(stream);
+            _rowsUpdated += drdaStatementVisitor.RowsUpdated;
+            return execResult;
         }
 
         public Boolean Fetch() => false;
 
         public Int32 Columns => 0;
+        public Int32 Parameters => 0;
 
         public String GetColumnName(Int32 index) => 
             throw new InvalidOperationException();
@@ -64,5 +67,7 @@ namespace SpliceMachine.Drda
 
         public void SetParameterValue(Int32 index, Object value) =>
             throw new InvalidOperationException();
+        public UInt32 RowsUpdated => _rowsUpdated;
+        
     }
 }

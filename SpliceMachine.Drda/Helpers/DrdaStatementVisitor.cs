@@ -12,6 +12,7 @@ namespace SpliceMachine.Drda
         private readonly ISet<CodePoint> _allowedCodePoints;
 
         private readonly QueryContext _context;
+        public UInt32 RowsUpdated;
 
         public DrdaStatementVisitor(
             ISet<CodePoint> allowedCodePoints,
@@ -26,11 +27,15 @@ namespace SpliceMachine.Drda
         {
             var isChained = true;
             _context.SeverityCode = Info;
-
+            RowsUpdated = 0;
             while (isChained)
             {
                 var message = stream.ReadResponse();
-
+                if (message.CodePoint == CodePoint.SQLCARD)
+                {
+                    var rowsUpdated = (CommAreaRowDescMessage)message;
+                    RowsUpdated += rowsUpdated.RowsUpdated;
+                }
                 if (_allowedCodePoints.Contains(message.CodePoint) &&
                     message.Accept(this))
                 {

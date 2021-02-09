@@ -37,6 +37,8 @@ namespace SpliceMachine.Drda
 
         private readonly String _sqlStatement;
 
+        private UInt32 _rowsUpdated;
+
         public DrdaPreparedStatement(
             DrdaConnection connection, 
             String sqlStatement)
@@ -80,6 +82,7 @@ namespace SpliceMachine.Drda
         public Boolean Fetch() => _context.Fetch();
 
         public Int32 Columns => _context.Columns.Count;
+        public Int32 Parameters => _context.Parameters.Count;
 
         public String GetColumnName(Int32 index) => _context.Columns[index].Name;
         public String GetColumnLabel(Int32 index) => _context.Columns[index].Label;
@@ -138,9 +141,10 @@ namespace SpliceMachine.Drda
 
                 // TODO: olegra - send BLOB parameters data here
             }
-
-            return new DrdaStatementVisitor(AllowedCodePointsForExecutePackage, _context)
-                .ProcessChainedResponses(stream);
+            var drdaStatementVisitor = new DrdaStatementVisitor(AllowedCodePointsForExecutePackage, _context);
+            var execResult = drdaStatementVisitor.ProcessChainedResponses(stream);
+            _rowsUpdated += drdaStatementVisitor.RowsUpdated;
+            return execResult;
         }
 
         private Boolean ContinueQuery(
@@ -154,9 +158,10 @@ namespace SpliceMachine.Drda
 
             stream.SendRequest(new ContinueQueryRequest(
                 requestCorrelationId, _context.PackageSerialNumber, _context.QueryInstanceId ?? 0));
-
-            return new DrdaStatementVisitor(AllowedCodePointsForContinueQuery, _context)
-                .ProcessChainedResponses(stream);
+            var drdaStatementVisitor = new DrdaStatementVisitor(AllowedCodePointsForContinueQuery, _context);
+            var execResult = drdaStatementVisitor.ProcessChainedResponses(stream);
+            _rowsUpdated += drdaStatementVisitor.RowsUpdated;
+            return execResult;
         }
         
         private Boolean CloseQuery(in NetworkStream stream, in UInt16 requestCorrelationId)
@@ -172,5 +177,6 @@ namespace SpliceMachine.Drda
             return new DrdaStatementVisitor(AllowedCodePointsForCloseQuery, _context)
                 .ProcessChainedResponses(stream);
         }
+        public UInt32 RowsUpdated => _rowsUpdated;
     }
 }

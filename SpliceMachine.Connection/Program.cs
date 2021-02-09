@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using SpliceMachine.Drda;
 using SpliceMachine.Provider;
@@ -7,6 +8,7 @@ namespace SpliceMachine.Connection
 {
     internal static class Program
     {
+        private const string DdlDropIfExists = "DROP TABLE IF EXISTS Players";
         private const String DdlCreateTable =
             @"CREATE TABLE Players (
                 ID SMALLINT NOT NULL PRIMARY KEY,
@@ -26,18 +28,44 @@ namespace SpliceMachine.Connection
             @"INSERT INTO Players 
                 (ID, Team, Name, Position, DisplayName, BirthDate)
                 VALUES (?, ?, ?, ?, ?, ?)";
+        private const String SqlUpdate = 
+            @"UPDATE PLAYERS SET NAME='Joe Updated'";
 
-        private const String SqlSelect = "SELECT * FROM Players";
+        private const String SqlALTER =
+            @"ALTER TABLE Players ADD COLUMN Updated TIMESTAMP";
+
+        private const String SqlSelect = "select * from players";
 
         public static void Main()
         {
-            TestCreateInsertSelectAdoNet();
+            //TestDropAdoNet();
+            //TestCreateAdoNet();
+            //TestInsertAdoNet();
+            //TestUpdateAdoNet();
+            //TestAlterAdoNet();
+            TestSelectAdoNet();
             //TestCreateInsertSelectDrda();
 
             Console.ReadLine();
         }
 
-        private static async void TestCreateInsertSelectAdoNet()
+        private static async void TestDropAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+                
+                using (var command = connection.CreateCommand())
+                {                    
+                    command.CommandText = DdlDropIfExists;
+                    var count = await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"DDL command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestCreateAdoNet()
         {
             using (var connection = new SpliceDbConnection(
                 "uid=splice;pwd=admin;host=localhost;port=1527"))
@@ -46,10 +74,84 @@ namespace SpliceMachine.Connection
 
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = DdlCreateTable;
-
+                    command.CommandText = DdlCreateTable;                    
                     var count =await command.ExecuteNonQueryAsync();
                     Console.WriteLine($"DDL command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestInsertAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = SqlInsertInto;
+                    command.Parameters.Add( new SpliceDbParameter() { Value =DateTime.Now.Second});
+                    command.Parameters.Add(new SpliceDbParameter() { Value = "Giants" });
+                    command.Parameters.Add( new SpliceDbParameter() { Value = "Joe Bojangles" });
+                    command.Parameters.Add( new SpliceDbParameter() { Value = "C" });
+                    command.Parameters.Add(new SpliceDbParameter() { Value = "Little Joey" });
+                    command.Parameters.Add(new SpliceDbParameter() { Value = new DateTime(1911, 11, 07) });
+                    var count = await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"Insert command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestUpdateAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = SqlUpdate;
+                    var count = await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"Update command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestAlterAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = SqlALTER;
+                    var count = await command.ExecuteNonQueryAsync();
+                    Console.WriteLine($"Alter command result: {count}");
+                }
+            }
+        }
+
+        private static async void TestSelectAdoNet()
+        {
+            using (var connection = new SpliceDbConnection(
+                "uid=splice;pwd=admin;host=localhost;port=1527"))
+            {
+                await connection.OpenAsync();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = SqlSelect;
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("Select Query Result" + String.Format("{0}", reader[0]));
+                        Console.WriteLine("Select Query Result" + String.Format("{0}", reader[1]));
+                        Console.WriteLine("Select Query Result" + String.Format("{0}", reader[2]));
+                    }
                 }
             }
         }

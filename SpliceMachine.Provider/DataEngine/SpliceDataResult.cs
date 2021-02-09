@@ -37,7 +37,6 @@ namespace SpliceMachine.Provider.DataEngine
             this._drdaStatement = drdaStatement;
             LogUtilities.LogFunctionEntrance(Log, log);
             InitializeColumns();
-            SetFetchRowsetSize(1);
         }
 
         #endregion // Constructor
