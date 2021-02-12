@@ -82,5 +82,15 @@ namespace SpliceMachine.Provider
             SetProperty(ConnectionPropertyKey.DSI_CONN_SERVER_NAME, string.Empty);
             SetProperty(ConnectionPropertyKey.DSI_CONN_USER_NAME, string.Empty);
         }
+
+        public override void Commit()
+        {            
+            _drdaConnection.Commit();
+        }
+
+        public override void Rollback()
+        {
+            _drdaConnection.Rollback();
+        }
     }
 }

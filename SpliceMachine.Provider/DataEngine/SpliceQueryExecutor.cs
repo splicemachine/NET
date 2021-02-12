@@ -41,7 +41,7 @@ namespace SpliceMachine.Provider
         public void CancelExecute()
         {
             LogUtilities.LogFunctionEntrance(_log);
-            // TODO: olgra - implement cancellation support
+            // TODO: olgra - implement cancellation support            
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SpliceMachine.Provider
                 }
             }
             // TODO(ADO)  #11: Implement Query Execution.
-            if(_drdaStatement.Execute()) _drdaConnection.Commit();
+            _drdaStatement.Execute();
             //TODO: Commit the transaction at known scope
             if (_drdaStatement.RowsUpdated>0)
             {

@@ -6,7 +6,7 @@ using Simba.DotNetDSI;
 
 namespace SpliceMachine.Provider
 {
-    public sealed class SpliceDbConnection : SConnection
+    public sealed class SpliceDbConnection : SConnection,IDisposable
     {
         public SpliceDbConnection()
         {
@@ -46,5 +46,15 @@ namespace SpliceMachine.Provider
         /// <returns>The branding section for the registry.</returns>
         protected override string GetConfigurationBranding() => 
             @"SpliceMachine\AdoNetProvider";
+
+        public void Commit()
+        {
+            this.DSIConnection.Commit();
+        }
+
+        public void Rollback()
+        {
+            this.DSIConnection.Rollback();            
+        }
     }
 }
