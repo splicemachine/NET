@@ -55,8 +55,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoNetTest.cs" />
     <Compile Include="DrdaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +69,10 @@
     <ProjectReference Include="..\SpliceMachine.Drda\SpliceMachine.Drda.csproj">
       <Project>{3B2486DD-C2BD-4009-8409-EBF01D7E5D55}</Project>
       <Name>SpliceMachine.Drda</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpliceMachine.Provider\SpliceMachine.Provider.csproj">
+      <Project>{5e07d025-6d26-4b2a-8740-f7530f414a31}</Project>
+      <Name>SpliceMachine.Provider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
