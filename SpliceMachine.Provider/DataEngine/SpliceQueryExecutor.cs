@@ -4,6 +4,7 @@ using Simba.DotNetDSI;
 using Simba.DotNetDSI.DataEngine;
 using SpliceMachine.Drda;
 using SpliceMachine.Provider.DataEngine;
+using SpliceMachine.Provider.Extensions;
 
 namespace SpliceMachine.Provider
 {
@@ -12,12 +13,14 @@ namespace SpliceMachine.Provider
         private readonly ILogger _log;
         private readonly IDrdaStatement _drdaStatement;
         private readonly DrdaConnection _drdaConnection;
+        private readonly IConnection _dsiConnection;
 
         public SpliceQueryExecutor(
-            ILogger log, IDrdaStatement drdaStatement, DrdaConnection drdaConnection)
+            ILogger log, IDrdaStatement drdaStatement, DrdaConnection drdaConnection, IConnection dsiConnection)
         {
             // TODO(ADO)  #09: Implement a QueryExecutor.
             this._drdaStatement = drdaStatement;
+            this._dsiConnection = dsiConnection;
             this._drdaConnection = drdaConnection;
             LogUtilities.LogFunctionEntrance(log, log);
             _log = log;
@@ -27,9 +30,10 @@ namespace SpliceMachine.Provider
             //TODO: Provide the count result based on type of query.
             // TODO(ADO)  #10: Provide parameter information.
             ParameterMetadata = new List<ParameterMetadata>();
-            for (int i = 0; i < drdaStatement.Parameters; i++)
+            for (int i = 0; i < drdaStatement.ParametersLength; i++)
             {
-                ParameterMetadata.Add(new Simba.DotNetDSI.DataEngine.ParameterMetadata(i+1, ParameterDirection.Input, new TypeMetadata(SqlType.VarChar, SqlType.VarChar.ToString(), 0, 0, 0), false));
+                var paramMetaData = drdaStatement.GetParameterMetaData(i);
+                ParameterMetadata.Add(new Simba.DotNetDSI.DataEngine.ParameterMetadata(i + 1, ParameterDirection.Input, new TypeMetadata(paramMetaData[0].GetSqlType(), paramMetaData[0].GetSqlType().ToString(), Convert.ToInt16(paramMetaData[2]), Convert.ToInt16(paramMetaData[1]), 0), false));
             }
         }
 
@@ -63,7 +67,7 @@ namespace SpliceMachine.Provider
         }
 
         public void Execute(
-            ExecutionContexts contexts, 
+            ExecutionContexts contexts,
             IWarningListener warningListener)
         {
             for (int i = 0; i < contexts.Count; i++)
@@ -73,15 +77,19 @@ namespace SpliceMachine.Provider
                     _drdaStatement.SetParameterValue(j, contexts[i].Inputs[j].Data);
                 }
             }
+            if (_drdaStatement.Execute() && (uint)_dsiConnection.GetProperty(ConnectionPropertyKey.DSI_CONN_AUTOCOMMIT) == PropertyValues.DSI_PROP_AUTOCOMMIT_ON)
+            {
+                _drdaConnection.Commit();
+            }
             // TODO(ADO)  #11: Implement Query Execution.
-            _drdaStatement.Execute();
+
             //TODO: Commit the transaction at known scope
-            if (_drdaStatement.RowsUpdated>0)
+            if (_drdaStatement.RowsUpdated > 0)
             {
                 Results.Add(new SpliceRowCountResult(_drdaStatement.RowsUpdated));
             }
             LogUtilities.LogFunctionEntrance(_log, contexts, warningListener);
-            
+
             // The contexts argument provides access to the parameters that were not pushed.
             // Statement execution is a 3 step process:
             //      1. Serialize all input parameters into a form that can be consumed by the data 
@@ -91,7 +99,7 @@ namespace SpliceMachine.Provider
             //      2. Send the Execute() message.
             //      3. Retrieve all output parameters from the server and update the contexts with
             //         their contents.
-            
+
             // No action needs to be taken here since the results are static and encapsulated in
             // ULPersonTable and DSISimpleRowCountResult.
         }
@@ -133,7 +141,7 @@ namespace SpliceMachine.Provider
         /// <param name="parameterSet">The parameter set the pushed value belongs to.</param>
         /// <param name="value">The pushed parameter value, including metadata for identification.</param>
         public void PushParamData(
-            Int32 parameterSet, 
+            Int32 parameterSet,
             ParameterInputValue value)
         {
             LogUtilities.LogFunctionEntrance(_log, parameterSet, value);

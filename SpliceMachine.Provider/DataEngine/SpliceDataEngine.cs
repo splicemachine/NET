@@ -9,12 +9,14 @@ namespace SpliceMachine.Provider
     internal sealed class SpliceDataEngine : DSIDataEngine
     {
         DrdaConnection _drdaConnection;
+        IConnection _dsiConnection;
         public SpliceDataEngine(
             IStatement statement, DrdaConnection drdaConnection)
             : base(statement)
         {
             this._drdaConnection = drdaConnection;
             LogUtilities.LogFunctionEntrance(Statement.Connection.Log, statement);
+            _dsiConnection = statement.Connection;
         }
 
         public override IMetadataSource MakeNewMetadataSource(
@@ -114,12 +116,12 @@ namespace SpliceMachine.Provider
             if (sqlQuery.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("DELETE", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
             {
                 var drdaStatement = _drdaConnection.CreateStatement(sqlQuery).Prepare();
-                return new SpliceQueryExecutor(Log, drdaStatement,_drdaConnection);
+                return new SpliceQueryExecutor(Log, drdaStatement, _drdaConnection, _dsiConnection);
             }
             else
             {
                 var drdaStatement = _drdaConnection.CreateStatement(sqlQuery);
-                return new SpliceQueryExecutor(Log, drdaStatement,_drdaConnection);
+                return new SpliceQueryExecutor(Log, drdaStatement, _drdaConnection, _dsiConnection);
             }
         }
     }

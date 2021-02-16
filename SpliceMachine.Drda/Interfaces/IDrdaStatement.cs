@@ -26,7 +26,8 @@ namespace SpliceMachine.Drda
 
         void SetParameterValue(Int32 index, Object value);
 
-        Int32 Parameters { get; }
+        Int32 ParametersLength { get; }
+        String[] GetParameterMetaData(Int32 index);
         UInt32 RowsUpdated { get; }
     }
 }

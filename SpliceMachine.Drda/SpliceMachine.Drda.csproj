@@ -9,4 +9,19 @@
     <None Remove="SpliceMachine.Drda.csproj.DotSettings" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\SpliceErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SpliceErrors.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\SpliceErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpliceErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

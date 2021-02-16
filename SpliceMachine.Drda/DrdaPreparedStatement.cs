@@ -82,7 +82,7 @@ namespace SpliceMachine.Drda
         public Boolean Fetch() => _context.Fetch();
 
         public Int32 Columns => _context.Columns.Count;
-        public Int32 Parameters => _context.Parameters.Count;
+        public Int32 ParametersLength => _context.Parameters.Count;
 
         public String GetColumnName(Int32 index) => _context.Columns[index].Name;
         public String GetColumnLabel(Int32 index) => _context.Columns[index].Label;
@@ -90,6 +90,10 @@ namespace SpliceMachine.Drda
         public String GetSchemaName(Int32 index) => _context.Columns[index].Scheme;
 
         public Object GetColumnValue(Int32 index) => _context[index];
+        public String[] GetParameterMetaData(Int32 index) 
+        {
+            return new String[] { _context.Parameters[index].Db2Type.ToString(), _context.Parameters[index].Scale.ToString(), _context.Parameters[index].Precision.ToString() };
+        }
 
         public void SetParameterValue(Int32 index, Object value) => 
             _context.Parameters[index].Value = value;

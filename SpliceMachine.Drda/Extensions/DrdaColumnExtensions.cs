@@ -128,7 +128,7 @@ namespace SpliceMachine.Drda
 
                 case TIMESTAMP:
                     writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("yyyy-MM-dd-hh.mm.ss.fff", CultureInfo.InvariantCulture), length);
+                        .ToString("yyyy-MM-dd-hh.mm.ss.f", CultureInfo.InvariantCulture), length);
                     break;
 
                 case DECIMAL:
@@ -139,7 +139,12 @@ namespace SpliceMachine.Drda
                 case BOOLEAN:
                     writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte) 0xFF : (Byte) 0x00);
                     break;
-                
+                case LOBBYTES:
+                    writer.WriteBytes((byte[])column.Value);
+                    break;
+                case LOBCMIXED:
+                    writer.WriteVarString((string)column.Value);
+                    break;
                 // TODO: olegra - add support for BLOB and UDT
 
                 // TODO: olegra - just eat the unknown type as ODBC do?

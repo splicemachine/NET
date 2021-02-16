@@ -6,15 +6,18 @@ using Simba.DotNetDSI;
 
 namespace SpliceMachine.Provider
 {
-    public sealed class SpliceDbConnection : SConnection,IDisposable
+    public sealed class SpliceDbConnection : SConnection, IDisposable
     {
         public SpliceDbConnection()
         {
         }
 
         public SpliceDbConnection(
-            String connectionString) =>
+            String connectionString)
+        {
             ConnectionString = connectionString;
+            this.IsAutoCommit = true;
+        }
 
         protected override DbProviderFactory DbProviderFactory =>
             SpliceDbFactory.Instance;
@@ -44,7 +47,7 @@ namespace SpliceMachine.Provider
         /// Returns branding of the registry keys to load configuration from.
         /// </summary>
         /// <returns>The branding section for the registry.</returns>
-        protected override string GetConfigurationBranding() => 
+        protected override string GetConfigurationBranding() =>
             @"SpliceMachine\AdoNetProvider";
 
         public void Commit()
@@ -54,7 +57,19 @@ namespace SpliceMachine.Provider
 
         public void Rollback()
         {
-            this.DSIConnection.Rollback();            
+            this.DSIConnection.Rollback();
+        }
+
+        public Boolean IsAutoCommit
+        {
+            get
+            {
+                return (uint)base.DSIConnection.GetProperty(ConnectionPropertyKey.DSI_CONN_AUTOCOMMIT) == 1;
+            }
+            set
+            {
+                base.DSIConnection.SetProperty(ConnectionPropertyKey.DSI_CONN_AUTOCOMMIT, value == true ? (uint)1 : (uint)0);
+            }
         }
     }
 }

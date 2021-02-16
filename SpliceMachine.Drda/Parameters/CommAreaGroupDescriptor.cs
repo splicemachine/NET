@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SpliceMachine.Drda.Helpers;
+using SpliceMachine.Drda.Resources;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 
 namespace SpliceMachine.Drda
 {
@@ -30,7 +33,30 @@ namespace SpliceMachine.Drda
 
                 SqlMessage = reader.ReadVcmVcs();
             }
-
+            if (!string.IsNullOrEmpty(SqlState))
+            {
+                var errorsXml = SpliceErrors.ResourceManager.GetString("Errors");
+                string errorMsg = String.Empty;
+                XmlDocument errorsXmlDoc = new XmlDocument();
+                errorsXmlDoc.LoadXml(errorsXml);
+                for (int i = 0; i < errorsXmlDoc.LastChild.ChildNodes.Count; i++)
+                {
+                    if (errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Key"].Value == SqlState)
+                    {
+                        errorMsg = errorsXmlDoc.LastChild.ChildNodes[i].InnerText;
+                        if (!String.IsNullOrEmpty(errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"].Value))
+                        {
+                            var paramsCount = Convert.ToInt16(errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"].Value);
+                            var replaceTxtArray = SqlMessage.Split(Char.Parse("\u0014"));
+                            for (int j = 0; j < paramsCount; j++)
+                            {
+                                errorMsg = errorMsg.Replace("%" + (j+1).ToString() + "%", replaceTxtArray[j]);
+                            }
+                        }
+                    }
+                }
+                throw new SpliceException(errorMsg);
+            }
             if (reader.ReadUInt8() != 0xFF)
             {
                 // WORKWORK

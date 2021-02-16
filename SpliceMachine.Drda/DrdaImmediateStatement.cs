@@ -48,7 +48,7 @@ namespace SpliceMachine.Drda
         public Boolean Fetch() => false;
 
         public Int32 Columns => 0;
-        public Int32 Parameters => 0;
+        public Int32 ParametersLength => 0;
 
         public String GetColumnName(Int32 index) => 
             throw new InvalidOperationException();
@@ -68,6 +68,8 @@ namespace SpliceMachine.Drda
         public void SetParameterValue(Int32 index, Object value) =>
             throw new InvalidOperationException();
         public UInt32 RowsUpdated => _rowsUpdated;
-        
+
+        public String[] GetParameterMetaData(Int32 index) => throw new InvalidOperationException();
+
     }
 }

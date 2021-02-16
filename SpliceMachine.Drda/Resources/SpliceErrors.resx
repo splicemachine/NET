@@ -1,0 +1,778 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Errors" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Errors&gt;
+	&lt;Error Key="01003" NativeErrorCode="1"&gt;Null values were eliminated from the argument of a column function.&lt;/Error&gt;
+	&lt;Error Key="0100E" NativeErrorCode="2"&gt;XX Attempt to return too many result sets.&lt;/Error&gt;
+	&lt;Error Key="01500" NativeErrorCode="3" Params="2" &gt;The constraint %1% on table %2% has been dropped.&lt;/Error&gt;
+	&lt;Error Key="01501" NativeErrorCode="4" Params="1" &gt;The view %1% has been dropped.&lt;/Error&gt;
+	&lt;Error Key="01502" NativeErrorCode="5" Params="2" &gt;The trigger %1% on table %2% has been dropped.&lt;/Error&gt;
+	&lt;Error Key="01503" NativeErrorCode="6" Params="2" &gt;The column %1% on table %2% has been modified by adding a not null constraint.&lt;/Error&gt;
+	&lt;Error Key="01504" NativeErrorCode="7" Params="1" &gt;The new index is a duplicate of an existing index: %1%.&lt;/Error&gt;
+	&lt;Error Key="01505" NativeErrorCode="8" Params="1" &gt;The value %1% may be truncated.&lt;/Error&gt;
+	&lt;Error Key="01522" NativeErrorCode="9" Params="2" &gt;The newly defined synonym '%1%' resolved to the object '%2%' which is currently undefined.&lt;/Error&gt;
+	&lt;Error Key="01J01" NativeErrorCode="10" Params="1" &gt;Database '%1%' not created, connection made to existing database instead.&lt;/Error&gt;
+	&lt;Error Key="01J02" NativeErrorCode="11"&gt;Scroll sensitive cursors are not currently implemented.&lt;/Error&gt;
+	&lt;Error Key="01J03" NativeErrorCode="12"&gt;Scroll sensitive and scroll insensitive updatable ResultSets are not currently implemented.&lt;/Error&gt;
+	&lt;Error Key="01J04" NativeErrorCode="13" Params="2" &gt;The class '%1%' for column '%2%' does not implement java.io.Serializable or java.sql.SQLData. Instances must implement one of these interfaces to allow them to be stored.&lt;/Error&gt;
+	&lt;Error Key="01J05" NativeErrorCode="14"&gt;Database upgrade succeeded. The upgraded database is now ready for use. Revalidating stored prepared statements failed. See next exception for details about failure.&lt;/Error&gt;
+	&lt;Error Key="01J06" NativeErrorCode="15"&gt;ResultSet not updatable. Query does not qualify to generate an updatable ResultSet.&lt;/Error&gt;
+	&lt;Error Key="04501" NativeErrorCode="16"&gt;Database connection refused.&lt;/Error&gt;
+	&lt;Error Key="07000" NativeErrorCode="17"&gt;At least one parameter to the current statement is uninitialized.&lt;/Error&gt;
+	&lt;Error Key="07004" NativeErrorCode="18" Params="2" &gt;Parameter %1% is a %2% procedure parameter and must be registered with CallableStatement.registerOutParameter before execution.&lt;/Error&gt;
+	&lt;Error Key="07009" NativeErrorCode="19"&gt;No input parameters.&lt;/Error&gt;
+	&lt;Error Key="08000" NativeErrorCode="20"&gt;Connection closed by unknown interrupt.&lt;/Error&gt;
+	&lt;Error Key="08003" NativeErrorCode="21"&gt;No current connection.&lt;/Error&gt;
+	&lt;Error Key="08004" NativeErrorCode="22" Params="1" &gt;Connection refused : %1%&lt;/Error&gt;
+	&lt;Error Key="08006" NativeErrorCode="23" Params="1" &gt;Database '%1%'&lt;/Error&gt;
+	&lt;Error Key="0A000" NativeErrorCode="24" Params="1" &gt;Feature not implemented: %1%.&lt;/Error&gt;
+	&lt;Error Key="21000" NativeErrorCode="25"&gt;Scalar subquery is only allowed to return a single row.&lt;/Error&gt;
+	&lt;Error Key="2200L" NativeErrorCode="26"&gt;XMLPARSE operand is not an XML document; see next exception for details.&lt;/Error&gt;
+	&lt;Error Key="22001" NativeErrorCode="27" Params="3" &gt;A truncation error was encountered trying to shrink %1% '%2%' to length %3%&lt;/Error&gt;
+	&lt;Error Key="22003" NativeErrorCode="28" Params="1" &gt;The resulting value is outside the range for the data type %1%.&lt;/Error&gt;
+	&lt;Error Key="22005" NativeErrorCode="29" Params="2" &gt;An attempt was made to get a data value of type '%1%' from a data value of type '%2%'.&lt;/Error&gt;
+	&lt;Error Key="22007" NativeErrorCode="30"&gt;The string representation of a datetime value is out of range.&lt;/Error&gt;
+	&lt;Error Key="22007" NativeErrorCode="31"&gt;The syntax of the string representation of a datetime value is incorrect.&lt;/Error&gt;
+	&lt;Error Key="22008" NativeErrorCode="32" Params="2" &gt;'%1%' is an invalid argument to the %2% function.&lt;/Error&gt;
+	&lt;Error Key="22011" NativeErrorCode="33"&gt;The second or third argument of the SUBSTR function is out of range.&lt;/Error&gt;
+	&lt;Error Key="22012" NativeErrorCode="34"&gt;Attempt to divide by zero.&lt;/Error&gt;
+	&lt;Error Key="22013" NativeErrorCode="35" Params="1" &gt;Attempt to take the square root of a negative number, '%1%'.&lt;/Error&gt;
+	&lt;Error Key="22014" NativeErrorCode="36" Params="3" &gt;The start position for LOCATE is invalid; it must be a positive integer. The index to start the search from is '%1%'. The string to search for is '%2%'. The string to search from is '%3%'.&lt;/Error&gt;
+	&lt;Error Key="22015" NativeErrorCode="37" Params="4" &gt;The '%1%' function is not allowed on the following set of types. First operand is of type '%2%'. Second operand is of type '%3%'. Third operand (start position) is of type '%4%'.&lt;/Error&gt;
+	&lt;Error Key="22018" NativeErrorCode="38" Params="1" &gt;Invalid character string format for type %1%.&lt;/Error&gt;
+	&lt;Error Key="22019" NativeErrorCode="39" Params="1" &gt;Invalid escape sequence, '%1%'. The escape string must be exactly one character. It cannot be a null or more than one character.&lt;/Error&gt;
+	&lt;Error Key="22025" NativeErrorCode="40"&gt;Escape character must be followed by escape character, _, or %. It cannot be followed by any other character or be at the end of the pattern.&lt;/Error&gt;
+	&lt;Error Key="22027" NativeErrorCode="41"&gt;The built-in TRIM() function only supports a single trim character. The LTRIM() and RTRIM() built-in functions support multiple trim characters.&lt;/Error&gt;
+	&lt;Error Key="22501" NativeErrorCode="42"&gt;An ESCAPE clause of NULL returns undefined results and is not allowed.&lt;/Error&gt;
+	&lt;Error Key="23502" NativeErrorCode="43" Params="1" &gt;Column '%1%' cannot accept a NULL value.&lt;/Error&gt;
+	&lt;Error Key="23503" NativeErrorCode="44" Params="4" &gt;%1% on table '%2%' caused a violation of foreign key constraint '%3%' for key %4%. The statement has been rolled back.&lt;/Error&gt;
+	&lt;Error Key="23505" NativeErrorCode="45" Params="2" &gt;The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by '%1%' defined on '%2%'.&lt;/Error&gt;
+	&lt;Error Key="23513" NativeErrorCode="46" Params="2" &gt;The check constraint '%1%' was violated while performing an INSERT or UPDATE on table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="24000" NativeErrorCode="47"&gt;Invalid cursor state - no current row.&lt;/Error&gt;
+	&lt;Error Key="25000" NativeErrorCode="48"&gt;Invalid transaction state.&lt;/Error&gt;
+	&lt;Error Key="25501" NativeErrorCode="49"&gt;Unable to set the connection read-only property in an active transaction.&lt;/Error&gt;
+	&lt;Error Key="25502" NativeErrorCode="50"&gt;An SQL data change is not permitted for a read-only connection, user or database.&lt;/Error&gt;
+	&lt;Error Key="25503" NativeErrorCode="51"&gt;DDL is not permitted for a read-only connection, user or database.&lt;/Error&gt;
+	&lt;Error Key="25505" NativeErrorCode="52"&gt;A read-only user or a user in a read-only database is not permitted to disable read-only mode on a connection.&lt;/Error&gt;
+	&lt;Error Key="28501" NativeErrorCode="53" Params="2" &gt;Invalid database authorization property '%1%=%2%'.&lt;/Error&gt;
+	&lt;Error Key="28502" NativeErrorCode="54" Params="1" &gt;The user name '%1%' is not valid.&lt;/Error&gt;
+	&lt;Error Key="28503" NativeErrorCode="55" Params="1" &gt;User(s) '%1%' must not be in both read-only and full-access authorization lists.&lt;/Error&gt;
+	&lt;Error Key="28504" NativeErrorCode="56" Params="2" &gt;Repeated user(s) '%1%' in access list '%2%'.&lt;/Error&gt;
+	&lt;Error Key="38000" NativeErrorCode="57" Params="1" &gt;The exception '%1%' was thrown while evaluating an expression.&lt;/Error&gt;
+	&lt;Error Key="38001" NativeErrorCode="58"&gt;The external routine is not allowed to execute SQL statements.&lt;/Error&gt;
+	&lt;Error Key="38002" NativeErrorCode="59"&gt;The routine attempted to modify data, but the routine was not defined as MODIFIES SQL DATA.&lt;/Error&gt;
+	&lt;Error Key="38004" NativeErrorCode="60"&gt;The routine attempted to read data, but the routine was not defined as READS SQL DATA.&lt;/Error&gt;
+	&lt;Error Key="39004" NativeErrorCode="61" Params="1" &gt;A NULL value cannot be passed to a method which takes a parameter of primitive type '%1%'.&lt;/Error&gt;
+	&lt;Error Key="3B001" NativeErrorCode="62" Params="1" &gt;SAVEPOINT, %1% does not exist or is not active in the current transaction.&lt;/Error&gt;
+	&lt;Error Key="3B002" NativeErrorCode="63"&gt;The maximum number of savepoints has been reached.&lt;/Error&gt;
+	&lt;Error Key="3B501" NativeErrorCode="64"&gt;A SAVEPOINT with the passed name already exists in the current transaction.&lt;/Error&gt;
+	&lt;Error Key="3B502" NativeErrorCode="65"&gt;A RELEASE or ROLLBACK TO SAVEPOINT was specified, but the savepoint does not exist.&lt;/Error&gt;
+	&lt;Error Key="40001" NativeErrorCode="66" Params="2" &gt;A lock could not be obtained due to a deadlock, cycle of locks and waiters is: %1%. The selected victim is XID : %2%.&lt;/Error&gt;
+	&lt;Error Key="40XC0" NativeErrorCode="67"&gt;Dead statement. This may be caused by catching a transaction severity error inside this statement.&lt;/Error&gt;
+	&lt;Error Key="40XD0" NativeErrorCode="68"&gt;Container has been closed.&lt;/Error&gt;
+	&lt;Error Key="40XD1" NativeErrorCode="69"&gt;Container was opened in read-only mode.&lt;/Error&gt;
+	&lt;Error Key="40XD2" NativeErrorCode="70" Params="1" &gt;Container %1% cannot be opened; it either has been dropped or does not exist.&lt;/Error&gt;
+	&lt;Error Key="40XL1" NativeErrorCode="71"&gt;A lock could not be obtained within the time requested.&lt;/Error&gt;
+	&lt;Error Key="40XL2" NativeErrorCode="72" Params="1" &gt;A lock could not be obtained within the time requested. The lockTable dump is: %1%.&lt;/Error&gt;
+	&lt;Error Key="40XT0" NativeErrorCode="73"&gt;An internal error was identified by RawStore module.&lt;/Error&gt;
+	&lt;Error Key="40XT1" NativeErrorCode="74"&gt;An exception was thrown during transaction commit.&lt;/Error&gt;
+	&lt;Error Key="40XT2" NativeErrorCode="75"&gt;An exception was thrown during rollback of a SAVEPOINT.&lt;/Error&gt;
+	&lt;Error Key="40XT4" NativeErrorCode="76"&gt;An attempt was made to close a transaction that was still active. The transaction has been aborted.&lt;/Error&gt;
+	&lt;Error Key="40XT5" NativeErrorCode="77"&gt;Exception thrown during an internal transaction.&lt;/Error&gt;
+	&lt;Error Key="40XT6" NativeErrorCode="78"&gt;Database is in quiescent state, cannot activate transaction. Please wait for a moment until it exits the inactive state.&lt;/Error&gt;
+	&lt;Error Key="40XT7" NativeErrorCode="79"&gt;Operation is not supported in an internal transaction.&lt;/Error&gt;
+	&lt;Error Key="42000" NativeErrorCode="80"&gt;Syntax error or access rule violation; see additional errors for details.&lt;/Error&gt;
+	&lt;Error Key="42601" NativeErrorCode="81"&gt;ALTER TABLE statement cannot add an IDENTITY column to a table.&lt;/Error&gt;
+	&lt;Error Key="42601" NativeErrorCode="82" Params="1" &gt;In an ALTER TABLE statement, the column '%1%' has been specified as NOT NULL and either the DEFAULT clause was not specified or was specified as DEFAULT NULL.&lt;/Error&gt;
+	&lt;Error Key="42605" NativeErrorCode="83" Params="1" &gt;The number of arguments for function '%1%' is incorrect.&lt;/Error&gt;
+	&lt;Error Key="42606" NativeErrorCode="84" Params="1" &gt;An invalid hexadecimal constant starting with '%1%' has been detected.&lt;/Error&gt;
+	&lt;Error Key="42610" NativeErrorCode="85"&gt;All the arguments to the COALESCE/VALUE function cannot be parameters. The function needs at least one argument that is not a parameter.&lt;/Error&gt;
+	&lt;Error Key="42611" NativeErrorCode="86" Params="1" &gt;The length, precision, or scale attribute for column, or type mapping '%1%' is not valid.&lt;/Error&gt;
+	&lt;Error Key="42613" NativeErrorCode="87" Params="1" &gt;Multiple or conflicting keywords involving the '%1%' clause are present.&lt;/Error&gt;
+	&lt;Error Key="42621" NativeErrorCode="88" Params="1" &gt;A check constraint or generated column that is defined with '%1%' is invalid.&lt;/Error&gt;
+	&lt;Error Key="42622" NativeErrorCode="89" Params="2" &gt;The name '%1%' is too long. The maximum length is '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42734" NativeErrorCode="90" Params="2" &gt;Name '%1%' specified in context '%2%' is not unique.&lt;/Error&gt;
+	&lt;Error Key="42802" NativeErrorCode="91"&gt;The number of values assigned is not the same as the number of specified or implied columns.&lt;/Error&gt;
+	&lt;Error Key="42803" NativeErrorCode="92" Params="1" &gt;An expression containing the column '%1%' appears in the SELECT list and is not part of a GROUP BY clause.&lt;/Error&gt;
+	&lt;Error Key="42815" NativeErrorCode="93" Params="1" &gt;The replacement value for '%1%' is invalid.&lt;/Error&gt;
+	&lt;Error Key="42815" NativeErrorCode="94" Params="2" &gt;The data type, length or value of arguments '%1%' and '%2%' is incompatible.&lt;/Error&gt;
+	&lt;Error Key="42818" NativeErrorCode="95" Params="2" &gt;Comparisons between '%1%' and '%2%' are not supported.&lt;/Error&gt;
+	&lt;Error Key="42820" NativeErrorCode="96" Params="1" &gt;The floating point literal '%1%' contains more than 30 characters.&lt;/Error&gt;
+	&lt;Error Key="42821" NativeErrorCode="97" Params="2" &gt;Columns of type '%1%' cannot hold values of type '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42824" NativeErrorCode="98"&gt;An operand of LIKE is not a string, or the first operand is not a column.&lt;/Error&gt;
+	&lt;Error Key="42831" NativeErrorCode="99" Params="1" &gt;'%1%' cannot be a column of a primary key or unique key because it can contain null values.&lt;/Error&gt;
+	&lt;Error Key="42834" NativeErrorCode="100" Params="1" &gt;SET NULL cannot be specified because FOREIGN KEY '%1%' cannot contain null values.&lt;/Error&gt;
+	&lt;Error Key="42837" NativeErrorCode="101" Params="2" &gt;ALTER TABLE '%1%' specified attributes for column '%2%' that are not compatible with the existing column.&lt;/Error&gt;
+	&lt;Error Key="42846" NativeErrorCode="102" Params="2" &gt;Cannot convert types '%1%' to '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42877" NativeErrorCode="103" Params="1" &gt;A qualified column name '%1%' is not allowed in the ORDER BY clause.&lt;/Error&gt;
+	&lt;Error Key="42884" NativeErrorCode="104" Params="2" &gt;No authorized routine named '%1%' of type '%2%' having compatible arguments was found.&lt;/Error&gt;
+	&lt;Error Key="42886" NativeErrorCode="105" Params="3" &gt;'%1%' parameter '%2%' requires a parameter marker '%3%'.&lt;/Error&gt;
+	&lt;Error Key="42894" NativeErrorCode="106" Params="1" &gt;DEFAULT value or IDENTITY attribute value is not valid for column '%1%'.&lt;/Error&gt;
+	&lt;Error Key="428C1" NativeErrorCode="107"&gt;Only one identity column is allowed in a table.&lt;/Error&gt;
+	&lt;Error Key="428EK" NativeErrorCode="108"&gt;The qualifier for a declared global temporary table name must be SESSION.&lt;/Error&gt;
+	&lt;Error Key="42903" NativeErrorCode="109"&gt;Invalid use of an aggregate function.&lt;/Error&gt;
+	&lt;Error Key="42908" NativeErrorCode="110"&gt;The CREATE VIEW statement does not include a column list.&lt;/Error&gt;
+	&lt;Error Key="42915" NativeErrorCode="111" Params="2" &gt;Foreign Key '%1%' is invalid because '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42916" NativeErrorCode="112" Params="2" &gt;Synonym '%1%' cannot be created for '%2%' as it would result in a circular synonym chain.&lt;/Error&gt;
+	&lt;Error Key="42939" NativeErrorCode="113" Params="1" &gt;An object cannot be created with the schema name '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42962" NativeErrorCode="114" Params="1" &gt;Long column type column or parameter '%1%' not permitted in declared global temporary tables or procedure definitions.&lt;/Error&gt;
+	&lt;Error Key="42972" NativeErrorCode="115"&gt;An ON clause associated with a JOIN operator is not valid.&lt;/Error&gt;
+	&lt;Error Key="42995" NativeErrorCode="116"&gt;The requested function does not apply to global temporary tables.&lt;/Error&gt;
+	&lt;Error Key="42X01" NativeErrorCode="117" Params="1" &gt;Syntax error: %1%.&lt;/Error&gt;
+	&lt;Error Key="42X02" NativeErrorCode="118" Params="1" &gt;%1%.&lt;/Error&gt;
+	&lt;Error Key="42X03" NativeErrorCode="119" Params="1" &gt;Column name '%1%' is in more than one table in the FROM list.&lt;/Error&gt;
+	&lt;Error Key="42X04" NativeErrorCode="120" Params="2" &gt;Column '%1%' is either not in any table in the FROM list or appears within a join specification and is outside the scope of the join specification or appears in a HAVING clause and is not in the GROUP BY list. If this is a CREATE or ALTER TABLE statement then '%2%' is not a column in the target table.&lt;/Error&gt;
+	&lt;Error Key="42X05" NativeErrorCode="121" Params="1" &gt;Table '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="42X06" NativeErrorCode="122" Params="1" &gt;Too many result columns specified for table '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X07" NativeErrorCode="123"&gt;Null is only allowed in a VALUES clause within an INSERT statement.&lt;/Error&gt;
+	&lt;Error Key="42X08" NativeErrorCode="124" Params="2" &gt;The constructor for class '%1%' cannot be used as an external virtual table because the class does not implement '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X09" NativeErrorCode="125" Params="1" &gt;The table or alias name '%1%' is used more than once in the FROM list.&lt;/Error&gt;
+	&lt;Error Key="42X10" NativeErrorCode="126" Params="1" &gt;'%1%' is not an exposed table name in the scope in which it appears.&lt;/Error&gt;
+	&lt;Error Key="42X12" NativeErrorCode="127" Params="1" &gt;Column name '%1%' appears more than once in the CREATE TABLE statement.&lt;/Error&gt;
+	&lt;Error Key="42X13" NativeErrorCode="128" Params="1" &gt;Column name '%1%' appears more than once in the column list of an INSERT statement.&lt;/Error&gt;
+	&lt;Error Key="42X14" NativeErrorCode="129" Params="2" &gt;'%1%' is not a column in table or VTI '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X15" NativeErrorCode="130" Params="1" &gt;Column name '%1%' appears in a statement without a FROM list.&lt;/Error&gt;
+	&lt;Error Key="42X16" NativeErrorCode="131" Params="1" &gt;Column name '%1%' appears multiple times in the SET clause of an UPDATE statement.&lt;/Error&gt;
+	&lt;Error Key="42X17" NativeErrorCode="132" Params="1" &gt;In the Properties list of a FROM clause, the value '%1%' is not valid as a joinOrder specification. Only the values FIXED and UNFIXED are valid.&lt;/Error&gt;
+	&lt;Error Key="42X19" NativeErrorCode="133" Params="1" &gt;The WHERE or HAVING clause or CHECK CONSTRAINT definition is a '%1%' expression. It must be a BOOLEAN expression.&lt;/Error&gt;
+	&lt;Error Key="42X23" NativeErrorCode="134" Params="1" &gt;Cursor %1% is not updatable.&lt;/Error&gt;
+	&lt;Error Key="42X25" NativeErrorCode="135" Params="2" &gt;The '%1%' function is not allowed on the '%2%' type.&lt;/Error&gt;
+	&lt;Error Key="42X26" NativeErrorCode="136" Params="2" &gt;The class '%1% for column '%2%' does not exist or is inaccessible. This can happen if the class is not public.&lt;/Error&gt;
+	&lt;Error Key="42X28" NativeErrorCode="137" Params="2" &gt;Delete table '%1%' is not target of cursor '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X29" NativeErrorCode="138" Params="2" &gt;Update table '%1%' is not the target of cursor '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X30" NativeErrorCode="139" Params="1" &gt;Cursor '%1%' not found. Verify that autocommit is OFF.&lt;/Error&gt;
+	&lt;Error Key="42X31" NativeErrorCode="140" Params="2" &gt;Column '%1%' is not in the FOR UPDATE list of cursor '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X32" NativeErrorCode="141" Params="1" &gt;The number of columns in the derived column list must match the number of columns in table '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X33" NativeErrorCode="142" Params="1" &gt;The derived column list contains a duplicate column name '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X34" NativeErrorCode="143"&gt;There is a ? parameter in the select list. This is not allowed.&lt;/Error&gt;
+	&lt;Error Key="42X35" NativeErrorCode="144" Params="1" &gt;It is not allowed for both operands of '%1%' to be ? parameters.&lt;/Error&gt;
+	&lt;Error Key="42X36" NativeErrorCode="145" Params="1" &gt;The '%1%' operator is not allowed to take a ? parameter as an operand.&lt;/Error&gt;
+	&lt;Error Key="42X37" NativeErrorCode="146" Params="2" &gt;The unary '%1%' operator is not allowed on the '%2%' type.&lt;/Error&gt;
+	&lt;Error Key="42X38" NativeErrorCode="147"&gt;'SELECT *' only allowed in EXISTS and NOT EXISTS subqueries.&lt;/Error&gt;
+	&lt;Error Key="42X39" NativeErrorCode="148"&gt;Subquery is only allowed to return a single column.&lt;/Error&gt;
+	&lt;Error Key="42X40" NativeErrorCode="149"&gt;A NOT statement has an operand that is not boolean . The operand of NOT must evaluate to TRUE, FALSE, or UNKNOWN.&lt;/Error&gt;
+	&lt;Error Key="42X41" NativeErrorCode="150" Params="2" &gt;In the Properties clause of a FROM list, the property '%1%' is not valid (the property was being set to '%2%').&lt;/Error&gt;
+	&lt;Error Key="42X42" NativeErrorCode="151" Params="1" &gt;Correlation name not allowed for column '%1%' because it is part of the FOR UPDATE list.&lt;/Error&gt;
+	&lt;Error Key="42X43" NativeErrorCode="152" Params="1" &gt;The ResultSetMetaData returned for the class/object '%1%' was null. In order to use this class as an external virtual table, the ResultSetMetaData cannot be null.&lt;/Error&gt;
+	&lt;Error Key="42X44" NativeErrorCode="153" Params="1" &gt;Invalid length '%1%' in column specification.&lt;/Error&gt;
+	&lt;Error Key="42X45" NativeErrorCode="154" Params="3" &gt;%1% is an invalid type for argument number %2% of %3%.&lt;/Error&gt;
+	&lt;Error Key="42X48" NativeErrorCode="155" Params="2" &gt;Value '%1%' is not a valid precision for %2%.&lt;/Error&gt;
+	&lt;Error Key="42X49" NativeErrorCode="156" Params="1" &gt;Value '%1%' is not a valid integer literal.&lt;/Error&gt;
+	&lt;Error Key="42X50" NativeErrorCode="157" Params="3" &gt;No method was found that matched the method call %1%.%2%(%3%), tried all combinations of object and primitive types and any possible type conversion for any parameters the method call may have. The method might exist but it is not public and/or static, or the parameter types are not method invocation convertible.&lt;/Error&gt;
+	&lt;Error Key="42X51" NativeErrorCode="158" Params="1" &gt;The class '%1%' does not exist or is inaccessible. This can happen if the class is not public.&lt;/Error&gt;
+	&lt;Error Key="42X52" NativeErrorCode="159" Params="2" &gt;Calling method ('%1%') using a receiver of the Java primitive type '%2%" is not allowed.&lt;/Error&gt;
+	&lt;Error Key="42X53" NativeErrorCode="160" Params="1" &gt;The LIKE predicate can only have 'CHAR' or 'VARCHAR' operands. Type '%1%' is not permitted.&lt;/Error&gt;
+	&lt;Error Key="42X54" NativeErrorCode="161" Params="1" &gt;The Java method '%1%' has a ? as a receiver. This is not allowed.&lt;/Error&gt;
+	&lt;Error Key="42X55" NativeErrorCode="162" Params="2" &gt;Table name '%1%' should be the same as '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X56" NativeErrorCode="163" Params="1" &gt;The number of columns in the view column list does not match the number of columns in the underlying query expression in the view definition for '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X57" NativeErrorCode="164" Params="2" &gt;The getColumnCount() for external virtual table '%1%' returned an invalid value '%2%'. Valid values are greater than or equal to 1.&lt;/Error&gt;
+	&lt;Error Key="42X58" NativeErrorCode="165" Params="1" &gt;The number of columns on the left and right sides of the %1% must be the same.&lt;/Error&gt;
+	&lt;Error Key="42X59" NativeErrorCode="166"&gt;The number of columns in each VALUES constructor must be the same.&lt;/Error&gt;
+	&lt;Error Key="42X60" NativeErrorCode="167" Params="2" &gt;Invalid value '%1%' for insertMode property specified for table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X61" NativeErrorCode="168" Params="3" &gt;Types '%1%' and '%2%' are not %3% compatible.&lt;/Error&gt;
+	&lt;Error Key="42X62" NativeErrorCode="169" Params="2" &gt;'%1%' is not allowed in the '%2%' schema.&lt;/Error&gt;
+	&lt;Error Key="42X63" NativeErrorCode="170"&gt;The USING clause did not return any results. No parameters can be set.&lt;/Error&gt;
+	&lt;Error Key="42X64" NativeErrorCode="171" Params="1" &gt;In the Properties list, the invalid value '%1%' was specified for the useStatistics property. The only valid values are TRUE or FALSE .&lt;/Error&gt;
+	&lt;Error Key="42X65" NativeErrorCode="172" Params="1" &gt;Index '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="42X66" NativeErrorCode="173" Params="1" &gt;Column name '%1%' appears more than once in the CREATE INDEX statement.&lt;/Error&gt;
+	&lt;Error Key="42X68" NativeErrorCode="174" Params="2" &gt;No field '%1%' was found belonging to class '%2%'. The field might exist, but it is not public, or the class does not exist or is not public.&lt;/Error&gt;
+	&lt;Error Key="42X69" NativeErrorCode="175" Params="2" &gt;It is not allowed to reference a field ('%1%') using a referencing expression of the Java primitive type '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X72" NativeErrorCode="176" Params="2" &gt;No static field '%1%' was found belonging to class '%2%'. The field might exist, but it is not public and/or static, or the class does not exist or the class is not public.&lt;/Error&gt;
+	&lt;Error Key="42X73" NativeErrorCode="177" Params="3" &gt;Method resolution for signature %1%.%2%(%3%) was ambiguous. (No single maximally specific method.)&lt;/Error&gt;
+	&lt;Error Key="42X74" NativeErrorCode="178"&gt;Invalid CALL statement syntax.&lt;/Error&gt;
+	&lt;Error Key="42X75" NativeErrorCode="179" Params="2" &gt;No constructor was found with the signature %1%(%2%). It may be that the parameter types are not method invocation convertible.&lt;/Error&gt;
+	&lt;Error Key="42X76" NativeErrorCode="180" Params="1" &gt;At least one column, '%1%', in the primary key being added is nullable. All columns in a primary key must be non-nullable.&lt;/Error&gt;
+	&lt;Error Key="42X77" NativeErrorCode="181" Params="1" &gt;Column position '%1%' is out of range for the query expression.&lt;/Error&gt;
+	&lt;Error Key="42X78" NativeErrorCode="182" Params="1" &gt;Column '%1%' is not in the result of the query expression.&lt;/Error&gt;
+	&lt;Error Key="42X79" NativeErrorCode="183" Params="1" &gt;Column name '%1%' appears more than once in the result of the query expression.&lt;/Error&gt;
+	&lt;Error Key="42X80" NativeErrorCode="184"&gt;VALUES clause must contain at least one element. Empty elements are not allowed.&lt;/Error&gt;
+	&lt;Error Key="42X82" NativeErrorCode="185"&gt;The USING clause returned more than one row. Only single-row ResultSets are permissible.&lt;/Error&gt;
+	&lt;Error Key="42X83" NativeErrorCode="186" Params="1" &gt;The constraints on column '%1%' require that it be both nullable and not nullable.&lt;/Error&gt;
+	&lt;Error Key="42X84" NativeErrorCode="187" Params="2" &gt;Index '%1%' was created to enforce constraint '%2%'. It can only be dropped by dropping the constraint.&lt;/Error&gt;
+	&lt;Error Key="42X85" NativeErrorCode="188" Params="2" &gt;Constraint '%1%' is required to be in the same schema as table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X86" NativeErrorCode="189" Params="2" &gt;ALTER TABLE failed. There is no constraint '%1%' on table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42X87" NativeErrorCode="190" Params="1" &gt;At least one result expression (THEN or ELSE) of the '%1%' expression must not be a '?'.&lt;/Error&gt;
+	&lt;Error Key="42X88" NativeErrorCode="191"&gt;A conditional has a non-boolean operand. The operand of a conditional must evaluate to TRUE, FALSE, or UNKNOWN.&lt;/Error&gt;
+	&lt;Error Key="42X89" NativeErrorCode="192" Params="2" &gt;Types '%1%' and '%2%' are not type compatible. Neither type is assignable to the other type.&lt;/Error&gt;
+	&lt;Error Key="42X90" NativeErrorCode="193" Params="1" &gt;More than one primary key constraint specified for table '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X91" NativeErrorCode="194" Params="1" &gt;Constraint name '%1%' appears more than once in the CREATE TABLE statement.&lt;/Error&gt;
+	&lt;Error Key="42X92" NativeErrorCode="195" Params="1" &gt;Column name '%1%' appears more than once in a constraint's column list.&lt;/Error&gt;
+	&lt;Error Key="42X93" NativeErrorCode="196" Params="2" &gt;Table '%1%' contains a constraint definition with column '%2%' which is not in the table.&lt;/Error&gt;
+	&lt;Error Key="42X94" NativeErrorCode="197" Params="2" &gt;%1% '%2%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="42X96" NativeErrorCode="198" Params="1" &gt;The database classpath contains an unknown jar file '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42X98" NativeErrorCode="199"&gt;Parameters are not allowed in a VIEW definition.&lt;/Error&gt;
+	&lt;Error Key="42Y00" NativeErrorCode="200" Params="1" &gt;Class '%1%' does not implement org.apache.derby.iapi.db.AggregateDefinition and thus cannot be used as an aggregate expression.&lt;/Error&gt;
+	&lt;Error Key="42Y01" NativeErrorCode="201" Params="1" &gt;Constraint '%1%' is invalid.&lt;/Error&gt;
+	&lt;Error Key="42Y03" NativeErrorCode="202" Params="1" &gt;'%1%' is not recognized as a function or procedure.&lt;/Error&gt;
+	&lt;Error Key="42Y04" NativeErrorCode="203" Params="3" &gt;Cannot create a procedure or function with EXTERNAL NAME '%1%' because it is not a list separated by periods. The expected format is %2%.%3%.&lt;/Error&gt;
+	&lt;Error Key="42Y05" NativeErrorCode="204" Params="1" &gt;There is no Foreign Key named '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42Y07" NativeErrorCode="205" Params="1" &gt;Schema '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="42Y08" NativeErrorCode="206"&gt;Foreign key constraints are not allowed on system tables.&lt;/Error&gt;
+	&lt;Error Key="42Y09" NativeErrorCode="207"&gt;Void methods are only allowed within a CALL statement.&lt;/Error&gt;
+	&lt;Error Key="42Y10" NativeErrorCode="208"&gt;A table constructor that is not in an INSERT statement has all ? parameters in one of its columns. For each column, at least one of the rows must have a non-parameter.&lt;/Error&gt;
+	&lt;Error Key="42Y11" NativeErrorCode="209" Params="1" &gt;A join specification is required with the '%1%' clause.&lt;/Error&gt;
+	&lt;Error Key="42Y12" NativeErrorCode="210" Params="1" &gt;The ON clause of a JOIN is a '%1%' expression. It must be a BOOLEAN expression.&lt;/Error&gt;
+	&lt;Error Key="42Y13" NativeErrorCode="211" Params="1" &gt;Column name '%1%' appears more than once in the CREATE VIEW statement.&lt;/Error&gt;
+	&lt;Error Key="42Y16" NativeErrorCode="212" Params="2" &gt;No public static method '%1%' was found in class '%2%'. The method might exist, but it is not public, or it is not static.&lt;/Error&gt;
+	&lt;Error Key="42Y19" NativeErrorCode="213" Params="1" &gt;'%1%' appears multiple times in the GROUP BY list. Columns in the GROUP BY list must be unambiguous.&lt;/Error&gt;
+	&lt;Error Key="42Y22" NativeErrorCode="214" Params="2" &gt;Aggregate %1% cannot operate on type %2%.&lt;/Error&gt;
+	&lt;Error Key="42Y23" NativeErrorCode="215" Params="1" &gt;Incorrect JDBC type info returned for column %1%.&lt;/Error&gt;
+	&lt;Error Key="42Y24" NativeErrorCode="216" Params="1" &gt;View '%1%' is not updatable. (Views are currently not updatable.)&lt;/Error&gt;
+	&lt;Error Key="42Y25" NativeErrorCode="217" Params="1" &gt;'%1%' is a system table. Users are not allowed to modify the contents of this table.&lt;/Error&gt;
+	&lt;Error Key="42Y27" NativeErrorCode="218"&gt;Parameters are not allowed in the trigger action.&lt;/Error&gt;
+	&lt;Error Key="42Y29" NativeErrorCode="219"&gt;The SELECT list of a non-grouped query contains at least one invalid expression. When the SELECT list contains at least one aggregate then all entries must be valid aggregate expressions.&lt;/Error&gt;
+	&lt;Error Key="42Y30" NativeErrorCode="220"&gt;The SELECT list of a grouped query contains at least one invalid expression. If a SELECT list has a GROUP BY, the list may only contain grouping columns and valid aggregate expressions.&lt;/Error&gt;
+	&lt;Error Key="42Y32" NativeErrorCode="221" Params="3" &gt;Aggregator class '%1% aggregate '%2%' on type %3% does not implement com.ibm.db2j.aggregates.Aggregator.&lt;/Error&gt;
+	&lt;Error Key="42Y33" NativeErrorCode="222" Params="1" &gt;Aggregate %1% contains one or more aggregates.&lt;/Error&gt;
+	&lt;Error Key="42Y34" NativeErrorCode="223" Params="2" &gt;Column name '%1%' matches more than one result column in table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y35" NativeErrorCode="224" Params="1" &gt;Column reference '%1%' is invalid. When the SELECT list contains at least one aggregate then all entries must be valid aggregate expressions.&lt;/Error&gt;
+	&lt;Error Key="42Y36" NativeErrorCode="225" Params="1" &gt;Column reference '%1%' is invalid. For a SELECT list with a GROUP BY, the list may only contain grouping columns and valid aggregate expressions.&lt;/Error&gt;
+	&lt;Error Key="42Y37" NativeErrorCode="226" Params="1" &gt;'%1%' is a Java primitive and cannot be used with this operator.&lt;/Error&gt;
+	&lt;Error Key="42Y38" NativeErrorCode="227" Params="1" &gt;insertMode = replace is not permitted on an insert where the target table, '%1%', is referenced in the SELECT.&lt;/Error&gt;
+	&lt;Error Key="42Y39" NativeErrorCode="228" Params="1" &gt;'%1%' may not appear in a CHECK CONSTRAINT definition because it may return non-deterministic results.&lt;/Error&gt;
+	&lt;Error Key="42Y40" NativeErrorCode="229" Params="2" &gt;'%1%' appears multiple times in the UPDATE OF column list for trigger '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y41" NativeErrorCode="230" Params="1" &gt;'%1%' cannot be directly invoked via EXECUTE STATEMENT because it is part of a trigger.&lt;/Error&gt;
+	&lt;Error Key="42Y42" NativeErrorCode="231" Params="2" &gt;Scale '%1%' is not a valid scale for a %2%.&lt;/Error&gt;
+	&lt;Error Key="42Y43" NativeErrorCode="232" Params="2" &gt;Scale '%1%' is not a valid scale with precision of '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y44" NativeErrorCode="233" Params="2" &gt;Invalid key '%1%' specified in the Properties list of a FROM list. The case-sensitive keys that are currently supported are '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y45" NativeErrorCode="234" Params="1" &gt;VTI '%1%' cannot be bound because it is a special trigger VTI and this statement is not part of a trigger action or WHEN clause.&lt;/Error&gt;
+	&lt;Error Key="42Y46" NativeErrorCode="235" Params="2" &gt;Invalid Properties list in FROM list. There is no index '%1%' on table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y48" NativeErrorCode="236" Params="2" &gt;Invalid Properties list in FROM list. Either there is no named constraint '%1%' on table '%2%' or the constraint does not have a backing index.&lt;/Error&gt;
+	&lt;Error Key="42Y49" NativeErrorCode="237" Params="1" &gt;Multiple values specified for property key '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42Y50" NativeErrorCode="238" Params="1" &gt;Properties list for table '%1%' may contain values for index or for constraint but not both.&lt;/Error&gt;
+	&lt;Error Key="42Y55" NativeErrorCode="239" Params="2" &gt;'%1%' cannot be performed on '%2%' because it does not exist.&lt;/Error&gt;
+	&lt;Error Key="42Y56" NativeErrorCode="240" Params="2" &gt;Invalid join strategy '%1%' specified in Properties list on table '%2%'. The currently supported values for a join strategy are: 'hash', 'and', 'nestedloop'.&lt;/Error&gt;
+	&lt;Error Key="42Y58" NativeErrorCode="241" Params="2" &gt;NumberFormatException occurred when converting value '%1%' for optimizer override '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y59" NativeErrorCode="242" Params="1" &gt;Invalid value, '%1%', specified for hashInitialCapacity override. Value must be greater than 0.&lt;/Error&gt;
+	&lt;Error Key="42Y60" NativeErrorCode="243" Params="1" &gt;Invalid value, '%1%', specified for hashLoadFactor override. Value must be greater than 0.0 and less than or equal to 1.0.&lt;/Error&gt;
+	&lt;Error Key="42Y61" NativeErrorCode="244" Params="1" &gt;Invalid value, '%1%' specified for hashMaxCapacity override. Value must be greater than 0.&lt;/Error&gt;
+	&lt;Error Key="42Y62" NativeErrorCode="245" Params="2" &gt;'%1%' is not allowed on '%2%' because it is a view.&lt;/Error&gt;
+	&lt;Error Key="42Y63" NativeErrorCode="246" Params="2" &gt;Hash join requires an optimizable equijoin predicate on a column in the selected index or heap. An optimizable equijoin predicate does not exist on any column in table or index '%1%'. Use the 'index' optimizer override to specify such an index or the heap on table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Y64" NativeErrorCode="247" Params="1" &gt;bulkFetch value of '%1%' is invalid. The minimum value for bulkFetch is 1.&lt;/Error&gt;
+	&lt;Error Key="42Y65" NativeErrorCode="248" Params="1" &gt;bulkFetch is not permitted on '%1%' joins.&lt;/Error&gt;
+	&lt;Error Key="42Y66" NativeErrorCode="249"&gt;bulkFetch is not permitted on updatable cursors.&lt;/Error&gt;
+	&lt;Error Key="42Y67" NativeErrorCode="250" Params="1" &gt;Schema '%1%' cannot be dropped.&lt;/Error&gt;
+	&lt;Error Key="42Y69" NativeErrorCode="251"&gt;No valid execution plan was found for this statement. This may have one of two causes: either you specified a hash join strategy when hash join is not allowed (no optimizable equijoin) or you are attempting to join two external virtual tables, each of which references the other, and so the statement cannot be evaluated.&lt;/Error&gt;
+	&lt;Error Key="42Y70" NativeErrorCode="252"&gt;The user specified an illegal join order. This could be caused by a join column from an inner table being passed as a parameter to an external virtual table.&lt;/Error&gt;
+	&lt;Error Key="42Y71" NativeErrorCode="253" Params="1" &gt;System function or procedure '%1%' cannot be dropped.&lt;/Error&gt;
+	&lt;Error Key="42Y82" NativeErrorCode="254" Params="1" &gt;System generated stored prepared statement '%1%' that cannot be dropped using DROP STATEMENT. It is part of a trigger.&lt;/Error&gt;
+	&lt;Error Key="42Y83" NativeErrorCode="255" Params="1" &gt;An untyped null is not permitted as an argument to aggregate %1%. Please cast the null to a suitable type.&lt;/Error&gt;
+	&lt;Error Key="42Y84" NativeErrorCode="256" Params="1" &gt;'%1%' may not appear in a DEFAULT definition.&lt;/Error&gt;
+	&lt;Error Key="42Y85" NativeErrorCode="257"&gt;The DEFAULT keyword is only allowed in a VALUES clause when the VALUES clause appears within an INSERT statement.&lt;/Error&gt;
+	&lt;Error Key="42Y90" NativeErrorCode="258"&gt;FOR UPDATE is not permitted in this type of statement.&lt;/Error&gt;
+	&lt;Error Key="42Y91" NativeErrorCode="259"&gt;The USING clause is not permitted in an EXECUTE STATEMENT for a trigger action.&lt;/Error&gt;
+	&lt;Error Key="42Y92" NativeErrorCode="260" Params="2" &gt;%1% triggers may only reference %2% transition variables/tables.&lt;/Error&gt;
+	&lt;Error Key="42Y93" NativeErrorCode="261"&gt;Illegal REFERENCING clause: only one name is permitted for each type of transition variable/table.&lt;/Error&gt;
+	&lt;Error Key="42Y94" NativeErrorCode="262"&gt;An AND or OR has a non-boolean operand. The operands of AND and OR must evaluate to TRUE, FALSE, or UNKNOWN.&lt;/Error&gt;
+	&lt;Error Key="42Y95" NativeErrorCode="263" Params="3" &gt;The '%1%' operator with a left operand type of '%2%' and a right operand type of '%3%' is not supported.&lt;/Error&gt;
+	&lt;Error Key="42Y97" NativeErrorCode="264" Params="2" &gt;Invalid escape character at line '%1%', column '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Z02" NativeErrorCode="265"&gt;Multiple DISTINCT aggregates are not supported at this time.&lt;/Error&gt;
+	&lt;Error Key="42Z07" NativeErrorCode="266"&gt;Aggregates are not permitted in the ON clause.&lt;/Error&gt;
+	&lt;Error Key="42Z08" NativeErrorCode="267" Params="2" &gt;Bulk insert replace is not permitted on '%1%' because it has an enabled trigger (%2%).&lt;/Error&gt;
+	&lt;Error Key="42Z15" NativeErrorCode="268" Params="1" &gt;Invalid type specified for column '%1%'. The type of a column may not be changed.&lt;/Error&gt;
+	&lt;Error Key="42Z16" NativeErrorCode="269"&gt;Only columns of type VARCHAR may have their length altered.&lt;/Error&gt;
+	&lt;Error Key="42Z17" NativeErrorCode="270" Params="1" &gt;Invalid length specified for column '%1%'. Length must be greater than the current column length.&lt;/Error&gt;
+	&lt;Error Key="42Z18" NativeErrorCode="271" Params="2" &gt;Column '%1%' is part of a foreign key constraint '%2%'. To alter the length of this column, you should drop the constraint first, perform the ALTER TABLE, and then recreate the constraint.&lt;/Error&gt;
+	&lt;Error Key="42Z19" NativeErrorCode="272" Params="2" &gt;Column '%1%' is being referenced by at least one foreign key constraint '%2%'. To alter the length of this column, you should drop referencing constraints, perform the ALTER TABLE, and then recreate the constraints.&lt;/Error&gt;
+	&lt;Error Key="42Z20" NativeErrorCode="273" Params="1" &gt;Column '%1%' cannot be made nullable. It is part of a primary key, which cannot have any nullable columns.&lt;/Error&gt;
+	&lt;Error Key="42Z21" NativeErrorCode="274" Params="1" &gt;Invalid increment specified for identity for column '%1%'. Increment cannot be zero.&lt;/Error&gt;
+	&lt;Error Key="42Z22" NativeErrorCode="275" Params="1" &gt;Invalid type specified for identity column '%1%'. The only valid types for identity columns are BIGINT, INT and SMALLINT.&lt;/Error&gt;
+	&lt;Error Key="42Z23" NativeErrorCode="276" Params="1" &gt;Attempt to modify an identity column '%1%'.&lt;/Error&gt;
+	&lt;Error Key="42Z24" NativeErrorCode="277" Params="2" &gt;Overflow occurred in identity value for column '%1%' in table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Z25" NativeErrorCode="278"&gt;INTERNAL ERROR identity counter. Update was called without arguments with current value = NULL.&lt;/Error&gt;
+	&lt;Error Key="42Z26" NativeErrorCode="279" Params="1" &gt;A column, '%1%', with an identity default cannot be made nullable.&lt;/Error&gt;
+	&lt;Error Key="42Z27" NativeErrorCode="280" Params="1" &gt;A nullable column, '%1%', cannot be modified to have identity default.&lt;/Error&gt;
+	&lt;Error Key="42Z50" NativeErrorCode="281" Params="1" &gt;INTERNAL ERROR: Unable to generate code for %1%.&lt;/Error&gt;
+	&lt;Error Key="42Z53" NativeErrorCode="282" Params="1" &gt;INTERNAL ERROR: Do not know what type of activation to generate for node choice %1%.&lt;/Error&gt;
+	&lt;Error Key="42Z90" NativeErrorCode="283" Params="1" &gt;Class '%1%' does not return an updatable ResultSet.&lt;/Error&gt;
+	&lt;Error Key="42Z91" NativeErrorCode="284"&gt;subquery&lt;/Error&gt;
+	&lt;Error Key="42Z92" NativeErrorCode="285"&gt;repeatable read&lt;/Error&gt;
+	&lt;Error Key="42Z93" NativeErrorCode="286" Params="2" &gt;Constraints '%1%' and '%2%' have the same set of columns, which is not allowed.&lt;/Error&gt;
+	&lt;Error Key="42Z97" NativeErrorCode="287" Params="2" &gt;Renaming column '%1%' will cause check constraint '%2%' to break.&lt;/Error&gt;
+	&lt;Error Key="42Z99" NativeErrorCode="288"&gt;String or Hex literal cannot exceed 64K.&lt;/Error&gt;
+	&lt;Error Key="42Z9A" NativeErrorCode="289"&gt;read uncommitted&lt;/Error&gt;
+	&lt;Error Key="42Z9B" NativeErrorCode="290" Params="2" &gt;The external virtual table interface does not support BLOB or CLOB columns. '%1%' column '%2%'.&lt;/Error&gt;
+	&lt;Error Key="42Z9D" NativeErrorCode="291" Params="2" &gt;'%1%' statements are not allowed in '%2%' triggers.&lt;/Error&gt;
+	&lt;Error Key="42Z9E" NativeErrorCode="292" Params="2" &gt;Constraint '%1%' is not a %2% constraint.&lt;/Error&gt;
+	&lt;Error Key="42Z9F" NativeErrorCode="293" Params="3" &gt;Too many indexes (%1%) on the table %2%. The limit is %3%.&lt;/Error&gt;
+	&lt;Error Key="X0X02" NativeErrorCode="294" Params="2" &gt;Table '%1%' cannot be locked in '%2%' mode.&lt;/Error&gt;
+	&lt;Error Key="X0X03" NativeErrorCode="295"&gt;Invalid transaction state - held cursor requires same isolation level&lt;/Error&gt;
+	&lt;Error Key="X0X05" NativeErrorCode="296" Params="1" &gt;Table '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="X0X07" NativeErrorCode="297" Params="2" &gt;Cannot drop jar file '%1%' because its on your db2j.database.classpath '%2%'.&lt;/Error&gt;
+	&lt;Error Key="X0X0E" NativeErrorCode="298" Params="1" &gt;The column position '%1%' listed in the auto-generated column selection array was not found in the insert table.&lt;/Error&gt;
+	&lt;Error Key="X0X0F" NativeErrorCode="299" Params="1" &gt;Column name '%1%' listed in auto-generated column selection array not found in the insert table.&lt;/Error&gt;
+	&lt;Error Key="X0X10" NativeErrorCode="300"&gt;The USING clause returned more than one row; only single-row ResultSets are permissible.&lt;/Error&gt;
+	&lt;Error Key="X0X11" NativeErrorCode="301"&gt;The USING clause did not return any results so no parameters can be set.&lt;/Error&gt;
+	&lt;Error Key="X0X13" NativeErrorCode="302" Params="2" &gt;Jar file '%1%' does not exist in schema '%2%'.&lt;/Error&gt;
+	&lt;Error Key="X0X14" NativeErrorCode="303"&gt;Binding directly to an XML value is not allowed; try using XMLPARSE.&lt;/Error&gt;
+	&lt;Error Key="X0X15" NativeErrorCode="304"&gt;XML values are not allowed in top-level result sets; try using XMLSERIALIZE.&lt;/Error&gt;
+	&lt;Error Key="X0X16" NativeErrorCode="305" Params="1" &gt;XML syntax error; missing keyword(s): '%1%'.&lt;/Error&gt;
+	&lt;Error Key="X0X17" NativeErrorCode="306" Params="1" &gt;Invalid target type for XMLSERIALIZE: '%1%'.&lt;/Error&gt;
+	&lt;Error Key="X0X18" NativeErrorCode="307" Params="1" &gt;XML feature not supported: '%1%'.&lt;/Error&gt;
+	&lt;Error Key="X0X57" NativeErrorCode="308" Params="1" &gt;An attempt was made to put a Java value of type '%1%' into a SQL value, but there is no corresponding SQL type. The Java value is probably the result of a method call or field access.&lt;/Error&gt;
+	&lt;Error Key="X0X60" NativeErrorCode="309" Params="1" &gt;A cursor with name '%1%' already exists.&lt;/Error&gt;
+	&lt;Error Key="X0X61" NativeErrorCode="310" Params="8" &gt;The values for column '%1%' in index '%2%' and table '%3%.%4%' do not match for row location %5%. The value in the index is '%6%', while the value in the base table is '%7%'. The full index key, including the row location, is '%8%'. The suggested corrective action is to recreate the index.&lt;/Error&gt;
+	&lt;Error Key="X0X62" NativeErrorCode="311" Params="4" &gt;Inconsistency found between table '%1%' and index '%2%'. Error when trying to retrieve row location '%3%' from the table. The full index key, including the row location, is '%4%'. The suggested corrective action is to recreate the index.&lt;/Error&gt;
+	&lt;Error Key="X0X63" NativeErrorCode="312" Params="1" &gt;Got IOException '%1%'.&lt;/Error&gt;
+	&lt;Error Key="X0X67" NativeErrorCode="313" Params="1" &gt;Columns of type '%1%' may not be used in CREATE INDEX, ORDER BY, GROUP BY, UNION, INTERSECT, EXCEPT or DISTINCT statements because comparisons are not supported for that type.&lt;/Error&gt;
+	&lt;Error Key="X0X81" NativeErrorCode="314" Params="2" &gt;%1% '%2%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="X0X85" NativeErrorCode="315" Params="2" &gt;Index '%1%' was not created because '%2%' is not a valid index type.&lt;/Error&gt;
+	&lt;Error Key="X0X86" NativeErrorCode="316"&gt;0 is an invalid parameter value for ResultSet.absolute(int row).&lt;/Error&gt;
+	&lt;Error Key="X0X87" NativeErrorCode="317"&gt;ResultSet.relative(int row) cannot be called when the cursor is not positioned on a row.&lt;/Error&gt;
+	&lt;Error Key="X0X95" NativeErrorCode="318" Params="2" &gt;Operation '%1%' cannot be performed on object '%2%' because there is an open ResultSet dependent on that object.&lt;/Error&gt;
+	&lt;Error Key="X0X99" NativeErrorCode="319" Params="1" &gt;Index '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="X0XML" NativeErrorCode="320"&gt;Encountered unexpected error while processing XML; see next exception for details.&lt;/Error&gt;
+	&lt;Error Key="X0Y16" NativeErrorCode="321" Params="1" &gt;'%1%' is not a view. If it is a table, then use DROP TABLE instead.&lt;/Error&gt;
+	&lt;Error Key="X0Y23" NativeErrorCode="322" Params="3" &gt;Operation '%1%' cannot be performed on object '%2%' because VIEW '%3%' is dependent on that object.&lt;/Error&gt;
+	&lt;Error Key="X0Y24" NativeErrorCode="323" Params="3" &gt;Operation '%1%' cannot be performed on object '%2%' because STATEMENT '%3%' is dependent on that object.&lt;/Error&gt;
+	&lt;Error Key="X0Y25" NativeErrorCode="324" Params="4" &gt;Operation '%1%' cannot be performed on object '%2%' because %3% '%4%' is dependent on that object.&lt;/Error&gt;
+	&lt;Error Key="X0Y26" NativeErrorCode="325" Params="2" &gt;Index '%1%' is required to be in the same schema as table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="X0Y28" NativeErrorCode="326" Params="2" &gt;Index '%1%' cannot be created on system table '%2%'. Users cannot create indexes on system tables.&lt;/Error&gt;
+	&lt;Error Key="X0Y32" NativeErrorCode="327" Params="4" &gt;%1% '%2%' already exists in %3% '%4%'.&lt;/Error&gt;
+	&lt;Error Key="X0Y38" NativeErrorCode="328" Params="2" &gt;Cannot create index '%1%' because table '%2%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="X0Y41" NativeErrorCode="329" Params="3" &gt;Constraint '%1%' is invalid because the referenced table %2% has no primary key. Either add a primary key to %3% or explicitly specify the columns of a unique constraint that this foreign key references.&lt;/Error&gt;
+	&lt;Error Key="X0Y42" NativeErrorCode="330" Params="1" &gt;Constraint '%1%' is invalid: the types of the foreign key columns do not match the types of the referenced columns&lt;/Error&gt;
+	&lt;Error Key="X0Y43" NativeErrorCode="331" Params="4" &gt;Constraint '%1%' is invalid: the number of columns in %2% (%3%) does not match the number of columns in the referenced key (%4%).&lt;/Error&gt;
+	&lt;Error Key="X0Y44" NativeErrorCode="332" Params="2" &gt;Constraint '%1%' is invalid: there is no unique or primary key constraint on table '%2%' that matches the number and types of the columns in the foreign key.&lt;/Error&gt;
+	&lt;Error Key="X0Y45" NativeErrorCode="333" Params="2" &gt;Foreign key constraint '%1%' cannot be added to or enabled on table %2% because one or more foreign keys do not have matching referenced keys.&lt;/Error&gt;
+	&lt;Error Key="X0Y46" NativeErrorCode="334" Params="2" &gt;Constraint '%1%' is invalid: referenced table %2% does not exist.&lt;/Error&gt;
+	&lt;Error Key="X0Y54" NativeErrorCode="335" Params="1" &gt;Schema '%1%' cannot be dropped because it is not empty.&lt;/Error&gt;
+	&lt;Error Key="X0Y55" NativeErrorCode="336" Params="5" &gt;The number of rows in the base table does not match the number of rows in at least 1 of the indexes on the table. Index '%1%' on table '%2%.%3%' has %4% rows, but the base table has %5% rows. The suggested corrective action is to recreate the index.&lt;/Error&gt;
+	&lt;Error Key="X0Y56" NativeErrorCode="337" Params="2" &gt;'%1%' is not allowed on the System table '%2%'.&lt;/Error&gt;
+	&lt;Error Key="X0Y57" NativeErrorCode="338" Params="1" &gt;A non-nullable column cannot be added to table '%1%' because the table contains at least one row. Non-nullable columns can only be added to empty tables.&lt;/Error&gt;
+	&lt;Error Key="X0Y58" NativeErrorCode="339" Params="1" &gt;Attempt to add a primary key constraint to table '%1%' failed because the table already has a constraint of that type. A table can only have a single primary key constraint.&lt;/Error&gt;
+	&lt;Error Key="X0Y59" NativeErrorCode="340" Params="3" &gt;Attempt to add or enable constraint(s) on table '%1%' failed because the table contains %2% row(s) that violate the following check constraint(s): %3%.&lt;/Error&gt;
+	&lt;Error Key="X0Y63" NativeErrorCode="341" Params="1" &gt;The command on table '%1%' failed because null data was found in the primary key or unique constraint/index column(s). All columns in a primary or unique index key must not be null.&lt;/Error&gt;
+	&lt;Error Key="X0Y66" NativeErrorCode="342"&gt;Cannot issue commit in a nested connection when there is a pending operation in the parent connection.&lt;/Error&gt;
+	&lt;Error Key="X0Y67" NativeErrorCode="343"&gt;Cannot issue rollback in a nested connection when there is a pending operation in the parent connection.&lt;/Error&gt;
+	&lt;Error Key="X0Y68" NativeErrorCode="344" Params="2" &gt;%1% '%2%' already exists.&lt;/Error&gt;
+	&lt;Error Key="X0Y69" NativeErrorCode="345" Params="3" &gt;%1% is not permitted because trigger %2% is active on %3%.&lt;/Error&gt;
+	&lt;Error Key="X0Y70" NativeErrorCode="346" Params="2" &gt;INSERT, UPDATE and DELETE are not permitted on table %1% because trigger %2% is active.&lt;/Error&gt;
+	&lt;Error Key="X0Y71" NativeErrorCode="347" Params="1" &gt;Transaction manipulation such as SET ISOLATION is not permitted because trigger %1% is active.&lt;/Error&gt;
+	&lt;Error Key="X0Y72" NativeErrorCode="348" Params="2" &gt;Bulk insert replace is not permitted on '%1%' because it has an enabled trigger (%2%).&lt;/Error&gt;
+	&lt;Error Key="X0Y77" NativeErrorCode="349"&gt;Cannot issue set transaction isolation statement on a global transaction that is in progress because it would have implicitly committed the global transaction.&lt;/Error&gt;
+	&lt;Error Key="X0Y78" NativeErrorCode="350"&gt;Statement.executeQuery() cannot be called with a statement that returns a row count.&lt;/Error&gt;
+	&lt;Error Key="X0Y79" NativeErrorCode="351"&gt;Statement.executeUpdate() cannot be called with a statement that returns a ResultSet.&lt;/Error&gt;
+	&lt;Error Key="X0Y80" NativeErrorCode="352" Params="2" &gt;ALTER table '%1%' failed. Null data found in column '%2%'.&lt;/Error&gt;
+	&lt;Error Key="X0Y83" NativeErrorCode="353" Params="2" &gt;WARNING: While deleting a row from a table the index row for base table row %1% was not found in index with conglomerate id %2%. This problem has automatically been corrected as part of the delete operation.&lt;/Error&gt;
+	&lt;Error Key="XBCA0" NativeErrorCode="354" Params="2" &gt;Cannot create new object with key %1% in %2% cache. The object already exists in the cache.&lt;/Error&gt;
+	&lt;Error Key="XBCM1" NativeErrorCode="355" Params="1" &gt;Java linkage error thrown during load of generated class %1%.&lt;/Error&gt;
+	&lt;Error Key="XBCM2" NativeErrorCode="356" Params="1" &gt;Cannot create an instance of generated class %1%.&lt;/Error&gt;
+	&lt;Error Key="XBCM3" NativeErrorCode="357" Params="2" &gt;Method %1% () does not exist in generated class %2%.&lt;/Error&gt;
+	&lt;Error Key="XBCX0" NativeErrorCode="358"&gt;Exception from Cryptography provider. See next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XBCX1" NativeErrorCode="359"&gt;Initializing cipher with illegal mode, must be either ENCRYPT or DECRYPT.&lt;/Error&gt;
+	&lt;Error Key="XBCX2" NativeErrorCode="360" Params="1" &gt;Initializing cipher with a boot password that is too short. The password must be at least %1% characters long.&lt;/Error&gt;
+	&lt;Error Key="XBCX5" NativeErrorCode="361"&gt;Cannot change boot password to null.&lt;/Error&gt;
+	&lt;Error Key="XBCX6" NativeErrorCode="362"&gt;Cannot change boot password to a non-string serializable type.&lt;/Error&gt;
+	&lt;Error Key="XBCX7" NativeErrorCode="363"&gt;Wrong format for changing boot password. Format must be : old_boot_password, new_boot_password.&lt;/Error&gt;
+	&lt;Error Key="XBCX8" NativeErrorCode="364"&gt;Cannot change boot password for a non-encrypted database.&lt;/Error&gt;
+	&lt;Error Key="XBCX9" NativeErrorCode="365"&gt;Cannot change boot password for a read-only database.&lt;/Error&gt;
+	&lt;Error Key="XBCXA" NativeErrorCode="366"&gt;Wrong boot password.&lt;/Error&gt;
+	&lt;Error Key="XBCXB" NativeErrorCode="367" Params="1" &gt;Bad encryption padding '%1%' or padding not specified. 'NoPadding' must be used.&lt;/Error&gt;
+	&lt;Error Key="XBCXC" NativeErrorCode="368" Params="2" &gt;Encryption algorithm '%1%' does not exist. Please check that the chosen provider '%2%' supports this algorithm.&lt;/Error&gt;
+	&lt;Error Key="XBCXD" NativeErrorCode="369"&gt;The encryption algorithm cannot be changed after the database is created.&lt;/Error&gt;
+	&lt;Error Key="XBCXE" NativeErrorCode="370"&gt;The encryption provider cannot be changed after the database is created.&lt;/Error&gt;
+	&lt;Error Key="XBCXF" NativeErrorCode="371" Params="1" &gt;The class '%1%' representing the encryption provider cannot be found.&lt;/Error&gt;
+	&lt;Error Key="XBCXG" NativeErrorCode="372" Params="1" &gt;The encryption provider '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="XBCXH" NativeErrorCode="373" Params="1" &gt;The encryptionAlgorithm '%1%' is not in the correct format. The correct format is algorithm/feedbackMode/NoPadding.&lt;/Error&gt;
+	&lt;Error Key="XBCXI" NativeErrorCode="374" Params="1" &gt;The feedback mode '%1%' is not supported. Supported feedback modes are CBC, CFB, OFB and ECB.&lt;/Error&gt;
+	&lt;Error Key="XBCXJ" NativeErrorCode="375"&gt;The application is using a version of the Java Cryptography Extension (JCE) earlier than 1.2.1. Please upgrade to JCE 1.2.1 and try the operation again.&lt;/Error&gt;
+	&lt;Error Key="XBCXK" NativeErrorCode="376"&gt;The given encryption key does not match the encryption key used when creating the database. Please ensure that you are using the correct encryption key and try again.&lt;/Error&gt;
+	&lt;Error Key="XBCXL" NativeErrorCode="377"&gt;The verification process for the encryption key was not successful. This could have been caused by an error when accessing the appropriate file to do the verification process. See next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XBM01" NativeErrorCode="378"&gt;Startup failed due to an exception. See next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XBM02" NativeErrorCode="379" Params="1" &gt;Startup failed due to missing functionality for %1%. Please ensure your classpath includes the correct Derby Derby software.&lt;/Error&gt;
+	&lt;Error Key="XBM05" NativeErrorCode="380" Params="1" &gt;Startup failed due to missing product version information for %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM06" NativeErrorCode="381"&gt;Startup failed. An encrypted database cannot be accessed without the correct boot password.&lt;/Error&gt;
+	&lt;Error Key="XBM07" NativeErrorCode="382"&gt;Startup failed. Boot password must be at least 8 bytes long.&lt;/Error&gt;
+	&lt;Error Key="XBM08" NativeErrorCode="383" Params="2" &gt;Could not instantiate %1% StorageFactory class %2%.&lt;/Error&gt;
+	&lt;Error Key="XBM0G" NativeErrorCode="384"&gt;Failed to start encryption engine. Please make sure you are running Java 2 and have downloaded an encryption provider such as jce and put it in your classpath.&lt;/Error&gt;
+	&lt;Error Key="XBM0H" NativeErrorCode="385" Params="1" &gt;Directory %1% cannot be created.&lt;/Error&gt;
+	&lt;Error Key="XBM0I" NativeErrorCode="386" Params="1" &gt;Directory %1% cannot be removed.&lt;/Error&gt;
+	&lt;Error Key="XBM0J" NativeErrorCode="387" Params="1" &gt;Directory %1% already exists.&lt;/Error&gt;
+	&lt;Error Key="XBM0K" NativeErrorCode="388" Params="1" &gt;Unknown sub-protocol for database name %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM0L" NativeErrorCode="389" Params="2" &gt;Specified authentication scheme class %1% does implement the authentication interface %2%.&lt;/Error&gt;
+	&lt;Error Key="XBM0M" NativeErrorCode="390" Params="1" &gt;Error creating instance of authentication scheme class %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM0N" NativeErrorCode="391"&gt;JDBC Driver registration with java.sql.DriverManager failed. See next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XBM0P" NativeErrorCode="392"&gt;Service provider is read-only. Operation not permitted.&lt;/Error&gt;
+	&lt;Error Key="XBM0Q" NativeErrorCode="393" Params="1" &gt;File %1% not found. Please make sure that backup copy is the correct one and it is not corrupted.&lt;/Error&gt;
+	&lt;Error Key="XBM0R" NativeErrorCode="394" Params="1" &gt;Unable to remove file %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM0S" NativeErrorCode="395" Params="1" &gt;Unable to rename file '%1%' to 'fileName&gt;'&lt;/Error&gt;
+	&lt;Error Key="XBM0T" NativeErrorCode="396" Params="1" &gt;Ambiguous sub-protocol for database name %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM0U" NativeErrorCode="397" Params="1" &gt;No class was registered for identifier %1%.&lt;/Error&gt;
+	&lt;Error Key="XBM0V" NativeErrorCode="398" Params="2" &gt;An exception was thrown while loading class %1% registered for identifier %2%.&lt;/Error&gt;
+	&lt;Error Key="XBM0W" NativeErrorCode="399" Params="2" &gt;An exception was thrown while creating an instance of class %1% registered for identifier %2%.&lt;/Error&gt;
+	&lt;Error Key="XBM0X" NativeErrorCode="400" Params="1" &gt;Supplied territory description '%1%' is invalid, expecting ln[_CO[_variant]] ln=lower-case two-letter ISO-639 language code, CO=upper-case two-letter ISO-3166 country codes, see java.util.Locale.&lt;/Error&gt;
+	&lt;Error Key="XBM0Y" NativeErrorCode="401" Params="1" &gt;Backup database directory %1% not found. Please make sure that the specified backup path is right.&lt;/Error&gt;
+	&lt;Error Key="XBM0Z" NativeErrorCode="402" Params="2" &gt;Unable to copy file '%1%' to '%2%'. Please make sure that there is enough space and permissions are correct.&lt;/Error&gt;
+	&lt;Error Key="XCL01" NativeErrorCode="403" Params="1" &gt;ResultSet does not return rows. Operation %1% not permitted.&lt;/Error&gt;
+	&lt;Error Key="XCL05" NativeErrorCode="404" Params="1" &gt;Activation closed. Operation %1% not permitted.&lt;/Error&gt;
+	&lt;Error Key="XCL07" NativeErrorCode="405" Params="1" &gt;Cursor '%1%' is closed. Verify that autocommit is OFF.&lt;/Error&gt;
+	&lt;Error Key="XCL08" NativeErrorCode="406" Params="1" &gt;Cursor '%1%' is not on a row.&lt;/Error&gt;
+	&lt;Error Key="XCL09" NativeErrorCode="407" Params="1" &gt;An Activation was passed to the '%1%' method that does not match the PreparedStatement.&lt;/Error&gt;
+	&lt;Error Key="XCL10" NativeErrorCode="408"&gt;A PreparedStatement has been recompiled and the parameters have changed. If you are using JDBC you must prepare the statement again.&lt;/Error&gt;
+	&lt;Error Key="XCL12" NativeErrorCode="409" Params="2" &gt;An attempt was made to put a data value of type '%1%' into a data value of type '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCL13" NativeErrorCode="410" Params="2" &gt;The parameter position '%1%' is out of range. The number of parameters for this prepared statement is '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCL14" NativeErrorCode="411" Params="2" &gt;The column position '%1%' is out of range. The number of columns for this ResultSet is '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCL15" NativeErrorCode="412" Params="1" &gt;A ClassCastException occurred when calling the compareTo() method on an object '%1%'. The parameter to compareTo() is of class 'className&gt;'.&lt;/Error&gt;
+	&lt;Error Key="XCL16" NativeErrorCode="413" Params="1" &gt;ResultSet not open. Operation '%1%' not permitted. Verify that autocommit is OFF.&lt;/Error&gt;
+	&lt;Error Key="XCL17" NativeErrorCode="414"&gt;Statement not allowed in this database.&lt;/Error&gt;
+	&lt;Error Key="XCL19" NativeErrorCode="415" Params="2" &gt;Missing row in table '%1%' for key '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCL20" NativeErrorCode="416" Params="2" &gt;Catalogs at version level '%1%' cannot be upgraded to version level '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCL21" NativeErrorCode="417"&gt;You are trying to execute a Data Definition statement (CREATE, DROP, or ALTER) while preparing a different statement. This is not allowed. It can happen if you execute a Data Definition statement from within a static initializer of a Java class that is being used from within a SQL statement.&lt;/Error&gt;
+	&lt;Error Key="XCL22" NativeErrorCode="418" Params="1" &gt;Parameter %1% cannot be registered as an OUT parameter because it is an IN parameter.&lt;/Error&gt;
+	&lt;Error Key="XCL23" NativeErrorCode="419" Params="1" &gt;SQL type number '%1%' is not a supported type by registerOutParameter().&lt;/Error&gt;
+	&lt;Error Key="XCL24" NativeErrorCode="420" Params="2" &gt;Parameter %1% appears to be an output parameter, but it has not been so designated by registerOutParameter(). If it is not an output parameter, then it has to be set to type %2%.&lt;/Error&gt;
+	&lt;Error Key="XCL25" NativeErrorCode="421" Params="3" &gt;Parameter %1% cannot be registered to be of type %2% because it maps to type %3% and they are incompatible.&lt;/Error&gt;
+	&lt;Error Key="XCL26" NativeErrorCode="422" Params="1" &gt;Parameter %1% is not an output parameter.&lt;/Error&gt;
+	&lt;Error Key="XCL27" NativeErrorCode="423"&gt;Return output parameters cannot be set.&lt;/Error&gt;
+	&lt;Error Key="XCL30" NativeErrorCode="424" Params="1" &gt;An IOException was thrown when reading a '%1%' from an InputStream.&lt;/Error&gt;
+	&lt;Error Key="XCL31" NativeErrorCode="425"&gt;Statement closed.&lt;/Error&gt;
+	&lt;Error Key="XCL33" NativeErrorCode="426" Params="1" &gt;The table cannot be defined as a dependent of table %1% because of delete rule restrictions. (The relationship is self-referencing and a self-referencing relationship already exists with the SET NULL delete rule.)&lt;/Error&gt;
+	&lt;Error Key="XCL34" NativeErrorCode="427" Params="1" &gt;The table cannot be defined as a dependent of table %1% because of delete rule restrictions. (The relationship forms a cycle of two or more tables that cause the table to be delete-connected to itself (all other delete rules in the cycle would be CASCADE)).&lt;/Error&gt;
+	&lt;Error Key="XCL35" NativeErrorCode="428" Params="1" &gt;The table cannot be defined as a dependent of table %1% because of delete rule restrictions. (The relationship causes the table to be delete-connected to the indicated table through multiple relationships and the delete rule of the existing relationship is SET NULL).&lt;/Error&gt;
+	&lt;Error Key="XCL36" NativeErrorCode="429" Params="1" &gt;The delete rule of foreign key must be %1%. (The referential constraint is self-referencing and an existing self-referencing constraint has the indicated delete rule (NO ACTION, RESTRICT or CASCADE).)&lt;/Error&gt;
+	&lt;Error Key="XCL37" NativeErrorCode="430" Params="1" &gt;The delete rule of foreign key must be %1%. (The referential constraint is self-referencing and the table is dependent in a relationship with a delete rule of CASCADE.)&lt;/Error&gt;
+	&lt;Error Key="XCL38" NativeErrorCode="431" Params="1" &gt;The delete rule of foreign key must be %1%. (The relationship would cause the table to be delete-connected to the same table through multiple relationships and such relationships must have the same delete rule (NO ACTION, RESTRICT or CASCADE).)&lt;/Error&gt;
+	&lt;Error Key="XCL39" NativeErrorCode="432"&gt;The delete rule of foreign key cannot be CASCADE. (A self-referencing constraint exists with a delete rule of SET NULL, NO ACTION or RESTRICT.)&lt;/Error&gt;
+	&lt;Error Key="XCL40" NativeErrorCode="433"&gt;The delete rule of foreign key cannot be CASCADE. (The relationship would form a cycle that would cause a table to be delete-connected to itself. One of the existing delete rules in the cycle is not CASCADE, so this relationship may be definable if the delete rule is not CASCADE.)&lt;/Error&gt;
+	&lt;Error Key="XCL41" NativeErrorCode="434"&gt;the delete rule of foreign key can not be CASCADE. (The relationship would cause another table to be delete-connected to the same table through multiple paths with different delete rules or with delete rule equal to SET NULL.)&lt;/Error&gt;
+	&lt;Error Key="XCL42" NativeErrorCode="435"&gt;CASCADE&lt;/Error&gt;
+	&lt;Error Key="XCL43" NativeErrorCode="436"&gt;SET NULL&lt;/Error&gt;
+	&lt;Error Key="XCL44" NativeErrorCode="437"&gt;RESTRICT&lt;/Error&gt;
+	&lt;Error Key="XCL45" NativeErrorCode="438"&gt;NO ACTION&lt;/Error&gt;
+	&lt;Error Key="XCL46" NativeErrorCode="439"&gt;SET DEFAULT&lt;/Error&gt;
+	&lt;Error Key="XCL47" NativeErrorCode="440" Params="3" &gt;Use of '%1%' requires database to be upgraded from version %2% to version %3% or later.&lt;/Error&gt;
+	&lt;Error Key="XCL48" NativeErrorCode="441" Params="1" &gt;TRUNCATE TABLE is not permitted on '%1%' because unique/primary key constraints on this table are referenced by enabled foreign key constraints from other tables.&lt;/Error&gt;
+	&lt;Error Key="XCL49" NativeErrorCode="442" Params="2" &gt;TRUNCATE TABLE is not permitted on '%1%' because it has an enabled DELETE trigger (%2%).&lt;/Error&gt;
+	&lt;Error Key="XCL50" NativeErrorCode="443" Params="1" &gt;Upgrading the database from a previous version is not supported. The database being accessed is at version level 'versionNumber&gt;', this software is at version level '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XCL51" NativeErrorCode="444"&gt;The requested function cannot reference tables in SESSION schema.&lt;/Error&gt;
+	&lt;Error Key="XCW00" NativeErrorCode="445" Params="2" &gt;Unsupported upgrade from '%1%' to '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCXA0" NativeErrorCode="446"&gt;Invalid identifier.&lt;/Error&gt;
+	&lt;Error Key="XCXB0" NativeErrorCode="447" Params="1" &gt;Invalid database classpath: '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XCXC0" NativeErrorCode="448"&gt;Invalid id list.&lt;/Error&gt;
+	&lt;Error Key="XCXE0" NativeErrorCode="449"&gt;You are trying to do an operation that uses the territory of the database, but the database does not have a territory.&lt;/Error&gt;
+	&lt;Error Key="XCY00" NativeErrorCode="450" Params="2" &gt;Invalid value for property '%1%'='%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCY02" NativeErrorCode="451" Params="2" &gt;The requested property change is not supported '%1%'='%2%'.&lt;/Error&gt;
+	&lt;Error Key="XCY03" NativeErrorCode="452" Params="1" &gt;Required property '%1%' has not been set.&lt;/Error&gt;
+	&lt;Error Key="XCZ00" NativeErrorCode="453" Params="1" &gt;Unknown permission '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XCZ01" NativeErrorCode="454" Params="1" &gt;Unknown user '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XCZ02" NativeErrorCode="455" Params="2" &gt;Invalid parameter '%1%'='%2%'.&lt;/Error&gt;
+	&lt;Error Key="XD003" NativeErrorCode="456" Params="2" &gt;Unable to restore dependency from disk. DependableFinder = '%1%'. Further information: '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XD004" NativeErrorCode="457"&gt;Unable to store dependencies.&lt;/Error&gt;
+	&lt;Error Key="XIE01" NativeErrorCode="458"&gt;Connection was null.&lt;/Error&gt;
+	&lt;Error Key="XIE03" NativeErrorCode="459" Params="2" &gt;Data found on line %1% for column %2% after the stop delimiter.&lt;/Error&gt;
+	&lt;Error Key="XIE04" NativeErrorCode="460" Params="1" &gt;Data file not found: %1%.&lt;/Error&gt;
+	&lt;Error Key="XIE05" NativeErrorCode="461"&gt;Data file cannot be null.&lt;/Error&gt;
+	&lt;Error Key="XIE06" NativeErrorCode="462"&gt;Entity name was null.&lt;/Error&gt;
+	&lt;Error Key="XIE07" NativeErrorCode="463"&gt;Field and record separators cannot be substrings of each other.&lt;/Error&gt;
+	&lt;Error Key="XIE08" NativeErrorCode="464" Params="1" &gt;There is no column named: %1%.&lt;/Error&gt;
+	&lt;Error Key="XIE09" NativeErrorCode="465" Params="1" &gt;The total number of columns in the row is: %1%.&lt;/Error&gt;
+	&lt;Error Key="XIE0B" NativeErrorCode="466" Params="2" &gt;Column '%1%' in the table is of type %2%, it is not supported by the import/export feature.&lt;/Error&gt;
+	&lt;Error Key="XIE0D" NativeErrorCode="467" Params="1" &gt;Cannot find the record separator on line %1%.&lt;/Error&gt;
+	&lt;Error Key="XIE0E" NativeErrorCode="468" Params="1" &gt;Read endOfFile at unexpected place on line &lt;/Error&gt;
+	&lt;Error Key="XIE0I" NativeErrorCode="469"&gt;An IOException occurred while writing data to the file.&lt;/Error&gt;
+	&lt;Error Key="XIE0J" NativeErrorCode="470"&gt;A delimiter is not valid or is used more than once.&lt;/Error&gt;
+	&lt;Error Key="XIE0K" NativeErrorCode="471"&gt;The period was specified as a character string delimiter.&lt;/Error&gt;
+	&lt;Error Key="XIE0M" NativeErrorCode="472" Params="1" &gt;Table '%1%' does not exist.&lt;/Error&gt;
+	&lt;Error Key="XJ004" NativeErrorCode="473" Params="1" &gt;Database '%1%' not found.&lt;/Error&gt;
+	&lt;Error Key="XJ009" NativeErrorCode="474" Params="1" &gt;Use of CallableStatement required for stored procedure call or use of output parameters: %1%&lt;/Error&gt;
+	&lt;Error Key="XJ010" NativeErrorCode="475"&gt;Cannot issue savepoint when autoCommit is on.&lt;/Error&gt;
+	&lt;Error Key="XJ011" NativeErrorCode="476"&gt;Cannot pass null for savepoint name.&lt;/Error&gt;
+	&lt;Error Key="XJ012" NativeErrorCode="477" Params="1" &gt;'%1%' already closed.&lt;/Error&gt;
+	&lt;Error Key="XJ013" NativeErrorCode="478"&gt;No ID for named savepoints.&lt;/Error&gt;
+	&lt;Error Key="XJ014" NativeErrorCode="479"&gt;No name for un-named savepoints.&lt;/Error&gt;
+	&lt;Error Key="XJ015" NativeErrorCode="480"&gt;Derby system shutdown.&lt;/Error&gt;
+	&lt;Error Key="XJ016" NativeErrorCode="481" Params="1" &gt;Method '%1%' not allowed on prepared statement.&lt;/Error&gt;
+	&lt;Error Key="XJ017" NativeErrorCode="482"&gt;No savepoint command allowed inside the trigger code.&lt;/Error&gt;
+	&lt;Error Key="XJ018" NativeErrorCode="483"&gt;Column name cannot be null.&lt;/Error&gt;
+	&lt;Error Key="XJ020" NativeErrorCode="484" Params="1" &gt;Object type not convertible to TYPE '%1%', invalid java.sql.Types value, or object was null.&lt;/Error&gt;
+	&lt;Error Key="XJ022" NativeErrorCode="485" Params="1" &gt;Unable to set stream: '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XJ023" NativeErrorCode="486"&gt;Input stream held less data than requested length.&lt;/Error&gt;
+	&lt;Error Key="XJ025" NativeErrorCode="487"&gt;Input stream cannot have negative length.&lt;/Error&gt;
+	&lt;Error Key="XJ028" NativeErrorCode="488" Params="1" &gt;The URL '%1%' is not properly formed.&lt;/Error&gt;
+	&lt;Error Key="XJ030" NativeErrorCode="489"&gt;Cannot set AUTOCOMMIT ON when in a nested connection.&lt;/Error&gt;
+	&lt;Error Key="XJ040" NativeErrorCode="490" Params="1" &gt;Failed to start database '%1%', see the next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XJ041" NativeErrorCode="491" Params="1" &gt;Failed to create database '%1%', see the next exception for details.&lt;/Error&gt;
+	&lt;Error Key="XJ042" NativeErrorCode="492" Params="2" &gt;'%1%' is not a valid value for property '%2%'.&lt;/Error&gt;
+	&lt;Error Key="XJ044" NativeErrorCode="493" Params="1" &gt;'%1%' is an invalid scale.&lt;/Error&gt;
+	&lt;Error Key="XJ045" NativeErrorCode="494" Params="1" &gt;Invalid or (currently) unsupported isolation level, '%1%', passed to Connection.setTransactionIsolationLevel(). The currently supported values are java.sql.Connection.TRANSACTION_SERIALIZABLE, java.sql.Connection.TRANSACTION_REPEATABLE_READ, java.sql.Connection.TRANSACTION_READ_COMMITTED, and java.sql.Connection.TRANSACTION_READ_UNCOMMITTED.&lt;/Error&gt;
+	&lt;Error Key="XJ049" NativeErrorCode="495"&gt;Conflicting create attributes specified.&lt;/Error&gt;
+	&lt;Error Key="XJ04B" NativeErrorCode="496"&gt;Batch cannot contain a command that attempts to return a result set.&lt;/Error&gt;
+	&lt;Error Key="XJ04C" NativeErrorCode="497"&gt;CallableStatement batch cannot contain output parameters.&lt;/Error&gt;
+	&lt;Error Key="XJ056" NativeErrorCode="498"&gt;Cannot set AUTOCOMMIT ON when in an XA connection.&lt;/Error&gt;
+	&lt;Error Key="XJ057" NativeErrorCode="499"&gt;Cannot commit a global transaction using the Connection. Commit processing must go through XAResource interface.&lt;/Error&gt;
+	&lt;Error Key="XJ058" NativeErrorCode="500"&gt;Cannot rollback a global transaction using the Connection, commit processing must go through XAResource interface.&lt;/Error&gt;
+	&lt;Error Key="XJ059" NativeErrorCode="501"&gt;Cannot close a connection while a global transaction is still active.&lt;/Error&gt;
+	&lt;Error Key="XJ05B" NativeErrorCode="502" Params="3" &gt;JDBC attribute '%1%' has an invalid value '%2%', Valid values are '%3%'.&lt;/Error&gt;
+	&lt;Error Key="XJ05C" NativeErrorCode="503"&gt;Cannot set holdability ResultSet.HOLD_CURSORS_OVER_COMMIT for a global transaction.&lt;/Error&gt;
+	&lt;Error Key="XJ061" NativeErrorCode="504" Params="1" &gt;The '%1%' method is only allowed on scroll cursors.&lt;/Error&gt;
+	&lt;Error Key="XJ062" NativeErrorCode="505" Params="1" &gt;Invalid parameter value '%1%' for ResultSet.setFetchSize(int rows).&lt;/Error&gt;
+	&lt;Error Key="XJ063" NativeErrorCode="506" Params="1" &gt;Invalid parameter value '%1%' for Statement.setMaxRows(int maxRows). Parameter value must be &gt;= 0.&lt;/Error&gt;
+	&lt;Error Key="XJ064" NativeErrorCode="507" Params="1" &gt;Invalid parameter value '%1%' for setFetchDirection(int direction).&lt;/Error&gt;
+	&lt;Error Key="XJ065" NativeErrorCode="508" Params="1" &gt;Invalid parameter value '%1%' for Statement.setFetchSize(int rows).&lt;/Error&gt;
+	&lt;Error Key="XJ066" NativeErrorCode="509" Params="1" &gt;Invalid parameter value '%1%' for Statement.setMaxFieldSize(int max).&lt;/Error&gt;
+	&lt;Error Key="XJ067" NativeErrorCode="510"&gt;SQL text pointer is null.&lt;/Error&gt;
+	&lt;Error Key="XJ068" NativeErrorCode="511"&gt;Only executeBatch and clearBatch allowed in the middle of a batch.&lt;/Error&gt;
+	&lt;Error Key="XJ069" NativeErrorCode="512"&gt;No SetXXX methods allowed in case of USING execute statement.&lt;/Error&gt;
+	&lt;Error Key="XJ070" NativeErrorCode="513" Params="1" &gt;Negative or zero position argument '%1%' passed in a Blob or Clob method.&lt;/Error&gt;
+	&lt;Error Key="XJ071" NativeErrorCode="514" Params="1" &gt;Zero or negative length argument '%1%' passed in a BLOB or CLOB method.&lt;/Error&gt;
+	&lt;Error Key="XJ072" NativeErrorCode="515"&gt;Null pattern or searchStr passed in to a BLOB or CLOB position method.&lt;/Error&gt;
+	&lt;Error Key="XJ073" NativeErrorCode="516"&gt;The data in this BLOB or CLOB is no longer available. The BLOB or CLOB's transaction may be committed, or its connection is closed.&lt;/Error&gt;
+	&lt;Error Key="XJ076" NativeErrorCode="517" Params="1" &gt;The position argument '%1%' exceeds the size of the BLOB/CLOB.&lt;/Error&gt;
+	&lt;Error Key="XJ077" NativeErrorCode="518"&gt;Got an exception when trying to read the first byte/character of the BLOB/CLOB pattern using getBytes/getSubString.&lt;/Error&gt;
+	&lt;Error Key="XJ080" NativeErrorCode="519" Params="2" &gt;USING execute statement passed %1% parameters rather than %2%.&lt;/Error&gt;
+	&lt;Error Key="XJ081" NativeErrorCode="520"&gt;Conflicting create/restore/recovery attributes specified.&lt;/Error&gt;
+	&lt;Error Key="XJ081" NativeErrorCode="521" Params="3" &gt;Invalid value '%1%' passed as parameter '%2%' to method '%3%'.&lt;/Error&gt;
+	&lt;Error Key="XSAI2" NativeErrorCode="522" Params="1" &gt;The conglomerate (%1%) requested does not exist.&lt;/Error&gt;
+	&lt;Error Key="XSAI3" NativeErrorCode="523"&gt;Feature not implemented.&lt;/Error&gt;
+	&lt;Error Key="XSAM0" NativeErrorCode="524" Params="1" &gt;Exception encountered while trying to boot module for '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XSAM2" NativeErrorCode="525" Params="1" &gt;There is no index or conglomerate with conglom id '%1%' to drop.&lt;/Error&gt;
+	&lt;Error Key="XSAM3" NativeErrorCode="526" Params="1" &gt;There is no index or conglomerate with conglom id '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XSAM4" NativeErrorCode="527" Params="1" &gt;There is no sort called '%1%'.&lt;/Error&gt;
+	&lt;Error Key="XSAM5" NativeErrorCode="528"&gt;Scan must be opened and positioned by calling next() before making other calls.&lt;/Error&gt;
+	&lt;Error Key="XSAM6" NativeErrorCode="529" Params="3" &gt;Record %1% on page %2% in container %3% not found.&lt;/Error&gt;
+	&lt;Error Key="XSAS0" NativeErrorCode="530"&gt;A scan controller interface method was called which is not appropriate for a scan on a sort.&lt;/Error&gt;
+	&lt;Error Key="XSAS1" NativeErrorCode="531"&gt;An attempt was made to fetch a row before the beginning of a sort or after the end of a sort.&lt;/Error&gt;
+	&lt;Error Key="XSAS3" NativeErrorCode="532"&gt;The type of a row inserted into a sort does not match the sorts template.&lt;/Error&gt;
+	&lt;Error Key="XSAS6" NativeErrorCode="533"&gt;Could not acquire resources for sort.&lt;/Error&gt;
+	&lt;Error Key="XSAX0" NativeErrorCode="534"&gt;XA protocol violation.&lt;/Error&gt;
+	&lt;Error Key="XSAX1" NativeErrorCode="535"&gt;An attempt was made to start a global transaction with an Xid of an existing global transaction.&lt;/Error&gt;
+	&lt;Error Key="XSCB0" NativeErrorCode="536"&gt;Could not create container.&lt;/Error&gt;
+	&lt;Error Key="XSCB1" NativeErrorCode="537" Params="1" &gt;Container %1% not found.&lt;/Error&gt;
+	&lt;Error Key="XSCB2" NativeErrorCode="538" Params="1" &gt;The required property %1% not found in the property list given to createConglomerate() for a btree secondary index.&lt;/Error&gt;
+	&lt;Error Key="XSCB3" NativeErrorCode="539"&gt;Unimplemented feature.&lt;/Error&gt;
+	&lt;Error Key="XSCB4" NativeErrorCode="540" Params="1" &gt;A method on a btree open scan was called prior to positioning the scan on the first row (that is, no next() call has been made yet). The current state of the scan is (%1%).&lt;/Error&gt;
+	&lt;Error Key="XSCB5" NativeErrorCode="541"&gt;During logical undo of a btree insert or delete, the row could not be found in the tree.&lt;/Error&gt;
+	&lt;Error Key="XSCB6" NativeErrorCode="542"&gt;Limitation: Record of a btree secondary index cannot be updated or inserted due to lack of space on the page. Use the parameters derby.storage.pageSize and/or derby.storage.pageReservedSpace to work around this limitation.&lt;/Error&gt;
+	&lt;Error Key="XSCB7" NativeErrorCode="543" Params="2" &gt;An internal error was encountered during a btree scan - current_rh is null = %1%, position key is null = %2%.&lt;/Error&gt;
+	&lt;Error Key="XSCB8" NativeErrorCode="544" Params="1" &gt;The btree conglomerate %1% is closed.&lt;/Error&gt;
+	&lt;Error Key="XSCB9" NativeErrorCode="545"&gt;Reserved for testing.&lt;/Error&gt;
+	&lt;Error Key="XSCG0" NativeErrorCode="546"&gt;Could not create a template.&lt;/Error&gt;
+	&lt;Error Key="XSCH0" NativeErrorCode="547"&gt;Could not create container.&lt;/Error&gt;
+	&lt;Error Key="XSCH1" NativeErrorCode="548" Params="1" &gt;Container %1% not found.&lt;/Error&gt;
+	&lt;Error Key="XSCH4" NativeErrorCode="549"&gt;Conglomerate could not be created.&lt;/Error&gt;
+	&lt;Error Key="XSCH5" NativeErrorCode="550" Params="2" &gt;In a base table there was a mismatch between the requested column number %1% and the maximum number of columns %2%.&lt;/Error&gt;
+	&lt;Error Key="XSCH6" NativeErrorCode="551" Params="1" &gt;The heap container with container id %1% is closed.&lt;/Error&gt;
+	&lt;Error Key="XSCH7" NativeErrorCode="552"&gt;The scan is not positioned.&lt;/Error&gt;
+	&lt;Error Key="XSCH8" NativeErrorCode="553"&gt;The feature is not implemented.&lt;/Error&gt;
+	&lt;Error Key="XSDA1" NativeErrorCode="554"&gt;An attempt was made to access an out of range slot on a page.&lt;/Error&gt;
+	&lt;Error Key="XSDA2" NativeErrorCode="555"&gt;An attempt was made to update a deleted record.&lt;/Error&gt;
+	&lt;Error Key="XSDA3" NativeErrorCode="556"&gt;Limitation: Record cannot be updated or inserted due to lack of space on the page. Use the parameters derby.storage.pageSize and/or derby.storage.pageReservedSpace to work around this limitation.&lt;/Error&gt;
+	&lt;Error Key="XSDA4" NativeErrorCode="557"&gt;An unexpected exception was thrown.&lt;/Error&gt;
+	&lt;Error Key="XSDA5" NativeErrorCode="558"&gt;An attempt was made to undelete a record that was not deleted.&lt;/Error&gt;
+	&lt;Error Key="XSDA6" NativeErrorCode="559" Params="1" &gt;Column %1% of row is null, it needs to be set to point to an object.&lt;/Error&gt;
+	&lt;Error Key="XSDA7" NativeErrorCode="560" Params="1" &gt;Restore of a serializable or SQLData object of class %1%, attempted to read more data than was originally stored.&lt;/Error&gt;
+	&lt;Error Key="XSDA8" NativeErrorCode="561" Params="1" &gt;Exception during restore of a serializable or SQLData object of class %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDA9" NativeErrorCode="562" Params="1" &gt;Class not found during restore of a serializable or SQLData object of class %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDAA" NativeErrorCode="563" Params="1" &gt;Illegal time stamp %1%, either time stamp is from a different page or of incompatible implementation.&lt;/Error&gt;
+	&lt;Error Key="XSDAB" NativeErrorCode="564"&gt;Cannot set a null time stamp.&lt;/Error&gt;
+	&lt;Error Key="XSDAC" NativeErrorCode="565"&gt;Attempt to move either rows or pages from one container to another.&lt;/Error&gt;
+	&lt;Error Key="XSDAD" NativeErrorCode="566"&gt;Attempt to move zero rows from one page to another.&lt;/Error&gt;
+	&lt;Error Key="XSDAE" NativeErrorCode="567"&gt;Can only make a record handle for special record handle IDs.&lt;/Error&gt;
+	&lt;Error Key="XSDAF" NativeErrorCode="568"&gt;Using special record handle as if it were a normal record handle.&lt;/Error&gt;
+	&lt;Error Key="XSDAG" NativeErrorCode="569"&gt;The allocation nested top transaction cannot open the container&lt;/Error&gt;
+	&lt;Error Key="XSDAI" NativeErrorCode="570" Params="1" &gt;Page %1% being removed is already locked for deallocation.&lt;/Error&gt;
+	&lt;Error Key="XSDAJ" NativeErrorCode="571"&gt;Exception during write of a serializable or SQLData object.&lt;/Error&gt;
+	&lt;Error Key="XSDAK" NativeErrorCode="572" Params="1" &gt;The wrong page was retrieved for record handle %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDAL" NativeErrorCode="573" Params="1" &gt;Record handle %1% unexpectedly points to overflow page.&lt;/Error&gt;
+	&lt;Error Key="XSDB0" NativeErrorCode="574" Params="1" &gt;Unexpected exception on in-memory page %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDB1" NativeErrorCode="575" Params="1" &gt;Unknown page format at page %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDB2" NativeErrorCode="576" Params="2" &gt;Unknown container format at container %1% : %2%.&lt;/Error&gt;
+	&lt;Error Key="XSDB3" NativeErrorCode="577" Params="2" &gt;Container information cannot change once written: was %1%, now %2%.&lt;/Error&gt;
+	&lt;Error Key="XSDB4" NativeErrorCode="578" Params="3" &gt;Page %1% is at version %2% but the log file contains change version %3%. Either the log records for this page are missing or this page was not written to disk properly.&lt;/Error&gt;
+	&lt;Error Key="XSDB5" NativeErrorCode="579" Params="1" &gt;Log has change record on page %1%, which is beyond the end of the container.&lt;/Error&gt;
+	&lt;Error Key="XSDB6" NativeErrorCode="580" Params="1" &gt;Another instance of Derby may have already booted the database %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDB7" NativeErrorCode="581" Params="3" &gt;WARNING: Derby (instance %1%) is attempting to boot the database %2% even though Derby (instance %3%) might still be active. Only one instance of Derby should boot a database at a time. Severe and non-recoverable corruption can result and might have already occurred.&lt;/Error&gt;
+	&lt;Error Key="XSDB8" NativeErrorCode="582" Params="3" &gt;WARNING: Derby (instance %1%) is attempting to boot the database %2% even though Derby (instance %3%) might still be active. Only one instance of Derby should boot a database at a time. Severe and non-recoverable corruption can result if two instances of Derby boot on the same database at the same time. The db2j.database.forceDatabaseLock=true property is set so the database will not boot until the db.lck is no longer present. Normally this file is removed when the first instance of Derby to boot on the database exits. However, it is not removed in some shutdowns. If the file is not removed, you must remove it manually. It is important to verify that no other VM is accessing the database before manually deleting the db.lck file.&lt;/Error&gt;
+	&lt;Error Key="XSDB9" NativeErrorCode="583" Params="1" &gt;Stream container %1% is corrupt.&lt;/Error&gt;
+	&lt;Error Key="XSDBA" NativeErrorCode="584" Params="1" &gt;Attempt to allocate object %1% failed.&lt;/Error&gt;
+	&lt;Error Key="XSDF0" NativeErrorCode="585" Params="1" &gt;Could not create file %1% as it already exists.&lt;/Error&gt;
+	&lt;Error Key="XSDF1" NativeErrorCode="586" Params="1" &gt;Exception during creation of file %1% for container.&lt;/Error&gt;
+	&lt;Error Key="XSDF2" NativeErrorCode="587" Params="2" &gt;Exception during creation of file %1% for container, file could not be removed. The exception was: %2%.&lt;/Error&gt;
+	&lt;Error Key="XSDF3" NativeErrorCode="588" Params="1" &gt;Cannot create segment %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDF4" NativeErrorCode="589" Params="2" &gt;Exception during remove of file %1% for dropped container, file could not be removed %2%.&lt;/Error&gt;
+	&lt;Error Key="XSDF6" NativeErrorCode="590" Params="1" &gt;Cannot find the allocation page %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDF7" NativeErrorCode="591" Params="1" &gt;Newly created page failed to be latched %1%.&lt;/Error&gt;
+	&lt;Error Key="XSDF8" NativeErrorCode="592" Params="1" &gt;Cannot find page %1% to reuse.&lt;/Error&gt;
+	&lt;Error Key="XSDFB" NativeErrorCode="593"&gt;Operation not supported by a read only database.&lt;/Error&gt;
+	&lt;Error Key="XSDFD" NativeErrorCode="594" Params="3" &gt;Different page image read on two I/Os on Page %1%. The first image has an incorrect checksum, the second image has a correct checksum. Page images follows: %2% %3%.&lt;/Error&gt;
+	&lt;Error Key="XSDFF" NativeErrorCode="595"&gt;The requested operation failed due to an unexpected exception.&lt;/Error&gt;
+	&lt;Error Key="XSDG0" NativeErrorCode="596" Params="1" &gt;Page %1% could not be read from disk.&lt;/Error&gt;
+	&lt;Error Key="XSDG1" NativeErrorCode="597" Params="1" &gt;Page %1% could not be written to disk, please check if disk is full.&lt;/Error&gt;
+	&lt;Error Key="XSDG2" NativeErrorCode="598" Params="4" &gt;Invalid checksum on Page %1%, expected=%2%, on-disk version=%3%, page dump follows: %4%.&lt;/Error&gt;
+	&lt;Error Key="XSDG3" NativeErrorCode="599" Params="1" &gt;Meta-data for Container %1% could not be accessed.&lt;/Error&gt;
+	&lt;Error Key="XSDG5" NativeErrorCode="600"&gt;Database is not in create mode when createFinished is called.&lt;/Error&gt;
+	&lt;Error Key="XSDG6" NativeErrorCode="601" Params="1" &gt;Data segment directory not found in %1% backup during restore. Please make sure that backup copy is the right one and it is not corrupted.&lt;/Error&gt;
+	&lt;Error Key="XSDG7" NativeErrorCode="602" Params="1" &gt;Directory %1% could not be removed during restore. Please make sure that permissions are correct.&lt;/Error&gt;
+	&lt;Error Key="XSDG8" NativeErrorCode="603" Params="2" &gt;Unable to copy directory '%1%' to '%2%' during restore. Please make sure that there is enough space and permissions are correct.&lt;/Error&gt;
+	&lt;Error Key="XSLA0" NativeErrorCode="604" Params="1" &gt;Cannot flush the log file to disk %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLA1" NativeErrorCode="605" Params="1" &gt;Log Record has been sent to the stream, but it cannot be applied to the store (Object %1%). This may cause recovery problems also.&lt;/Error&gt;
+	&lt;Error Key="XSLA2" NativeErrorCode="606"&gt;An IOException occurred while accessing the log file. The system will shut down.&lt;/Error&gt;
+	&lt;Error Key="XSLA3" NativeErrorCode="607"&gt;The log file is corrupt. The log stream contains invalid data.&lt;/Error&gt;
+	&lt;Error Key="XSLA4" NativeErrorCode="608"&gt;Unable to write to the log, most likely because the log is full. It is also possible that the file system is read-only, the disk failed, or another problem occurred with the media. Delete unnecessary files.&lt;/Error&gt;
+	&lt;Error Key="XSLA5" NativeErrorCode="609" Params="1" &gt;Cannot read log stream for some reason to rollback transaction %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLA6" NativeErrorCode="610"&gt;Cannot recover the database.&lt;/Error&gt;
+	&lt;Error Key="XSLA7" NativeErrorCode="611" Params="1" &gt;Cannot redo operation %1% in the log.&lt;/Error&gt;
+	&lt;Error Key="XSLA8" NativeErrorCode="612" Params="3" &gt;Cannot rollback transaction %1%, trying to compensate %2% operation with %3%.&lt;/Error&gt;
+	&lt;Error Key="XSLAA" NativeErrorCode="613"&gt;The store has been marked for shutdown by an earlier exception.&lt;/Error&gt;
+	&lt;Error Key="XSLAB" NativeErrorCode="614" Params="1" &gt;Cannot find log file %1%. Verify that the logDevice property is set with the correct path separator for your platform.&lt;/Error&gt;
+	&lt;Error Key="XSLAC" NativeErrorCode="615" Params="1" &gt;Database at %1% have incompatible format with the current version of software, it may have been created by or upgraded by a later version.&lt;/Error&gt;
+	&lt;Error Key="XSLAD" NativeErrorCode="616" Params="4" &gt;Log record at instance %1% in log file %2% is corrupted. Expected log record length %3%, actual length %4%.&lt;/Error&gt;
+	&lt;Error Key="XSLAE" NativeErrorCode="617" Params="1" &gt;Control file at %1% cannot be written or updated.&lt;/Error&gt;
+	&lt;Error Key="XSLAF" NativeErrorCode="618"&gt;A read-only database was created with dirty data buffers.&lt;/Error&gt;
+	&lt;Error Key="XSLAH" NativeErrorCode="619"&gt;A read-only database is being updated.&lt;/Error&gt;
+	&lt;Error Key="XSLAI" NativeErrorCode="620"&gt;Cannot log the checkpoint log record.&lt;/Error&gt;
+	&lt;Error Key="XSLAJ" NativeErrorCode="621" Params="4" &gt;The log record size %1% exceeds the maximum allowable log file size %2%. An error was encountered in log file %3%, position %4%.&lt;/Error&gt;
+	&lt;Error Key="XSLAK" NativeErrorCode="622" Params="1" &gt;Database has exceeded largest log file number %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLAL" NativeErrorCode="623" Params="4" &gt;The log record size %1% exceeds the maximum allowable log file size %2%. An error was encountered in log file %3%, position %4%.&lt;/Error&gt;
+	&lt;Error Key="XSLAM" NativeErrorCode="624" Params="1" &gt;Cannot verify database format at %1% due to IOException.&lt;/Error&gt;
+	&lt;Error Key="XSLAN" NativeErrorCode="625" Params="2" &gt;Database at %1% has an incompatible format with the current version of the software. The database was created by or upgraded by version %2%.&lt;/Error&gt;
+	&lt;Error Key="XSLAO" NativeErrorCode="626" Params="1" &gt;Recovery failed. Unexpected problem %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLAP" NativeErrorCode="627" Params="2" &gt;Database at %1% is at version %2%. Beta databases cannot be upgraded.&lt;/Error&gt;
+	&lt;Error Key="XSLAQ" NativeErrorCode="628" Params="1" &gt;Cannot create log file at directory %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLAR" NativeErrorCode="629" Params="2" &gt;Unable to copy log file '%1%' to '%2%' during restore. Please make sure that there is enough space and permissions are correct.&lt;/Error&gt;
+	&lt;Error Key="XSLAS" NativeErrorCode="630" Params="1" &gt;Log directory %1% not found in backup during restore. Please make sure that backup copy is the correct one and it is not corrupted.&lt;/Error&gt;
+	&lt;Error Key="XSLAT" NativeErrorCode="631" Params="1" &gt;Log directory %1% exists. Please make sure specified logDevice location is correct.&lt;/Error&gt;
+	&lt;Error Key="XSLB1" NativeErrorCode="632" Params="1" &gt;Log operation %1% encounters error writing itself out to the log stream, this could be caused by an errant log operation or internal log buffer full due to excessively large log operation.&lt;/Error&gt;
+	&lt;Error Key="XSLB2" NativeErrorCode="633" Params="1" &gt;Log operation %1% logging excessive data, it filled up the internal log buffer.&lt;/Error&gt;
+	&lt;Error Key="XSLB4" NativeErrorCode="634" Params="1" &gt;Cannot find truncationLWM %1%.&lt;/Error&gt;
+	&lt;Error Key="XSLB5" NativeErrorCode="635" Params="4" &gt;Illegal truncationLWM instance %1% for truncation point %2%. Legal range is from %3% to %4%.&lt;/Error&gt;
+	&lt;Error Key="XSLB6" NativeErrorCode="636"&gt;Trying to log a 0 or -ve length log Record.&lt;/Error&gt;
+	&lt;Error Key="XSLB8" NativeErrorCode="637" Params="2" &gt;Trying to reset a scan to %1%, beyond its limit of %2%.&lt;/Error&gt;
+	&lt;Error Key="XSLB9" NativeErrorCode="638"&gt;Unable to issue any more changes. Log factory has been stopped.&lt;/Error&gt;
+	&lt;Error Key="XSRS0" NativeErrorCode="639"&gt;Cannot freeze the database after it is already frozen.&lt;/Error&gt;
+	&lt;Error Key="XSRS1" NativeErrorCode="640" Params="1" &gt;Cannot backup the database to %1%, which is not a directory.&lt;/Error&gt;
+	&lt;Error Key="XSRS4" NativeErrorCode="641" Params="2" &gt;Error renaming file (during backup) from %1% to %2%.&lt;/Error&gt;
+	&lt;Error Key="XSRS5" NativeErrorCode="642" Params="2" &gt;Error copying file (during backup) from %1% to %2%.&lt;/Error&gt;
+	&lt;Error Key="XSRS6" NativeErrorCode="643" Params="1" &gt;Cannot create backup directory %1%.&lt;/Error&gt;
+	&lt;Error Key="XSRS7" NativeErrorCode="644"&gt;Backup caught unexpected exception.&lt;/Error&gt;
+	&lt;Error Key="XSRS8" NativeErrorCode="645"&gt;Log device can only be set during database creation time, it cannot be changed after the database is created.&lt;/Error&gt;
+	&lt;Error Key="XSRS9" NativeErrorCode="646" Params="1" &gt;Record %1% no longer exists.&lt;/Error&gt;
+	&lt;Error Key="XSTA2" NativeErrorCode="647"&gt;A transaction was already active when an attempt was made to activate another transaction.&lt;/Error&gt;
+	&lt;Error Key="XSTB0" NativeErrorCode="648"&gt;An exception was thrown during transaction abort.&lt;/Error&gt;
+	&lt;Error Key="XSTB2" NativeErrorCode="649"&gt;Unable to log transaction changes, possibly because the database is read-only.&lt;/Error&gt;
+	&lt;Error Key="XSTB3" NativeErrorCode="650"&gt;Cannot abort transaction because the log manager is null, probably due to an earlier error.&lt;/Error&gt;
+	&lt;Error Key="XSTB5" NativeErrorCode="651"&gt;Creating database with logging disabled encountered unexpected problem.&lt;/Error&gt;
+	&lt;Error Key="XSTB6" NativeErrorCode="652"&gt;Cannot substitute a transaction table with another while one is already in use.&lt;/Error&gt;
+	&lt;Error Key="XXXXX" NativeErrorCode="653"&gt;Normal database session close.&lt;/Error&gt;
+&lt;/Errors&gt;</value>
+  </data>
+</root>
