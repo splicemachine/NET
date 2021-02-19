@@ -95,6 +95,7 @@ namespace SpliceMachine.Provider.DataEngine
         protected override bool MoveToNextRow()
         {
             LogUtilities.LogFunctionEntrance(Log);
+            if (m_Columns == null || m_Columns.Count == 0) InitializeColumns();
             return _drdaStatement.Fetch();
         }
 

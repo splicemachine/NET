@@ -33,7 +33,7 @@ namespace SpliceMachine.Drda
 
                 SqlMessage = reader.ReadVcmVcs();
             }
-            if (!string.IsNullOrEmpty(SqlState))
+            if (!string.IsNullOrWhiteSpace(SqlState) && SqlState!="100" && SqlState != "02000")
             {
                 var errorsXml = SpliceErrors.ResourceManager.GetString("Errors");
                 string errorMsg = String.Empty;
@@ -44,7 +44,7 @@ namespace SpliceMachine.Drda
                     if (errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Key"].Value == SqlState)
                     {
                         errorMsg = errorsXmlDoc.LastChild.ChildNodes[i].InnerText;
-                        if (!String.IsNullOrEmpty(errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"].Value))
+                        if (errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"] !=null && !String.IsNullOrWhiteSpace(errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"].Value))
                         {
                             var paramsCount = Convert.ToInt16(errorsXmlDoc.LastChild.ChildNodes[i].Attributes["Params"].Value);
                             var replaceTxtArray = SqlMessage.Split(Char.Parse("\u0014"));

@@ -108,12 +108,7 @@ namespace SpliceMachine.Provider
 
             // Determine if doing a SELECT or DML/DDL via very, very simple parsing.
             // Example of how to throw a parsing error.
-            if (sqlQuery.IndexOf("CALL", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                throw ExceptionBuilder.CreateException(
-                    string.Format(Simba.DotNetDSI.Properties.Resources.INVALID_QUERY, sqlQuery));
-            }
-            if (sqlQuery.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("DELETE", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
+            if (sqlQuery.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("CALL", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("DELETE", StringComparison.OrdinalIgnoreCase) || sqlQuery.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
             {
                 var drdaStatement = _drdaConnection.CreateStatement(sqlQuery).Prepare();
                 return new SpliceQueryExecutor(Log, drdaStatement, _drdaConnection, _dsiConnection);

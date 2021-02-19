@@ -25,7 +25,7 @@ namespace SpliceMachine.Drda
         internal QueryAnswerSetDescMessage(
             ResponseMessage response)
             : base(response) =>
-            _messageBytes = ((ReaderCommand) response.Command).GetMessageBytes();
+            _messageBytes = ((ReaderCommand)response.Command).GetMessageBytes();
 
         internal override Boolean Accept(
             DrdaStatementVisitor visitor) => visitor.Visit(this);
@@ -58,20 +58,24 @@ namespace SpliceMachine.Drda
                         case 117: // GDA
                         case 118: // NGDA
                             triples[index] = new Triple(
-                                reader.ReadUInt8(), 
+                                reader.ReadUInt8(),
                                 reader.ReadUInt16());
                             break;
 
                         case 113: // RLO
                             // TODO: olegra - skip for now
                             reader.ReadUInt8();
-                            reader.ReadUInt16(); 
+                            reader.ReadUInt16();
                             break;
                     }
                 }
 
                 for (var index = 0; index < triples.Length; ++index)
                 {
+                    if (index >= context.Columns.Count)
+                    {
+                        context.Columns.Add(new DrdaColumn(reader));
+                    }
                     context.Columns[index].TripletType = triples[index].Type;
                     context.Columns[index].TripletDataSize = triples[index].Size;
                 }

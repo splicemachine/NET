@@ -49,21 +49,22 @@ namespace SpliceMachine.Drda
                     BitConverter.GetBytes(reader.ReadUInt64()), 0),
 
                 DATE => DateTime.ParseExact(
-                    reader.ReadString(column.TripletDataSize), 
+                    reader.ReadString(column.TripletDataSize),
                     "yyyy-MM-dd", CultureInfo.InvariantCulture),
 
                 TIME => TimeSpan.ParseExact(
-                    reader.ReadString(column.TripletDataSize), 
+                    reader.ReadString(column.TripletDataSize),
                     "hh:mm:ss", CultureInfo.InvariantCulture),
 
                 TIMESTAMP => DateTime.ParseExact(
-                    reader.ReadString(column.TripletDataSize), 
+                    reader.ReadString(column.TripletDataSize),
                     "yyyy-MM-dd-hh.mm.ss.fff", CultureInfo.InvariantCulture),
 
                 DECIMAL => reader.ReadDecimal(column.Precision, column.Scale),
 
                 BOOLEAN => reader.ReadUInt8() != 0x00,
-
+                LOBBYTES => reader.ReadBytes((uint)column.Length),
+                LOBCMIXED => reader.ReadString((int)column.Length),
                 // TODO: olegra - add support for BLOB and UDT
 
                 // TODO: olegra - just eat the unknown type as ODBC do?
@@ -81,7 +82,7 @@ namespace SpliceMachine.Drda
 
             if (type != baseType)
             {
-                writer.WriteUInt8(column.Value is null ? (Byte) 0xFF : (Byte) 0x00);
+                writer.WriteUInt8(column.Value is null ? (Byte)0xFF : (Byte)0x00);
             }
 
             switch (baseType)
@@ -132,12 +133,12 @@ namespace SpliceMachine.Drda
                     break;
 
                 case DECIMAL:
-                    writer.WriteDecimal(Convert.ToDecimal(column.Value), 
+                    writer.WriteDecimal(Convert.ToDecimal(column.Value),
                         (length >> 8) & 0xFF, length & 0xF);
                     break;
 
                 case BOOLEAN:
-                    writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte) 0xFF : (Byte) 0x00);
+                    writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
                     break;
                 case LOBBYTES:
                     writer.WriteBytes((byte[])column.Value);
