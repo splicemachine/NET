@@ -6,6 +6,7 @@ using System.Text;
 using Simba.DotNetDSI;
 using Simba.DotNetDSI.DataEngine;
 using SpliceMachine.Drda;
+using SpliceMachine.Provider.Extensions;
 
 namespace SpliceMachine.Provider.DataEngine
 {
@@ -107,8 +108,14 @@ namespace SpliceMachine.Provider.DataEngine
             LogUtilities.LogFunctionEntrance(Log);
             for (int i = 0; i < _drdaStatement.Columns; i++)
             {
-                DSIColumn column = new DSIColumn(TypeMetadataFactory.CreateTypeMetadata(SqlType.WVarChar));
-                column.IsNullable = Nullability.Nullable;
+                DSIColumn column = new DSIColumn(TypeMetadataFactory.CreateTypeMetadata(_drdaStatement.GetColumnMetaData(i)[0].GetSqlType()));
+                List<string> dataTypes = new List<string>() { "DATE", "TIME", "TIMESTAMP", "BLOB", "CLOB", "VARCHAR", "CHAR", "LONG", "FLOAT", "DECIMAL", "BIGINT", "INTEGER", "SMALL", "NUMERIC", "BOOLEAN" };
+                string[] splitDataType = _drdaStatement.GetColumnMetaData(i)[0].Split('N');
+                if (splitDataType.Length>1 && dataTypes.Contains(splitDataType[1]))
+                {
+                    column.IsNullable = Nullability.Nullable;
+                }
+                else column.IsNullable = Nullability.NoNulls;
                 //column.Catalog = UltraLight.UL_CATALOG;
                 column.Schema = _drdaStatement.GetSchemaName(i);
                 //column.TableName = UltraLight.UL_TABLE;

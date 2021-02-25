@@ -41,38 +41,117 @@ namespace SpliceMachine.Drda
         public static void WriteDecimal(
             this DrdaStreamWriter writer,
             Decimal value,
-            Int32 precision,
-            Int32 scale)
+            Int32 declaredPrecision,
+            Int32 declaredScale)
         {
-            var bytes = new Byte[precision / 2 + 1];
+            var buffer = new Byte[declaredPrecision / 2 + 1];
 
-            value *= Scales[scale];
+            int[] bits = decimal.GetBits(value);
+            byte scale = (byte)((bits[3] >> 16) & 0x7F);
+            int bigScale = scale;
+            String unscaledStr = (value * IntPow(10,(uint)bigScale)).ToString("0");
+            int bigPrecision = unscaledStr.Length;
 
-            var nybble = value < 0 ? 0x0d : 0x0c;
-
-            value = Decimal.Floor(Decimal.Negate(value));
-
-            var i = bytes.Length - 1;
-
-            if(precision % 2 == 1) 
+            int bigWholeIntegerLength = bigPrecision - bigScale;
+            if ((bigWholeIntegerLength > 0) && (!unscaledStr.Equals("0")))
             {
-                nybble |= (Int32)(value % 10) << 4;
-                value /= 10;
-            }
-            bytes[i] = (Byte)(nybble & 0xFF);
+                // if whole integer part exists, check if overflow.
+                int declaredWholeIntegerLength = declaredPrecision - declaredScale;
+                if (bigWholeIntegerLength > declaredWholeIntegerLength)
+                {
 
-            for(--i; i >= 0; --i) 
-            {
-                nybble = (Int32)(value % 10);
-                value /= 10;
-
-                nybble |= (Int32)(value % 10) << 4;
-                value /= 10;
-
-                bytes[i] = (Byte)(nybble & 0xFF);
+                }
             }
 
-            writer.WriteBytes(bytes);
+            // convert the unscaled value to a packed decimal bytes.
+
+            // get unicode '0' value.
+            int zeroBase = '0';
+
+            // start index in target packed decimal.
+            int packedIndex = declaredPrecision - 1;
+
+            // start index in source big decimal.
+            int bigIndex;
+
+            if (bigScale >= declaredScale)
+            {
+                // If target scale is less than source scale,
+                // discard excessive fraction.
+
+                // set start index in source big decimal to ignore excessive fraction.
+                bigIndex = bigPrecision - 1 - (bigScale - declaredScale);
+
+                if (bigIndex < 0)
+                {
+                    // all digits are discarded, so only process the sign nybble.
+                    buffer[(packedIndex + 1) / 2] =
+                            (byte)((Math.Sign(value) >= 0) ? 12 : 13); // sign nybble
+                }
+                else
+                {
+                    // process the last nybble together with the sign nybble.
+                    buffer[(packedIndex + 1) / 2] =
+                            (byte)(((unscaledStr[bigIndex] - zeroBase) << 4) + // last nybble
+                            ((Math.Sign(value) >= 0) ? 12 : 13)); // sign nybble
+                }
+                packedIndex -= 2;
+                bigIndex -= 2;
+            }
+            else
+            {
+                // If target scale is greater than source scale,
+                // pad the fraction with zero.
+
+                // set start index in source big decimal to pad fraction with zero.
+                bigIndex = declaredScale - bigScale - 1;
+
+                // process the sign nybble.
+                buffer[(packedIndex + 1) / 2] =
+                        (byte)((Math.Sign(value) >= 0) ? 12 : 13); // sign nybble
+
+                for (packedIndex -= 2, bigIndex -= 2; bigIndex >= 0; packedIndex -= 2, bigIndex -= 2)
+                {
+                    buffer[(packedIndex + 1) / 2] = (byte)0;
+                }
+
+                if (bigIndex == -1)
+                {
+                    buffer[(packedIndex + 1) / 2] =
+                            (byte)((unscaledStr[bigPrecision - 1] - zeroBase) << 4); // high nybble
+
+                    packedIndex -= 2;
+                    bigIndex = bigPrecision - 3;
+                }
+                else
+                {
+                    bigIndex = bigPrecision - 2;
+                }
+            }
+
+            // process the rest.
+            for (; bigIndex >= 0; packedIndex -= 2, bigIndex -= 2)
+            {
+                buffer[(packedIndex + 1) / 2] =
+                        (byte)(((unscaledStr[bigIndex] - zeroBase) << 4) + // high nybble
+                        (unscaledStr[bigIndex + 1] - zeroBase)); // low nybble
+            }
+
+            // process the first nybble when there is one left.
+            if (bigIndex == -1)
+            {
+                buffer[(packedIndex + 1) / 2] =
+                        (byte)(unscaledStr[0] - zeroBase);
+
+                packedIndex -= 2;
+            }
+
+            // pad zero in front of the big decimal if necessary.
+            for (; packedIndex >= -1; packedIndex -= 2)
+            {
+                buffer[(packedIndex + 1) / 2] = (byte)0;
+            }
+            writer.WriteBytes(buffer);            
         }
 
         public static void WriteString(
@@ -93,5 +172,19 @@ namespace SpliceMachine.Drda
             writer.WriteUInt16((UInt16)bytes.Length);
             writer.WriteBytes(bytes);
         }
+
+        static int IntPow(int x, uint pow)
+        {
+            int ret = 1;
+            while (pow != 0)
+            {
+                if ((pow & 1) == 1)
+                    ret *= x;
+                x *= x;
+                pow >>= 1;
+            }
+            return ret;
+        }
+
     }
 }

@@ -63,6 +63,8 @@ namespace SpliceMachine.Drda
             throw new InvalidOperationException();
 
         public Object GetColumnValue(Int32 index) => 
+            throw new InvalidOperationException();   
+        public String[] GetColumnMetaData(Int32 index) => 
             throw new InvalidOperationException();
 
         public void SetParameterValue(Int32 index, Object value) =>

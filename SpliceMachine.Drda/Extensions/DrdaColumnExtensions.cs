@@ -57,8 +57,8 @@ namespace SpliceMachine.Drda
                     "hh:mm:ss", CultureInfo.InvariantCulture),
 
                 TIMESTAMP => DateTime.ParseExact(
-                    reader.ReadString(column.TripletDataSize),
-                    "yyyy-MM-dd-hh.mm.ss.fff", CultureInfo.InvariantCulture),
+                    reader.ReadString(column.TripletDataSize).Substring(0,27),
+                    "yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture),
 
                 DECIMAL => reader.ReadDecimal(column.Precision, column.Scale),
 
@@ -109,11 +109,11 @@ namespace SpliceMachine.Drda
 
                 case FLOAT4:
                     writer.WriteBytes(
-                        BitConverter.GetBytes(Convert.ToSingle(column.Value)));
+                          BitConverter.GetBytes(Convert.ToSingle(column.Value)));
                     break;
 
                 case FLOAT8:
-                    writer.WriteBytes(
+                    writer.WriteBytes(                        
                         BitConverter.GetBytes(Convert.ToDouble(column.Value)));
                     break;
 
@@ -129,7 +129,7 @@ namespace SpliceMachine.Drda
 
                 case TIMESTAMP:
                     writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("yyyy-MM-dd-hh.mm.ss.f", CultureInfo.InvariantCulture), length);
+                        .ToString("yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture)+"00", length);
                     break;
 
                 case DECIMAL:

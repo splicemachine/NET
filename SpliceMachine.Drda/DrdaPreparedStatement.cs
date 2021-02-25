@@ -90,6 +90,10 @@ namespace SpliceMachine.Drda
         public String GetSchemaName(Int32 index) => _context.Columns[index].Scheme;
 
         public Object GetColumnValue(Int32 index) => _context[index];
+        public String[] GetColumnMetaData(Int32 index)
+        {
+            return new String[] { _context.Columns[index].Db2Type.ToString(), _context.Columns[index].Scale.ToString(), _context.Columns[index].Precision.ToString() };
+        }
         public String[] GetParameterMetaData(Int32 index) 
         {
             return new String[] { _context.Parameters[index].Db2Type.ToString(), _context.Parameters[index].Scale.ToString(), _context.Parameters[index].Precision.ToString() };
