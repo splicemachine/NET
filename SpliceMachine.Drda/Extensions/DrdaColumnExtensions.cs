@@ -108,13 +108,13 @@ namespace SpliceMachine.Drda
                     break;
 
                 case FLOAT4:
-                    writer.WriteBytes(
-                          BitConverter.GetBytes(Convert.ToSingle(column.Value)));
+                    writer.WriteUInt32(
+                          BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)),0));
                     break;
 
                 case FLOAT8:
-                    writer.WriteBytes(                        
-                        BitConverter.GetBytes(Convert.ToDouble(column.Value)));
+                    writer.WriteUInt64(
+                        BitConverter.ToUInt64(BitConverter.GetBytes(Convert.ToDouble(column.Value)),0));
                     break;
 
                 case DATE:
@@ -141,7 +141,9 @@ namespace SpliceMachine.Drda
                     writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
                     break;
                 case LOBBYTES:
-                    writer.WriteBytes((byte[])column.Value);
+                    var byteArray = (byte[])column.Value;
+                    writer.WriteUInt16((UInt16)byteArray.Length);
+                    writer.WriteBytes(byteArray);
                     break;
                 case LOBCMIXED:
                     writer.WriteVarString((string)column.Value);
