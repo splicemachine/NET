@@ -141,6 +141,8 @@ namespace SpliceMachine.Drda
                     writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
                     break;
                 case LOBBYTES:
+                case LONGVARBYTE:
+                case NLONGVARBYTE:
                     var byteArray = (byte[])column.Value;
                     writer.WriteUInt16((UInt16)byteArray.Length);
                     writer.WriteBytes(byteArray);
@@ -183,6 +185,8 @@ namespace SpliceMachine.Drda
                 VARCHAR => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 LONGMIX => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 DECIMAL => ((length >> 8) & 0x0FF) / 2 + 1,
+                LONGVARBYTE => sizeof(UInt32),
+                NLONGVARBYTE => sizeof(UInt32),
                 _ => throw new InvalidOperationException(
                     $"Unknown DRDA type 0x{type:X}")
             };

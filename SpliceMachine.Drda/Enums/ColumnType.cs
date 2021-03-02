@@ -10,6 +10,10 @@ namespace SpliceMachine.Drda
     {
         Nullable = 0x01,
 
+        LONGVARBYTE = 0x2A,
+
+        NLONGVARBYTE = 0x2B,
+
         CHAR = 0x30,
 
         NCHAR = 0x31,
@@ -76,6 +80,6 @@ namespace SpliceMachine.Drda
 
         LOBCMIXED = 0xCE,
 
-        NLOBCMIXED = 0xCF
+        NLOBCMIXED = 0xCF,
     }
 }

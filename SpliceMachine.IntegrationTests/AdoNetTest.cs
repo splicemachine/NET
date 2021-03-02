@@ -9,7 +9,7 @@ namespace SpliceMachine.IntegrationTests
     public class AdoNetTest
     {
         #region Connection Settings
-        private static string hostName = "localhost"; // You might want to change this.
+        private static string hostName = "192.168.0.27"; // You might want to change this.
         private static int port = 1527;
         private static string userName = "splice";
         private static string password = "admin";
@@ -20,33 +20,35 @@ namespace SpliceMachine.IntegrationTests
         [TestMethod]
         public void TestDDLCreateDrop()
         {
-            const string DdlCreateTable = "CREATE TABLE TestTable(COL1 INT)";
-            const string DdlInsertTable = "INSERT INTO TestTable VALUES(1)";
+            const string DdlCreateTable = "CREATE TABLE TestTable(COL1 BLOB)";
+            const string DdlInsertTable = "INSERT INTO TestTable VALUES(?)";
             const string DdlAlterTable = "ALTER TABLE TestTable ADD COLUMN Col2 bigint";
             const string DdlCreateView = "CREATE VIEW TestView (Col1View) AS SELECT Col1 AS Col1View FROM TestTable";
             const string DdlDropIfExists = "DROP TABLE IF EXISTS TestTable";
-
+            //var byteArray = new byte[10];
             using (var connection = new SpliceDbConnection())
             {
                 connection.ConnectionString = "uid=" + userName + ";pwd=" + password + ";host=" + hostName + ";port=" + port + "";
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = DdlCreateTable;
+                    //command.CommandText = DdlCreateTable;
+                    //var result = command.ExecuteNonQuery();
+                    //connection.Commit();
+                    command.CommandText = DdlInsertTable;
+                    var byt = new byte[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                    command.Parameters.Add(new SpliceDbParameter { Value = byt, DbType = DbType.Binary, IsNullable = true });
                     var result = command.ExecuteNonQuery();
                     connection.Commit();
-                    command.CommandText = DdlInsertTable;
-                    result = command.ExecuteNonQuery();
-                    connection.Commit();                    
-                    command.CommandText = DdlAlterTable;
-                    result = command.ExecuteNonQuery();
-                    connection.Commit();
-                    command.CommandText = DdlCreateView;
-                    result = command.ExecuteNonQuery();
-                    connection.Commit();
-                    command.CommandText = DdlDropIfExists;
-                    result = command.ExecuteNonQuery();
-                    connection.Commit();
+                    //command.CommandText = DdlAlterTable;
+                    //result = command.ExecuteNonQuery();
+                    //connection.Commit();
+                    //command.CommandText = DdlCreateView;
+                    //result = command.ExecuteNonQuery();
+                    //connection.Commit();
+                    //command.CommandText = DdlDropIfExists;
+                    //result = command.ExecuteNonQuery();
+                    //connection.Commit();
                 }
                 connection.Close();
             }

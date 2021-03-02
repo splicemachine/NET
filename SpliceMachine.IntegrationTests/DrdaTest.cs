@@ -7,7 +7,7 @@ namespace SpliceMachine.IntegrationTests
     [TestClass]
     public class DrdaTest
     {
-        private static string hostName = "localhost"; // You might want to change this.
+        private static string hostName = "192.168.0.27"; // You might want to change this.
         private static int port = 1527;
         private static string userName = "splice";
         private static string password = "admin";
