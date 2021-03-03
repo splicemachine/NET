@@ -44,7 +44,7 @@ namespace SpliceMachine.Drda
                 INTEGER8 => reader.ReadUInt64(),
 
                 FLOAT4 => BitConverter.ToSingle(
-                    BitConverter.GetBytes(reader.ReadUInt32()), 0),
+                    BitConverter.GetBytes(reader.Float4ByteToInt()), 0),
                 FLOAT8 => BitConverter.ToDouble(
                     BitConverter.GetBytes(reader.ReadUInt64()), 0),
 
@@ -54,10 +54,10 @@ namespace SpliceMachine.Drda
 
                 TIME => TimeSpan.ParseExact(
                     reader.ReadString(column.TripletDataSize),
-                    "hh:mm:ss", CultureInfo.InvariantCulture),
+                    "g", CultureInfo.InvariantCulture),
 
                 TIMESTAMP => DateTime.ParseExact(
-                    reader.ReadString(column.TripletDataSize).Substring(0,27),
+                    reader.ReadString(column.TripletDataSize).Substring(0, 27),
                     "yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture),
 
                 DECIMAL => reader.ReadDecimal(column.Precision, column.Scale),
@@ -85,6 +85,7 @@ namespace SpliceMachine.Drda
                 writer.WriteUInt8(column.Value is null ? (Byte)0xFF : (Byte)0x00);
             }
 
+
             switch (baseType)
             {
                 case CHAR: // Maybe we need another approach here
@@ -109,12 +110,12 @@ namespace SpliceMachine.Drda
 
                 case FLOAT4:
                     writer.WriteUInt32(
-                          BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)),0));
+                          BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)), 0));
                     break;
 
                 case FLOAT8:
                     writer.WriteUInt64(
-                        BitConverter.ToUInt64(BitConverter.GetBytes(Convert.ToDouble(column.Value)),0));
+                        BitConverter.ToUInt64(BitConverter.GetBytes(Convert.ToDouble(column.Value)), 0));
                     break;
 
                 case DATE:
@@ -129,7 +130,7 @@ namespace SpliceMachine.Drda
 
                 case TIMESTAMP:
                     writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture)+"00", length);
+                        .ToString("yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture) + "00", length);
                     break;
 
                 case DECIMAL:

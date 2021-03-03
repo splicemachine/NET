@@ -28,6 +28,14 @@ namespace SpliceMachine.Drda
             return (UInt16)((result << 8) | _stream.ReadByte());
         }
 
+        public Int32 Float4ByteToInt()
+        {
+            return (Int32)((_stream.ReadByte() << 24) |
+                ((_stream.ReadByte() & 0xFF) << 16) |
+                ((_stream.ReadByte() & 0xFF) << 8) |
+                (_stream.ReadByte() & 0xFF));
+        }
+
         public UInt64 ReadUInt64()
         {
             var result = (UInt64)_stream.ReadByte();

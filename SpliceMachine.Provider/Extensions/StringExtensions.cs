@@ -13,8 +13,8 @@ namespace SpliceMachine.Provider.Extensions
             {
                 case "DATE"         : return SqlType.Type_Date;
                 case "NDATE"        : return SqlType.Type_Date;
-                case "TIME"         : return SqlType.Type_Time;
-                case "NTIME"        : return SqlType.Type_Time;
+                case "TIME"         : return SqlType.VarChar;
+                case "NTIME"        : return SqlType.VarChar;
                 case "TIMESTAMP"    : return SqlType.Type_Timestamp;
                 case "NTIMESTAMP"   : return SqlType.Type_Timestamp;
                 case "BLOB"         : return SqlType.VarBinary;
