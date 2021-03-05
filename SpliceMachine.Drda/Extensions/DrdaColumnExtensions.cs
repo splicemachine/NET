@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 
 namespace SpliceMachine.Drda
 {
@@ -63,6 +64,7 @@ namespace SpliceMachine.Drda
                 DECIMAL => reader.ReadDecimal(column.Precision, column.Scale),
 
                 BOOLEAN => reader.ReadUInt8() != 0x00,
+                LONGVARBYTE => reader.ReadBytes((uint)column.Length),
                 LOBBYTES => reader.ReadBytes((uint)column.Length),
                 LOBCMIXED => reader.ReadString((int)column.Length),
                 // TODO: olegra - add support for BLOB and UDT
@@ -143,7 +145,6 @@ namespace SpliceMachine.Drda
                     break;
                 case LOBBYTES:
                 case LONGVARBYTE:
-                case NLONGVARBYTE:
                     var byteArray = (byte[])column.Value;
                     writer.WriteUInt16((UInt16)byteArray.Length);
                     writer.WriteBytes(byteArray);
@@ -179,15 +180,14 @@ namespace SpliceMachine.Drda
                 INTEGER => sizeof(UInt32),
                 INTEGER8 => sizeof(UInt64),
                 LOBBYTES => sizeof(UInt32),
-                LOBCMIXED => sizeof(UInt32),
+                LOBCMIXED => sizeof(UInt32) + (Convert.ToString(column.Value).Length-2),
                 CHAR => sizeof(UInt16) + Convert.ToString(column.Value).Length, // Maybe we need another approach here
                 LONG => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 VARMIX => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 VARCHAR => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 LONGMIX => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 DECIMAL => ((length >> 8) & 0x0FF) / 2 + 1,
-                LONGVARBYTE => sizeof(UInt32),
-                NLONGVARBYTE => sizeof(UInt32),
+                LONGVARBYTE => sizeof(UInt32) + (((byte[])column.Value).Length-2),
                 _ => throw new InvalidOperationException(
                     $"Unknown DRDA type 0x{type:X}")
             };

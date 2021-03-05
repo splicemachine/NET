@@ -39,8 +39,8 @@ namespace SpliceMachine.Drda
                 BLOB => ColumnType.LONGVARBYTE,
                // NBLOB => AdjustLength(ColumnType.NLOBBYTES, ref length),
                 NBLOB => ColumnType.NLONGVARBYTE,
-                CLOB => AdjustLength(ColumnType.LOBCMIXED, ref length),
-                NCLOB => AdjustLength(ColumnType.NLOBCMIXED, ref length),
+                CLOB => ColumnType.LONGMIX,
+                NCLOB => ColumnType.NLONGMIX,
                 FLOAT => length == 4 ? ColumnType.FLOAT4 : ColumnType.FLOAT8,
                 NFLOAT => length == 4 ? ColumnType.NFLOAT4 : ColumnType.NFLOAT8,
                 _ => throw new InvalidOperationException($"Unknown DB2 SQL type 0x{db2Type:X}")
