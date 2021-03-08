@@ -112,7 +112,7 @@ namespace SpliceMachine.Drda
 
                 case FLOAT4:
                     writer.WriteUInt32(
-                          BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)), 0));
+                            BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)), 0));
                     break;
 
                 case FLOAT8:
@@ -180,14 +180,14 @@ namespace SpliceMachine.Drda
                 INTEGER => sizeof(UInt32),
                 INTEGER8 => sizeof(UInt64),
                 LOBBYTES => sizeof(UInt32),
-                LOBCMIXED => sizeof(UInt32) + (Convert.ToString(column.Value).Length-2),
+                LOBCMIXED => sizeof(UInt32) + (Convert.ToString(column.Value).Length - 2),
                 CHAR => sizeof(UInt16) + Convert.ToString(column.Value).Length, // Maybe we need another approach here
                 LONG => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 VARMIX => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 VARCHAR => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 LONGMIX => sizeof(UInt16) + Convert.ToString(column.Value).Length,
                 DECIMAL => ((length >> 8) & 0x0FF) / 2 + 1,
-                LONGVARBYTE => sizeof(UInt32) + (((byte[])column.Value).Length-2),
+                LONGVARBYTE => sizeof(UInt32) + (((byte[])column.Value).Length - 2),
                 _ => throw new InvalidOperationException(
                     $"Unknown DRDA type 0x{type:X}")
             };

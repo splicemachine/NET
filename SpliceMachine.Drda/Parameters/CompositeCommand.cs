@@ -47,6 +47,22 @@ namespace SpliceMachine.Drda
                 writer.WriteUInt16(SegmentFlag);
                 writer.WriteUInt16((UInt16)CodePoint);
                 writer.WriteUInt32(size);
+                //var extendedLengthByteCount = calculateExtendedLengthByteCount(size);
+                //if (extendedLengthByteCount != 0 && CodePoint == CodePoint.FDODTA)
+                //{
+                //    uint extendedLength = (size - 8);
+                //    size = (uint)extendedLengthByteCount + 4;
+                //    size |= 0x8000;
+                //    writer.WriteUInt32(size);
+                //    // shift the data to the right by the number of extended length bytes needed.
+                //    // write the extended length
+                //    int shiftSize = (extendedLengthByteCount - 1) * 8;
+                //    for (int i = 0; i < extendedLengthByteCount; i++)
+                //    {
+                //        writer.WriteUInt8((byte)((uint)(extendedLength >> shiftSize)));
+                //        shiftSize -= 8;
+                //    }
+                //}
             }
             else
             {
@@ -80,5 +96,29 @@ namespace SpliceMachine.Drda
 
         IEnumerator IEnumerable.GetEnumerator() => 
             _parameters.GetEnumerator();
+
+        private int calculateExtendedLengthByteCount(long ddmSize) //throws SqlException
+        {
+            // according to Jim and some tests perfomred on Lob data,
+            // the extended length bytes are signed.  Assume that
+            // if this is the case for Lobs, it is the case for
+            // all extended length scenarios.
+            if (ddmSize <= 0x7FFF)
+            {
+                return 0;
+            }
+            else if (ddmSize <= 0x7FFFFFFFL)
+            {
+                return 4;
+            }
+            else if (ddmSize <= 0x7FFFFFFFFFFFL)
+            {
+                return 6;
+            }
+            else
+            {
+                return 8;
+            }
+        }
     }
 }
