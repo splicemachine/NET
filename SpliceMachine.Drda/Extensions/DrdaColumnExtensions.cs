@@ -87,76 +87,78 @@ namespace SpliceMachine.Drda
                 writer.WriteUInt8(column.Value is null ? (Byte)0xFF : (Byte)0x00);
             }
 
-
-            switch (baseType)
+            if (column.Value != null)
             {
-                case CHAR: // Maybe we need another approach here
-                case LONG:
-                case VARMIX:
-                case VARCHAR:
-                case LONGMIX:
-                    writer.WriteVarString(Convert.ToString(column.Value));
-                    break;
+                switch (baseType)
+                {
+                    case CHAR: // Maybe we need another approach here
+                    case LONG:
+                    case VARMIX:
+                    case VARCHAR:
+                    case LONGMIX:
+                        writer.WriteVarString(Convert.ToString(column.Value));
+                        break;
 
-                case SMALL:
-                    writer.WriteUInt16(Convert.ToUInt16(column.Value));
-                    break;
+                    case SMALL:
+                        writer.WriteUInt16(Convert.ToUInt16(column.Value));
+                        break;
 
-                case INTEGER:
-                    writer.WriteUInt32(Convert.ToUInt32(column.Value));
-                    break;
+                    case INTEGER:
+                        writer.WriteUInt32(Convert.ToUInt32(column.Value));
+                        break;
 
-                case INTEGER8:
-                    writer.WriteUInt64(Convert.ToUInt64(column.Value));
-                    break;
+                    case INTEGER8:
+                        writer.WriteUInt64(Convert.ToUInt64(column.Value));
+                        break;
 
-                case FLOAT4:
-                    writer.WriteUInt32(
-                            BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)), 0));
-                    break;
+                    case FLOAT4:
+                        writer.WriteUInt32(
+                                BitConverter.ToUInt32(BitConverter.GetBytes(Convert.ToSingle(column.Value)), 0));
+                        break;
 
-                case FLOAT8:
-                    writer.WriteUInt64(
-                        BitConverter.ToUInt64(BitConverter.GetBytes(Convert.ToDouble(column.Value)), 0));
-                    break;
+                    case FLOAT8:
+                        writer.WriteUInt64(
+                            BitConverter.ToUInt64(BitConverter.GetBytes(Convert.ToDouble(column.Value)), 0));
+                        break;
 
-                case DATE:
-                    writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), length);
-                    break;
+                    case DATE:
+                        writer.WriteString(Convert.ToDateTime(column.Value)
+                            .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), length);
+                        break;
 
-                case TIME:
-                    writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("hh:mm:ss", CultureInfo.InvariantCulture), length);
-                    break;
+                    case TIME:
+                        writer.WriteString(Convert.ToDateTime(column.Value)
+                            .ToString("hh:mm:ss", CultureInfo.InvariantCulture), length);
+                        break;
 
-                case TIMESTAMP:
-                    writer.WriteString(Convert.ToDateTime(column.Value)
-                        .ToString("yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture) + "00", length);
-                    break;
+                    case TIMESTAMP:
+                        writer.WriteString(Convert.ToDateTime(column.Value)
+                            .ToString("yyyy-MM-dd-hh.mm.ss.fffffff", CultureInfo.InvariantCulture) + "00", length);
+                        break;
 
-                case DECIMAL:
-                    writer.WriteDecimal(Convert.ToDecimal(column.Value),
-                        (length >> 8) & 0xFF, length & 0xF);
-                    break;
+                    case DECIMAL:
+                        writer.WriteDecimal(Convert.ToDecimal(column.Value),
+                            (length >> 8) & 0xFF, length & 0xF);
+                        break;
 
-                case BOOLEAN:
-                    writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
-                    break;
-                case LOBBYTES:
-                case LONGVARBYTE:
-                    var byteArray = (byte[])column.Value;
-                    writer.WriteUInt16((UInt16)byteArray.Length);
-                    writer.WriteBytes(byteArray);
-                    break;
-                case LOBCMIXED:
-                    writer.WriteVarString((string)column.Value);
-                    break;
-                // TODO: olegra - add support for BLOB and UDT
+                    case BOOLEAN:
+                        writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
+                        break;
+                    case LOBBYTES:
+                    case LONGVARBYTE:
+                        var byteArray = (byte[])column.Value;
+                        writer.WriteUInt16((UInt16)byteArray.Length);
+                        writer.WriteBytes(byteArray);
+                        break;
+                    case LOBCMIXED:
+                        writer.WriteVarString((string)column.Value);
+                        break;
+                    // TODO: olegra - add support for BLOB and UDT
 
-                // TODO: olegra - just eat the unknown type as ODBC do?
-                default:
-                    throw new InvalidOperationException($"Unknown type: 0x{type:X}");
+                    // TODO: olegra - just eat the unknown type as ODBC do?
+                    default:
+                        throw new InvalidOperationException($"Unknown type: 0x{type:X}");
+                }
             }
         }
 
@@ -168,7 +170,7 @@ namespace SpliceMachine.Drda
             var baseType = type & (~Nullable);
 
             var nullFlag = (baseType != type ? sizeof(Byte) : 0);
-            return nullFlag + baseType switch
+            return nullFlag + (column.Value == null ? 0 : baseType switch
             {
                 DATE => length,
                 TIME => length,
@@ -190,7 +192,7 @@ namespace SpliceMachine.Drda
                 LONGVARBYTE => sizeof(UInt32) + (((byte[])column.Value).Length - 2),
                 _ => throw new InvalidOperationException(
                     $"Unknown DRDA type 0x{type:X}")
-            };
+            });
         }
     }
 }
