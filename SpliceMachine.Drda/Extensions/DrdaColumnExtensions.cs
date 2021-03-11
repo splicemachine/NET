@@ -40,9 +40,9 @@ namespace SpliceMachine.Drda
                 VARCHAR => reader.ReadVarString(),
                 LONGMIX => reader.ReadVarString(),
 
-                SMALL => reader.ReadUInt16(),
-                INTEGER => reader.ReadUInt32(),
-                INTEGER8 => reader.ReadUInt64(),
+                SMALL => reader.ReadInt16(),
+                INTEGER => reader.ReadInt32(),
+                INTEGER8 => reader.ReadInt64(),
 
                 FLOAT4 => BitConverter.ToSingle(
                     BitConverter.GetBytes(reader.Float4ByteToInt()), 0),

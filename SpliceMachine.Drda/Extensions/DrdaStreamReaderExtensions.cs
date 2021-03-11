@@ -74,7 +74,7 @@ namespace SpliceMachine.Drda
                 value = Decimal.Negate(value);
             }
 
-            return value * Scales[scale];
+            return value * Scales[scale-1];
         }
 
         public static String ReadString(

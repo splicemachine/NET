@@ -108,10 +108,10 @@ namespace SpliceMachine.Provider.DataEngine
             LogUtilities.LogFunctionEntrance(Log);
             for (int i = 0; i < _drdaStatement.Columns; i++)
             {
-                DSIColumn column = new DSIColumn(TypeMetadataFactory.CreateTypeMetadata(_drdaStatement.GetColumnMetaData(i)[0].GetSqlType()));
                 List<string> dataTypes = new List<string>() { "DATE", "TIME", "TIMESTAMP", "BLOB", "CLOB", "VARCHAR", "CHAR", "LONG", "FLOAT", "DECIMAL", "BIGINT", "INTEGER", "SMALL", "NUMERIC", "BOOLEAN" };
+                DSIColumn column = new DSIColumn(TypeMetadataFactory.CreateTypeMetadata(dataTypes.Contains(_drdaStatement.GetColumnMetaData(i)[0]) ? _drdaStatement.GetColumnMetaData(i)[0].GetSqlType() : SqlType.VarChar));
                 string[] splitDataType = _drdaStatement.GetColumnMetaData(i)[0].Split('N');
-                if (splitDataType.Length>1 && dataTypes.Contains(splitDataType[1]))
+                if (splitDataType.Length > 1 && dataTypes.Contains(splitDataType[1]))
                 {
                     column.IsNullable = Nullability.Nullable;
                 }
@@ -123,7 +123,7 @@ namespace SpliceMachine.Provider.DataEngine
                 column.Label = _drdaStatement.GetColumnLabel(i);
                 column.Size = _drdaStatement.GetColumnSize(i);
                 m_Columns.Add(column);
-            }            
+            }
         }
 
         #endregion // Methods
