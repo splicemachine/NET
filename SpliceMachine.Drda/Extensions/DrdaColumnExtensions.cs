@@ -142,7 +142,7 @@ namespace SpliceMachine.Drda
                         break;
 
                     case BOOLEAN:
-                        writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)0xFF : (Byte)0x00);
+                        writer.WriteUInt8(Convert.ToBoolean(column.Value) ? (Byte)1 : (Byte)0);
                         break;
                     case LOBBYTES:
                     case LONGVARBYTE:
