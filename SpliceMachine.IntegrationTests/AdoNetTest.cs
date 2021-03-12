@@ -288,7 +288,6 @@ namespace SpliceMachine.IntegrationTests
         {
             const string QryCreateTable = "CREATE TABLE TESTTABLE(COL1 BIGINT,COL2 INT,COL3 DECIMAL(16,5))";
             const string QryInsertValue = "INSERT INTO TESTTABLE VALUES(?,?,?)";
-            const string QrySelectQuery = "SELECT * FROM TESTTABLE";
             using (var connection = new SpliceDbConnection())
             {
                 connection.ConnectionString = "uid=" + userName + ";pwd=" + password + ";host=" + hostName + ";port=" + port + "";
@@ -305,25 +304,6 @@ namespace SpliceMachine.IntegrationTests
                     command.Parameters.Add(new SpliceDbParameter() { Value = 2147483647 });
                     command.Parameters.Add(new SpliceDbParameter() { Value = 2147483647.21474 });
                     var reader = command.ExecuteNonQuery();
-                }
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = QrySelectQuery;
-                    var spliceDbAdapt = new SpliceDbDataAdapter();
-                    spliceDbAdapt.SelectCommand = command;
-                    var dataTble = new DataTable();
-                    spliceDbAdapt.Fill(dataTble);
-                }
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = QrySelectQuery;
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        var obj1 = reader[0];
-                        var obj2 = reader[1];
-                        var obj3 = reader[2];
-                    }
                 }
                 connection.Close();
             }
